@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.5.002.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "web-voyager", "web-voyager.csproj", "{C03AAB10-1E1D-487A-83E1-7808B719A76D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C03AAB10-1E1D-487A-83E1-7808B719A76D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C03AAB10-1E1D-487A-83E1-7808B719A76D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C03AAB10-1E1D-487A-83E1-7808B719A76D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C03AAB10-1E1D-487A-83E1-7808B719A76D}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {309AAFC2-A00C-43C7-859B-F424F4F0F0A8}
+	EndGlobalSection
+EndGlobal
