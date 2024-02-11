@@ -4,6 +4,13 @@
 
 Visit at <a href="http://web-voyager.azurewebsites.net/" target="_blank">Web Voyager</a>
 
+## Tech Stack
+
+- ASP.NET
+- Bootstrap
+- DB (MySQL) -> AWS?
+- Hosting -> Azure
+
 ## License
 
 This project is licensed under the MIT License - see the LICENSE file for details.
