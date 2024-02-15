@@ -16,12 +16,24 @@
 
 Visit at <a href="http://web-voyager.azurewebsites.net/" target="_blank">Web Voyager</a>
 
+## Description
+Web Voyager Description
+
 ## Tech Stack
 
-- ASP.NET
-- Bootstrap
-- DB (MySQL) -> AWS?
-- Hosting -> Azure
+- ASP.NET Core MVC
+  - .NET 8.0
+- C#
+- HTML
+- CSS
+  - Bootstrap
+  - Font Awesome
+- Javascript
+- AWS
+  - MySQL
+- Azure 
+  - Hosting/Server
+
 
 ## License
 
