@@ -31,6 +31,24 @@ body {
   text-decoration: none; 
 }
 
+.navbar {
+  background-color: rgb(99, 102, 241) !important; /* Use !important to override existing styles */
+}
+
+.navbar .navbar-nav .nav-link, .navbar-brand {
+  color: #ffffff !important; /* Change text color */
+}
+
+.navbar .btn-outline-success {
+  color: #ffffff; /* Change text color */
+  border-color: #ffffff; /* Change border color */
+}
+
+.navbar .btn-outline-success:hover {
+  background-color: #ffffff; /* Change background color on hover */
+  color: rgb(99, 102, 241); /* Change text color on hover */
+}
+
 .footer-link:hover {
   color: #0056b3; 
   text-decoration: underline; 
