@@ -22,14 +22,35 @@
                     aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
+
+                <form class="d-flex" asp-controller="Home" asp-action="" method="get">
+                    <input class="form-control" type="text" placeholder="Search" name="searchString">
+                    <select class="form-control btn btn-secondary dropdown-toggle" name="searchType"
+                        style="margin-left:10px;">
+                        <option value="Flights">Flights</option>
+                        <option value="Hotels">Hotels</option>
+                        <option value="Car Rentals">Car Rentals</option>
+                    </select>
+                    <button class="btn btn-outline-success" type="submit" style="margin-left:10px;">Search</button>
+                </form>
+
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
+                    <ul class="navbar-nav flex-grow-1 justify-content-end">
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home"
                                 asp-action="Privacy">Privacy</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="">Flights</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="">Hotels</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="">Car Rentals</a>
                         </li>
                     </ul>
                 </div>
