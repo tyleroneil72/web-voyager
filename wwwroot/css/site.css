@@ -49,6 +49,10 @@ body {
   color: rgb(99, 102, 241); 
 }
 
+.navbar-nav .nav-link:hover, .navbar-brand:hover {
+  color: rgb(199, 202, 241) !important;
+}
+
 .footer-link:hover {
   color: #0056b3; 
   text-decoration: underline; 
@@ -63,6 +67,7 @@ body {
 .dark-button:hover {
   background-color: rgb(59, 62, 161);
   border-color: rgb(59, 62, 161);
+  color: #ffffff !important;
 }
 
 @media (max-width: 768px) {
