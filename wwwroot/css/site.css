@@ -32,26 +32,37 @@ body {
 }
 
 .navbar {
-  background-color: rgb(99, 102, 241) !important; /* Use !important to override existing styles */
+  background-color: rgb(99, 102, 241) !important; 
 }
 
 .navbar .navbar-nav .nav-link, .navbar-brand {
-  color: #ffffff !important; /* Change text color */
+  color: #ffffff !important; 
 }
 
 .navbar .btn-outline-success {
-  color: #ffffff; /* Change text color */
-  border-color: #ffffff; /* Change border color */
+  color: #ffffff;
+  border-color: #ffffff;
 }
 
 .navbar .btn-outline-success:hover {
-  background-color: #ffffff; /* Change background color on hover */
-  color: rgb(99, 102, 241); /* Change text color on hover */
+  background-color: #ffffff; 
+  color: rgb(99, 102, 241); 
 }
 
 .footer-link:hover {
   color: #0056b3; 
   text-decoration: underline; 
+}
+
+.dark-button {
+  background-color: rgb(69, 72, 191);
+  border-color: rgb(69, 72, 191);
+  color: #ffffff;
+}
+
+.dark-button:hover {
+  background-color: rgb(59, 62, 161);
+  border-color: rgb(59, 62, 161);
 }
 
 @media (max-width: 768px) {
