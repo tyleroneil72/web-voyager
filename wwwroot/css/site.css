@@ -70,6 +70,10 @@ body {
   color: #ffffff !important;
 }
 
+.home-link:hover {
+  color: #ffffff !important;
+}
+
 @media (max-width: 768px) {
   .footer .col-md-6 {
       margin-bottom: 1rem; 
