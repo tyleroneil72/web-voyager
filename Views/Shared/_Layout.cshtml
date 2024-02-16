@@ -23,35 +23,32 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
 
-                <form class="d-flex" asp-controller="Home" asp-action="" method="get">
-                    <input class="form-control" type="text" placeholder="Search" name="searchString">
-                    <select class="form-control btn btn-secondary dropdown-toggle" name="searchType"
-                        style="margin-left:10px;">
+                <form class="d-flex search-form" method="get">
+                    <input class="form-control me-2" type="text" placeholder="Search" name="searchString">
+                    <select class="form-control me-2" name="searchType">
                         <option value="Flights">Flights</option>
                         <option value="Hotels">Hotels</option>
                         <option value="Car Rentals">Car Rentals</option>
                     </select>
-                    <button class="btn btn-outline-success not-implemented" type="submit"
-                        style="margin-left:10px;">Search</button>
+                    <button class="btn btn-outline-success not-implemented" type="submit">Search</button>
                 </form>
 
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1 justify-content-end">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index"><i
-                                    class="fa-solid fa-house logo-margin-right"></i>Home</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index"><i class="fa-solid fa-house me-1"></i>Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark not-implemented" asp-area=""><i
-                                    class="fa-solid fa-plane logo-margin-right"></i>Flights</a>
+                            <a class="nav-link text-dark not-implemented" href="#"><i
+                                    class="fa-solid fa-plane me-1"></i>Flights</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark not-implemented" asp-area=""><i
-                                    class="fa-solid fa-hotel logo-margin-right"></i>Hotels</a>
+                            <a class="nav-link text-dark not-implemented" href="#"><i
+                                    class="fa-solid fa-hotel me-1"></i>Hotels</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark not-implemented" asp-area=""><i
-                                    class="fa-solid fa-car logo-margin-right"></i>Car Rentals</a>
+                            <a class="nav-link text-dark not-implemented" href="#"><i
+                                    class="fa-solid fa-car me-1"></i>Car Rentals</a>
                         </li>
                         <li class="nav-item">
                             <button class="btn btn-primary not-implemented">Sign in</button>
@@ -60,6 +57,7 @@
                 </div>
             </div>
         </nav>
+
     </header>
     <div class="container">
         <main role="main" class="pb-3">
@@ -67,13 +65,25 @@
         </main>
     </div>
 
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2024 - Tyler O'Neil - <a href="https://github.com/tyleroneil72/web-voyager" target="_blank"><i
-                    class="fa-brands fa-github logo-margin-right"></i>Github</a> - <a asp-area="" asp-controller="Home"
-                asp-action="Privacy"><i class="fa-solid fa-shield-halved logo-margin-right"></i>Privacy</a>
+    <footer class="footer bg-light text-muted border-top pt-3 pb-3">
+    <div class="container text-center text-md-left">
+        <div class="row">
+            <div class="col-md-6 mt-md-0 mt-3">
+                &copy; 2024 Tyler O'Neil
+            </div>
+            <div class="col-md-6 mb-md-0 mb-3">
+                <a href="https://github.com/tyleroneil72/web-voyager" target="_blank" class="footer-link me-4">
+                    <i class="fa-brands fa-github me-1"></i>Github
+                </a>
+                <a asp-area="" asp-controller="Home"
+                asp-action="Privacy" class="footer-link"> 
+                    <i class="fa-solid fa-shield-halved me-1"></i>Privacy
+                </a>
+            </div>
         </div>
-    </footer>
+    </div>
+</footer>
+
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>

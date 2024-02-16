@@ -21,6 +21,23 @@ body {
   margin-bottom: 60px;
 }
 
-.logo-margin-right {
-  margin-right: 5px;
+.footer {
+  background-color: #f8f9fa; 
+  color: #6c757d; 
+}
+
+.footer-link {
+  color: #007bff;
+  text-decoration: none; 
+}
+
+.footer-link:hover {
+  color: #0056b3; 
+  text-decoration: underline; 
+}
+
+@media (max-width: 768px) {
+  .footer .col-md-6 {
+      margin-bottom: 1rem; 
+  }
 }
