@@ -14,74 +14,15 @@
 </head>
 
 <body>
-    <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container-fluid">
-                <a class="navbar-brand home-link" asp-area="" asp-controller="Home" asp-action="Index"><i
-                        class="fa-solid fa-globe me-1"></i>Web Voyager</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse"
-                    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
+    @await Html.PartialAsync("_Header")
 
-                <form class="d-flex search-form" method="get">
-                    <input class="form-control me-2" type="text" placeholder="Search" name="searchString">
-                    <select class="form-control me-2" name="searchType">
-                        <option value="Flights">Flights</option>
-                        <option value="Hotels">Hotels</option>
-                        <option value="Car Rentals">Car Rentals</option>
-                    </select>
-                    <button class="btn btn-outline-success not-implemented" type="submit">Search</button>
-                </form>
-
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1 justify-content-end">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index"><i
-                                    class="fa-solid fa-house me-1"></i>Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark not-implemented" href="#"><i
-                                    class="fa-solid fa-plane me-1"></i>Flights</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark not-implemented" href="#"><i
-                                    class="fa-solid fa-hotel me-1"></i>Hotels</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark not-implemented" href="#"><i
-                                    class="fa-solid fa-car me-1"></i>Car Rentals</a>
-                        </li>
-                        <li class="nav-item">
-                            <button class="btn dark-button not-implemented">Sign in</button>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
-
-    </header>
     <div class="container">
         <main role="main" class="pb-3">
             @RenderBody()
         </main>
     </div>
 
-    <footer class="footer bg-light text-muted border-top pt-3 pb-3">
-        <div class="container text-center text-md-left">
-            <div class="row">
-                <div class="col-md-6 mt-md-0 mt-3">
-                    &copy; 2024 <a href="https://www.linkedin.com/in/tyler-oneil-dev/" target="_blank">Tyler O'Neil</a>
-                </div>
-                <div class="col-md-6 mb-md-0 mb-3">
-                    <a href="https://github.com/tyleroneil72/web-voyager" target="_blank" class="footer-link me-4"><i
-                            class="fa-brands fa-github me-1"></i>Github</a>
-                    <a asp-area="" asp-controller="Home" asp-action="Privacy" class="footer-link"><i
-                            class="fa-solid fa-shield-halved me-1"></i>Privacy</a>
-                </div>
-            </div>
-        </div>
-    </footer>
+    @await Html.PartialAsync("_Footer")
 
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
