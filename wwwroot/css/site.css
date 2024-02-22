@@ -50,7 +50,7 @@ body {
 }
 
 .navbar-nav .nav-link:hover, .navbar-brand:hover {
-  color: rgb(199, 202, 241) !important;
+  text-decoration: underline;
 }
 
 .footer-link:hover {
@@ -71,7 +71,7 @@ body {
 }
 
 .home-link:hover {
-  color: #ffffff !important;
+  text-decoration: none;
 }
 
 @media (max-width: 768px) {

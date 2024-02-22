@@ -2,7 +2,6 @@
 
 [![License](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 
-
 ![ASP.NET](https://img.shields.io/badge/ASP.NET-5C2D91?style=for-the-badge&logo=.net&logoColor=white)
 ![C#](https://img.shields.io/badge/c%23-%23239120.svg?style=for-the-badge&logo=csharp&logoColor=white)
 ![HTML](https://img.shields.io/badge/HTML-239120?style=for-the-badge&logo=html5&logoColor=white)
@@ -14,10 +13,10 @@
 ![AWS](https://img.shields.io/badge/Amazon_AWS-232F3E?style=for-the-badge&logo=amazon-aws&logoColor=white)
 ![Azure](https://img.shields.io/badge/Microsoft_Azure-0089D6?style=for-the-badge&logo=microsoft-azure&logoColor=white)
 
-
 Visit at <a href="http://web-voyager.azurewebsites.net/" target="_blank">Web Voyager</a>
 
 ## Description
+
 Web Voyager Description
 
 ## Tech Stack
@@ -32,9 +31,8 @@ Web Voyager Description
 - Javascript
 - AWS
   - MySQL
-- Azure 
+- Azure
   - Hosting/Server
-
 
 ## License
 
