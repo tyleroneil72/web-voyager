@@ -60,10 +60,22 @@ html {
   color: #ffffff;
 }
 
+.light-button {
+  background-color: rgb(99, 102, 241); 
+  border-color: rgb(99, 102, 241);
+  color: #ffffff;
+}
+
 .dark-button:hover {
   background-color: rgb(59, 62, 161);
   border-color: rgb(59, 62, 161);
-  color: #ffffff !important;
+  color: #ffffff;
+}
+
+.light-button:hover {
+  background-color: rgb(79, 82, 221);
+  border-color: rgb(79, 82, 221);
+  color: #ffffff;
 }
 
 .home-link:hover {
