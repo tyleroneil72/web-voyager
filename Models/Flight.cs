@@ -1,7 +1,7 @@
 using System.ComponentModel.DataAnnotations;
 
 namespace web_voyager.Models;
-// Temporary outline
+
 public class Flight
 {
     [Key]
