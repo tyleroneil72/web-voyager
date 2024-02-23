@@ -64,7 +64,15 @@
         </dd>
     </dl>
     <a asp-controller="Flight" asp-action="Index" class="btn light-button">Back To Flights</a>
-    <a asp-controller="Flight" asp-action="Booking" asp-route-id="@Model.Id" class="btn light-button">Book</a>
+    @if (@Model.SeatsAvailable > 0)
+    {
+        <a asp-controller="Flight" asp-action="Booking" asp-route-id="@Model.Id" class="btn light-button">Book</a>
+    }
+    else
+    {
+        <a asp-controller="Flight" asp-action="Booking" asp-route-id="@Model.Id" class="btn light-button disabled">Flight
+            Unavailable</a>
+    }
     @* Only Admins should be able to see edit and delete button, Do after Authentication*@
     <a asp-controller="Flight" asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-secondary">Edit</a>
     <a asp-controller="Flight" asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-danger">Delete</a>
