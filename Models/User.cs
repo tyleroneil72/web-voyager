@@ -2,6 +2,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace web_voyager.Models;
 // Temporary outline
+// ID: 1 = Guest, 2 = Admin
 public class User
 {
     [Key]
