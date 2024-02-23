@@ -1,7 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using web_voyager.Models;
 
-namespace web_voyager.Controllers;
+namespace web_voyager.Data;
 
 public class AppDbContext : DbContext
 {

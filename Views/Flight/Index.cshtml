@@ -1,5 +1,15 @@
+@model List<Flight>
 @{
     ViewData["Title"] = "Flights";
 }
 
 <h2>Flights</h2>
+
+@if (Model.Any())
+{
+    <p>Flight</p>
+}
+else
+{
+    <p>No flights found</p>
+}
