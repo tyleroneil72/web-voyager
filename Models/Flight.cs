@@ -30,4 +30,6 @@ public class Flight
 
     [Required]
     public required string Status { get; set; }
+
+    public List<User>? Users { get; set; }
 }
