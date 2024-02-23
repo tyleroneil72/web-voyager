@@ -111,17 +111,29 @@ public class FlightController : Controller
 
     [HttpPost("DeleteConfirmed/{id:int}"), ActionName("DeleteConfirmed")]
     [ValidateAntiForgeryToken]
-    public IActionResult DeleteConfirmed(int id)
+    public async Task<IActionResult> DeleteConfirmed(int id)
     {
-        var flight = _db.Flights.Find(id);
+        // First, find and delete any bookings related to the flight
+        var relatedBookings = _db.Bookings.Where(b => b.FlightId == id).ToList();
+        if (relatedBookings.Any())
+        {
+            _db.Bookings.RemoveRange(relatedBookings);
+            await _db.SaveChangesAsync(); // Save changes after removing bookings
+        }
+
+        // Then, find and delete the flight
+        var flight = await _db.Flights.FindAsync(id);
         if (flight != null)
         {
             _db.Flights.Remove(flight);
-            _db.SaveChanges();
+            await _db.SaveChangesAsync(); // Save changes after removing the flight
             return RedirectToAction("Index");
         }
+
         return NotFound();
     }
+
+
 
     [HttpGet("Booking/{id:int}")]
     public async Task<IActionResult> Booking(int id)
