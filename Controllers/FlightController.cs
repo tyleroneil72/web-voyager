@@ -144,13 +144,12 @@ public class FlightController : Controller
 
         if (searchPerformed)
         {
-            // Assuming you want to search by both Departure and Arrival or any other fields
             flightsQuery = flightsQuery.Where(f => f.Departure.Contains(searchString) || f.Arrival.Contains(searchString) || f.Airline.Contains(searchString));
         }
         var flights = await flightsQuery.ToListAsync();
         ViewData["searchPerformed"] = searchPerformed;
         ViewData["searchString"] = searchString;
 
-        return View("Index", flights); // Make sure the view is expecting a list of flights
+        return View("Index", flights);
     }
 }
