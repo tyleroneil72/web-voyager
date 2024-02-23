@@ -1,4 +1,4 @@
-@model List<Flight>
+@model List<web_voyager.Models.Flight>
 @{
     ViewData["Title"] = "Flights";
 }
@@ -7,9 +7,45 @@
 
 @if (Model.Any())
 {
-    <p>Flight</p>
+    <div class="table-responsive">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Departure</th>
+                <th>Arrival</th>
+                <th>Departure Time</th>
+                <th>Arrival Time</th>
+                <th>Airline</th>
+                <th>Flight Number</th>
+                <th>Status</th>
+                <th>Capacity</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var flight in Model)
+                {
+                    <tr>
+                        <td>@flight.Id</td>
+                        <td>@flight.Departure</td>
+                        <td>@flight.Arrival</td>
+                        <td>@flight.DepartureTime</td>
+                        <td>@flight.ArrivalTime</td>
+                        <td>@flight.Airline</td>
+                        <td>@flight.FlightNumber</td>
+                        <td>@flight.Status</td>
+                        <td>@flight.Capacity</td>
+                        <td>
+                            <a href="#" class="btn light-button not-implemented">Book</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
 }
 else
 {
-    <p>No flights found</p>
+    <p>No flights found.</p>
 }
