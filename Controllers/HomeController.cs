@@ -28,4 +28,23 @@ public class HomeController : Controller
     {
         return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
     }
+
+    [HttpGet]
+    public IActionResult GeneralSearch(string searchType, string searchString)
+    {
+        if (searchType == "Flights")
+        {
+            return Redirect($"/Flight/Search/{searchString}");
+        }
+        else if (searchType == "Hotels")
+        {
+            return Redirect($"/Hotel/Search/{searchString}");
+        }
+        else if (searchType == "Cars")
+        {
+            return Redirect($"/Car/Search/{searchString}");
+        }
+
+        return RedirectToAction("Index", "Home");
+    }
 }
