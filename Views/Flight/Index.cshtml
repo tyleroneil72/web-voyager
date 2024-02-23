@@ -13,13 +13,13 @@
     <table class="table">
         <thead>
             <tr>
-                <th>ID</th>
+                @* <th>ID</th> *@
                 <th>Departure</th>
                 <th>Arrival</th>
                 <th>Departure Time</th>
                 <th>Arrival Time</th>
                 <th>Airline</th>
-                <th>Status</th>
+                @* <th>Status</th> *@
                 <th>Price</th>
                 <th>Capacity</th>
                 <th>Seats Available</th>
@@ -30,13 +30,13 @@
             @foreach (var flight in Model)
                 {
                     <tr>
-                        <td>@flight.Id</td>
+                        @* <td>@flight.Id</td> *@
                         <td>@flight.Departure</td>
                         <td>@flight.Arrival</td>
                         <td>@flight.DepartureTime</td>
                         <td>@flight.ArrivalTime</td>
                         <td>@flight.Airline</td>
-                        <td>@flight.Status</td>
+                        @* <td>@flight.Status</td> *@
                         <td>$@flight.Price</td>
                         <td>@flight.Capacity</td>
                         <td>@flight.SeatsAvailable</td>
