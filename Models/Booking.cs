@@ -8,6 +8,9 @@ public class Booking
     public int Id { get; set; }
 
     [Required]
+    public required string Type { get; set; }
+
+    [Required]
     public required User User { get; set; }
 
     [Required]
