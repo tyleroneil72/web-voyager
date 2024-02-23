@@ -11,8 +11,8 @@ using web_voyager.Data;
 namespace web_voyager.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240223225147_AddBooking")]
-    partial class AddBooking
+    [Migration("20240223232358_InitialCreate")]
+    partial class InitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -21,21 +21,6 @@ namespace web_voyager.Migrations
             modelBuilder
                 .HasAnnotation("ProductVersion", "8.0.2")
                 .HasAnnotation("Relational:MaxIdentifierLength", 64);
-
-            modelBuilder.Entity("FlightUser", b =>
-                {
-                    b.Property<int>("FlightsId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("UsersId")
-                        .HasColumnType("int");
-
-                    b.HasKey("FlightsId", "UsersId");
-
-                    b.HasIndex("UsersId");
-
-                    b.ToTable("FlightUser");
-                });
 
             modelBuilder.Entity("web_voyager.Models.Booking", b =>
                 {
@@ -121,21 +106,6 @@ namespace web_voyager.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Users");
-                });
-
-            modelBuilder.Entity("FlightUser", b =>
-                {
-                    b.HasOne("web_voyager.Models.Flight", null)
-                        .WithMany()
-                        .HasForeignKey("FlightsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("web_voyager.Models.User", null)
-                        .WithMany()
-                        .HasForeignKey("UsersId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
                 });
 
             modelBuilder.Entity("web_voyager.Models.Booking", b =>

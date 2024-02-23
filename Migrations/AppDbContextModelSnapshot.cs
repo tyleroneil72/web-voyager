@@ -19,21 +19,6 @@ namespace web_voyager.Migrations
                 .HasAnnotation("ProductVersion", "8.0.2")
                 .HasAnnotation("Relational:MaxIdentifierLength", 64);
 
-            modelBuilder.Entity("FlightUser", b =>
-                {
-                    b.Property<int>("FlightsId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("UsersId")
-                        .HasColumnType("int");
-
-                    b.HasKey("FlightsId", "UsersId");
-
-                    b.HasIndex("UsersId");
-
-                    b.ToTable("FlightUser");
-                });
-
             modelBuilder.Entity("web_voyager.Models.Booking", b =>
                 {
                     b.Property<int>("Id")
@@ -118,21 +103,6 @@ namespace web_voyager.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Users");
-                });
-
-            modelBuilder.Entity("FlightUser", b =>
-                {
-                    b.HasOne("web_voyager.Models.Flight", null)
-                        .WithMany()
-                        .HasForeignKey("FlightsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("web_voyager.Models.User", null)
-                        .WithMany()
-                        .HasForeignKey("UsersId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
                 });
 
             modelBuilder.Entity("web_voyager.Models.Booking", b =>
