@@ -19,10 +19,10 @@
                 <th>Departure Time</th>
                 <th>Arrival Time</th>
                 <th>Airline</th>
-                <th>Flight Number</th>
                 <th>Status</th>
                 <th>Price</th>
                 <th>Capacity</th>
+                <th>Seats Available</th>
                 <th>Actions</th>
             </tr>
         </thead>
@@ -36,10 +36,10 @@
                         <td>@flight.DepartureTime</td>
                         <td>@flight.ArrivalTime</td>
                         <td>@flight.Airline</td>
-                        <td>@flight.FlightNumber</td>
                         <td>@flight.Status</td>
                         <td>$@flight.Price</td>
                         <td>@flight.Capacity</td>
+                        @* <td>@flight.SeatsAvailable</td> *@
                         <td>
                             <a href="#" class="btn light-button not-implemented">View</a>
                             <a href="#" class="btn light-button not-implemented">Book</a>

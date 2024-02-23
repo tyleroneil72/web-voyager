@@ -25,10 +25,6 @@ public class Flight
     public required string Airline { get; set; }
 
     [Required]
-    [Display(Name = "Flight Number")]
-    public required string FlightNumber { get; set; }
-
-    [Required]
     public required string Status { get; set; }
 
     [Required]
