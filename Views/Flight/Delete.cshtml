@@ -68,6 +68,6 @@
 
     <form asp-action="DeleteConfirmed" asp-route-id="@Model.Id" method="post">
         <input type="submit" value="Delete" class="btn btn-danger" />
-        <a asp-action="Index" class="btn btn-secondary">Back to List</a>
+        <a asp-controller="Flight" asp-action="Index" class="btn btn-secondary">Back to List</a>
     </form>
 </div>
