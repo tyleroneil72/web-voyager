@@ -64,7 +64,7 @@
         </dd>
     </dl>
     <a asp-controller="Flight" asp-action="Index" class="btn light-button">Back To Flights</a>
-    <a href="#" class="btn light-button not-implemented">Book</a>
+    <a asp-action="Booking" class="btn light-button">Book</a>
     @* Only Admins should be able to see edit and delete button, Do after Authentication*@
     <a asp-controller="Flight" asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-secondary">Edit</a>
     <a asp-controller="Flight" asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-danger">Delete</a>
