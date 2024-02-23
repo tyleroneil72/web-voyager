@@ -19,7 +19,6 @@
                 <th>Arrival Time</th>
                 <th>Airline</th>
                 <th>Price</th>
-                <th>Capacity</th>
                 <th>Seats Available</th>
                 <th>Actions</th>
             </tr>
@@ -34,11 +33,20 @@
                         <td>@flight.ArrivalTime</td>
                         <td>@flight.Airline</td>
                         <td>$@flight.Price</td>
-                        <td>@flight.Capacity</td>
                         <td>@flight.SeatsAvailable</td>
                         <td>
-                            <a asp-action="Details" asp-route-id="@flight.Id" class="btn light-button">View</a>
-                            <a href="#" class="btn light-button not-implemented">Book</a>
+                            <a asp-controller="Flight" asp-action="Details" asp-route-id="@flight.Id"
+                                class="btn light-button">View</a>
+                            @if (@flight.SeatsAvailable > 0)
+                            {
+                                <a asp-controller="Flight" asp-action="Booking" asp-route-id="@flight.Id"
+                                    class="btn light-button">Book</a>
+                            }
+                            else
+                            {
+                                <a asp-controller="Flight" asp-action="Booking" asp-route-id="@flight.Id"
+                                    class="btn light-button disabled">Flight Unavailable</a>
+                            }
                         </td>
                     </tr>
                 }
@@ -59,5 +67,5 @@ else
 }
 <div>
     @* Only Admins should be able to see Add Flight button, do after authentication *@
-    <a asp-action="Create" class="btn dark-button">Add Flight</a>
+    <a asp-controller="Flight" asp-action="Create" class="btn dark-button">Add Flight</a>
 </div>

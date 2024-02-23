@@ -1,0 +1,18 @@
+@model web_voyager.Models.Flight
+
+@{
+    ViewData["Title"] = "Book Flight";
+}
+
+<h2>Book Flight: @Model.Airline - @Model.Departure To @Model.Arrival</h2>
+
+<form asp-controller="Flight" asp-action="SubmitBooking" asp-route-id="@Model.Id" method="post">
+    <input type="hidden" asp-for="Id" />
+    <div class="form-group">
+        <label>Departure: @Model.Departure</label>
+    </div>
+    <div class="form-group">
+        <label>Arrival: @Model.Arrival</label>
+    </div>
+    <button type="submit" class="btn btn-primary">Confirm Booking</button>
+</form>

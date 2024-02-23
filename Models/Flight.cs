@@ -37,5 +37,4 @@ public class Flight
     [Required]
     public required int Price { get; set; }
 
-    public List<User>? Users { get; set; }
 }

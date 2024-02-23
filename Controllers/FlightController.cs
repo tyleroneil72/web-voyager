@@ -111,17 +111,89 @@ public class FlightController : Controller
 
     [HttpPost("DeleteConfirmed/{id:int}"), ActionName("DeleteConfirmed")]
     [ValidateAntiForgeryToken]
-    public IActionResult DeleteConfirmed(int id)
+    public async Task<IActionResult> DeleteConfirmed(int id)
     {
-        var flight = _db.Flights.Find(id);
+        // First, find and delete any bookings related to the flight
+        var relatedBookings = _db.Bookings.Where(b => b.FlightId == id).ToList();
+        if (relatedBookings.Any())
+        {
+            _db.Bookings.RemoveRange(relatedBookings);
+            await _db.SaveChangesAsync(); // Save changes after removing bookings
+        }
+
+        // Then, find and delete the flight
+        var flight = await _db.Flights.FindAsync(id);
         if (flight != null)
         {
             _db.Flights.Remove(flight);
-            _db.SaveChanges();
+            await _db.SaveChangesAsync(); // Save changes after removing the flight
             return RedirectToAction("Index");
         }
+
         return NotFound();
     }
+
+    [HttpGet("Booking/{id:int}")]
+    public async Task<IActionResult> Booking(int id)
+    {
+        var flight = await _db.Flights.FindAsync(id);
+        if (flight == null)
+        {
+            return NotFound();
+        }
+        return View(flight);
+    }
+
+    [HttpPost("SubmitBooking/{id:int}")]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> SubmitBooking(int id)
+    {
+        // First, find the flight based on the ID.
+        var flight = await _db.Flights.FindAsync(id);
+        if (flight == null)
+        {
+            // If the flight doesn't exist, return a NotFound result.
+            return NotFound();
+        }
+        var userId = 1; // Guest Id
+        // Check if the user exists in the database
+        var user = await _db.Users.FindAsync(userId);
+        if (user == null)
+        {
+            // Handle the case where the user is not found. Could redirect to login or show an error.
+            return NotFound("User not found.");
+        }
+        // Create a new booking object.
+        var booking = new Booking
+        {
+            UserId = userId, // Set the user's ID.
+            User = user, // Set the user object.
+            FlightId = id, // Set the flight's ID.
+            Type = "Flight",
+
+        };
+        flight.SeatsAvailable -= 1;
+        _db.Bookings.Add(booking);
+        await _db.SaveChangesAsync();
+
+        return RedirectToAction("BookingConfirmation", new { id = booking.Id });
+    }
+
+    [HttpGet("BookingConfirmation/{id:int}")]
+    public async Task<IActionResult> BookingConfirmation(int id)
+    {
+        var booking = await _db.Bookings
+                                .Include(b => b.Flight)
+                                .Include(b => b.User)
+                                .FirstOrDefaultAsync(b => b.Id == id);
+        if (booking == null)
+        {
+            return NotFound();
+        }
+        return View(booking);
+    }
+
+
 
     [HttpGet("Search/{searchString?}")]
     public async Task<IActionResult> Search(string searchString)
@@ -133,13 +205,12 @@ public class FlightController : Controller
 
         if (searchPerformed)
         {
-            // Assuming you want to search by both Departure and Arrival or any other fields
             flightsQuery = flightsQuery.Where(f => f.Departure.Contains(searchString) || f.Arrival.Contains(searchString) || f.Airline.Contains(searchString));
         }
         var flights = await flightsQuery.ToListAsync();
         ViewData["searchPerformed"] = searchPerformed;
         ViewData["searchString"] = searchString;
 
-        return View("Index", flights); // Make sure the view is expecting a list of flights
+        return View("Index", flights);
     }
 }

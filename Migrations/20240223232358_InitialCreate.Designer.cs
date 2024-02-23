@@ -11,7 +11,7 @@ using web_voyager.Data;
 namespace web_voyager.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240223191305_InitialCreate")]
+    [Migration("20240223232358_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -22,19 +22,29 @@ namespace web_voyager.Migrations
                 .HasAnnotation("ProductVersion", "8.0.2")
                 .HasAnnotation("Relational:MaxIdentifierLength", 64);
 
-            modelBuilder.Entity("FlightUser", b =>
+            modelBuilder.Entity("web_voyager.Models.Booking", b =>
                 {
-                    b.Property<int>("FlightsId")
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    b.Property<int>("UsersId")
+                    b.Property<int?>("FlightId")
                         .HasColumnType("int");
 
-                    b.HasKey("FlightsId", "UsersId");
+                    b.Property<string>("Type")
+                        .IsRequired()
+                        .HasColumnType("longtext");
 
-                    b.HasIndex("UsersId");
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
 
-                    b.ToTable("FlightUser");
+                    b.HasKey("Id");
+
+                    b.HasIndex("FlightId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Bookings");
                 });
 
             modelBuilder.Entity("web_voyager.Models.Flight", b =>
@@ -98,19 +108,21 @@ namespace web_voyager.Migrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("FlightUser", b =>
+            modelBuilder.Entity("web_voyager.Models.Booking", b =>
                 {
-                    b.HasOne("web_voyager.Models.Flight", null)
+                    b.HasOne("web_voyager.Models.Flight", "Flight")
                         .WithMany()
-                        .HasForeignKey("FlightsId")
+                        .HasForeignKey("FlightId");
+
+                    b.HasOne("web_voyager.Models.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("web_voyager.Models.User", null)
-                        .WithMany()
-                        .HasForeignKey("UsersId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.Navigation("Flight");
+
+                    b.Navigation("User");
                 });
 #pragma warning restore 612, 618
         }
