@@ -133,8 +133,6 @@ public class FlightController : Controller
         return NotFound();
     }
 
-
-
     [HttpGet("Booking/{id:int}")]
     public async Task<IActionResult> Booking(int id)
     {
