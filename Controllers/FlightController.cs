@@ -123,15 +123,34 @@ public class FlightController : Controller
         return NotFound();
     }
 
-    [HttpGet("Booking/{id:int}")]
-    public IActionResult Booking(int id)
+    [HttpPost("BookFlight")]
+    [ValidateAntiForgeryToken]
+    public IActionResult BookFlight(int FlightId)
     {
-        var project = _db.Flights.FirstOrDefault(f => f.Id == id);
-        if (project == null)
+        var flight = _db.Flights.FirstOrDefault(f => f.Id == FlightId);
+        if (flight == null)
         {
             return NotFound();
         }
-        return View(project);
+
+        var user = _db.Users.Find(1); // User Id of 1 is Guest
+        if (user == null)
+        {
+            return NotFound();
+        }
+
+        var booking = new Booking
+        {
+            UserId = 1, // User Id of 1 is Guest
+            User = user!,
+            FlightId = FlightId,
+            Type = "Flight"
+        };
+
+        _db.Bookings.Add(booking);
+        _db.SaveChanges();
+
+        return RedirectToAction("Index");
     }
 
     [HttpGet("Search/{searchString?}")]
