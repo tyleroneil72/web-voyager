@@ -41,7 +41,7 @@
                         <td>@flight.Capacity</td>
                         <td>@flight.SeatsAvailable</td>
                         <td>
-                            <a href="#" class="btn light-button not-implemented">View</a>
+                            <a asp-action="Details" asp-route-id="@flight.Id" class="btn light-button">View</a>
                             <a href="#" class="btn light-button not-implemented">Book</a>
                         </td>
                     </tr>
