@@ -11,7 +11,7 @@ using web_voyager.Data;
 namespace web_voyager.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240223022947_InitialCreate")]
+    [Migration("20240223191305_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -64,9 +64,11 @@ namespace web_voyager.Migrations
                     b.Property<DateTime>("DepartureTime")
                         .HasColumnType("datetime(6)");
 
-                    b.Property<string>("FlightNumber")
-                        .IsRequired()
-                        .HasColumnType("longtext");
+                    b.Property<int>("Price")
+                        .HasColumnType("int");
+
+                    b.Property<int>("SeatsAvailable")
+                        .HasColumnType("int");
 
                     b.Property<string>("Status")
                         .IsRequired()

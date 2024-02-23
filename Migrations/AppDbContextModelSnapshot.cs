@@ -61,9 +61,11 @@ namespace web_voyager.Migrations
                     b.Property<DateTime>("DepartureTime")
                         .HasColumnType("datetime(6)");
 
-                    b.Property<string>("FlightNumber")
-                        .IsRequired()
-                        .HasColumnType("longtext");
+                    b.Property<int>("Price")
+                        .HasColumnType("int");
+
+                    b.Property<int>("SeatsAvailable")
+                        .HasColumnType("int");
 
                     b.Property<string>("Status")
                         .IsRequired()

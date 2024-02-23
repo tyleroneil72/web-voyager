@@ -1,7 +1,7 @@
 using System.ComponentModel.DataAnnotations;
 
 namespace web_voyager.Models;
-// Temporary outline
+
 public class Flight
 {
     [Key]
@@ -25,14 +25,16 @@ public class Flight
     public required string Airline { get; set; }
 
     [Required]
-    [Display(Name = "Flight Number")]
-    public required string FlightNumber { get; set; }
-
-    [Required]
     public required string Status { get; set; }
 
     [Required]
     public required int Capacity { get; set; }
+
+    [Required]
+    public required int SeatsAvailable { get; set; }
+
+    [Required]
+    public required int Price { get; set; }
 
     public List<User>? Users { get; set; }
 }
