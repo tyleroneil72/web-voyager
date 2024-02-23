@@ -123,10 +123,15 @@ public class FlightController : Controller
         return NotFound();
     }
 
-    [HttpGet("Booking")]
-    public IActionResult Booking()
+    [HttpGet("Booking/{id:int}")]
+    public IActionResult Booking(int id)
     {
-        return View();
+        var project = _db.Flights.FirstOrDefault(f => f.Id == id);
+        if (project == null)
+        {
+            return NotFound();
+        }
+        return View(project);
     }
 
     [HttpGet("Search/{searchString?}")]
