@@ -15,4 +15,9 @@ public class User
     public required string Password { get; set; }
 
     public List<Flight>? Flights { get; set; }
+
+    // public List<Hotel>? Hotels { get; set; }
+
+    // public List<Car>? Cars { get; set; }
+
 }
