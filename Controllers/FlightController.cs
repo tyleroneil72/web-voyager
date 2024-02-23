@@ -14,6 +14,7 @@ public class FlightController : Controller
     {
         _db = db;
     }
+
     [HttpGet("")]
     public IActionResult Index()
     {
