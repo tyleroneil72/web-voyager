@@ -1,1 +1,9 @@
+@model web_voyager.Models.Flight
+
+@{
+    ViewData["Title"] = "Flight Booking";
+}
+
 <h2>Flight Booking</h2>
+<hr />
+<p>Booking for @Html.DisplayFor(model => model.Departure) to @Html.DisplayFor(model => model.Arrival) </p>
