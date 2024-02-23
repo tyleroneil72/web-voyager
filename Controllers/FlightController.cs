@@ -98,6 +98,30 @@ public class FlightController : Controller
         return _db.Flights.Any(e => e.Id == id);
     }
 
+    [HttpGet("Delete/{id:int}")]
+    public IActionResult Delete(int id)
+    {
+        var flight = _db.Flights.FirstOrDefault(f => f.Id == id);
+        if (flight == null)
+        {
+            return NotFound();
+        }
+        return View(flight);
+    }
+
+    [HttpPost("DeleteConfirmed/{id:int}"), ActionName("DeleteConfirmed")]
+    [ValidateAntiForgeryToken]
+    public IActionResult DeleteConfirmed(int id)
+    {
+        var flight = _db.Flights.Find(id);
+        if (flight != null)
+        {
+            _db.Flights.Remove(flight);
+            _db.SaveChanges();
+            return RedirectToAction("Index");
+        }
+        return NotFound();
+    }
 
     [HttpGet("Search/{searchString?}")]
     public async Task<IActionResult> Search(string searchString)
