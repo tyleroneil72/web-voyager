@@ -51,6 +51,54 @@ public class FlightController : Controller
         return View(flight);
     }
 
+    [HttpGet("Edit/{id:int}")]
+    public IActionResult Edit(int id)
+    {
+        var flight = _db.Flights.Find(id);
+        if (flight == null)
+        {
+            return NotFound();
+        }
+        return View(flight);
+    }
+
+    [HttpPost("Edit/{id:int}")]
+    [ValidateAntiForgeryToken]
+    public IActionResult Edit(int id, [Bind("Id,Departure,Arrival,DepartureTime,ArrivalTime,Airline,Status,Capacity,SeatsAvailable,Price")] Flight flight)
+    {
+        if (id != flight.Id)
+        {
+            return NotFound();
+        }
+        if (ModelState.IsValid)
+        {
+            try
+            {
+                _db.Flights.Update(flight);
+                _db.SaveChanges();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!FlightExists(flight.Id))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+            return RedirectToAction("Index");
+        }
+        return View(flight);
+    }
+
+    private bool FlightExists(int id)
+    {
+        return _db.Flights.Any(e => e.Id == id);
+    }
+
+
     [HttpGet("Search/{searchString?}")]
     public async Task<IActionResult> Search(string searchString)
     {
