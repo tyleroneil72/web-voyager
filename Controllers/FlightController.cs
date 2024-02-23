@@ -162,6 +162,7 @@ public class FlightController : Controller
             Type = "Flight",
 
         };
+        flight.SeatsAvailable -= 1;
         _db.Bookings.Add(booking);
         await _db.SaveChangesAsync();
 
