@@ -123,6 +123,12 @@ public class FlightController : Controller
         return NotFound();
     }
 
+    [HttpGet("Booking")]
+    public IActionResult Booking()
+    {
+        return View();
+    }
+
     [HttpGet("Search/{searchString?}")]
     public async Task<IActionResult> Search(string searchString)
     {
