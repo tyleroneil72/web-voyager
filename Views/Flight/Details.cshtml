@@ -67,4 +67,5 @@
     <a href="#" class="btn light-button not-implemented">Book</a>
     @* Only Admins should be able to see edit button, Do after Authentication*@
     <a asp-controller="Flight" asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-secondary">Edit</a>
+    <a asp-controller="Flight" asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-danger">Delete</a>
 </div>
