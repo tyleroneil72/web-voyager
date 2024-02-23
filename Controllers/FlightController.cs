@@ -6,8 +6,14 @@ namespace web_voyager.Controllers;
 
 public class FlightController : Controller
 {
+    private readonly AppDbContext _db;
+
+    public FlightController(AppDbContext db)
+    {
+        _db = db;
+    }
     public IActionResult Index()
     {
-        return View();
+        return View(_db.Flights.ToList());
     }
 }
