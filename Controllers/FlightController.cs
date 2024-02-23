@@ -21,6 +21,17 @@ public class FlightController : Controller
         return View(_db.Flights.ToList());
     }
 
+    [HttpGet("Details/{id:int}")]
+    public IActionResult Details(int id)
+    {
+        var project = _db.Flights.FirstOrDefault(f => f.Id == id);
+        if (project == null)
+        {
+            return NotFound();
+        }
+        return View(project);
+    }
+
     [HttpGet("Search/{searchString?}")]
     public async Task<IActionResult> Search(string searchString)
     {
