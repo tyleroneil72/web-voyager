@@ -1,0 +1,21 @@
+@model web_voyager.Models.Booking
+
+@{
+    ViewData["Title"] = "Booking Confirmation";
+}
+
+<h2>Booking Confirmation</h2>
+
+<div>
+    <h3>Your booking has been confirmed!</h3>
+    <p><strong>Flight:</strong> @Model.Flight.Airline - @Model.Flight.Departure to @Model.Flight.Arrival</p>
+    <p><strong>Departure Time:</strong> @Model.Flight.DepartureTime</p>
+    <p><strong>Arrival Time:</strong> @Model.Flight.ArrivalTime</p>
+    <p><strong>Price:</strong> $@Model.Flight.Price</p>
+    <p><strong>Seats Booked:</strong> 1</p>
+    <p><strong>Booking Type:</strong> @Model.Type</p>
+
+    <p><strong>Booked by:</strong> @Model.User.Username</p>
+
+    <a asp-action="Index" asp-controller="Flight" class="btn btn-primary">Return to Flights</a>
+</div>

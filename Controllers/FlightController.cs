@@ -123,35 +123,74 @@ public class FlightController : Controller
         return NotFound();
     }
 
-    [HttpPost("BookFlight")]
-    [ValidateAntiForgeryToken]
-    public IActionResult BookFlight(int FlightId)
+    [HttpGet("Booking/{id:int}")]
+    public async Task<IActionResult> Booking(int id)
     {
-        var flight = _db.Flights.FirstOrDefault(f => f.Id == FlightId);
+        var flight = await _db.Flights.FindAsync(id);
         if (flight == null)
         {
             return NotFound();
         }
+        return View(flight);
+    }
 
-        var user = _db.Users.Find(1); // User Id of 1 is Guest
+    [HttpPost("SubmitBooking/{id:int}")]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> SubmitBooking(int id)
+    {
+        // First, find the flight based on the ID.
+        var flight = await _db.Flights.FindAsync(id);
+        if (flight == null)
+        {
+            // If the flight doesn't exist, return a NotFound result.
+            return NotFound();
+        }
+
+        var userId = 1; // Guest Id
+
+        // Check if the user exists in the database
+        var user = await _db.Users.FindAsync(userId);
         if (user == null)
+        {
+            // Handle the case where the user is not found. Could redirect to login or show an error.
+            return NotFound("User not found.");
+        }
+
+        // Create a new booking object.
+        var booking = new Booking
+        {
+            UserId = userId, // Set the user's ID.
+            User = user, // Set the user object.
+            FlightId = id, // Set the flight's ID.
+            Type = "Flight",
+
+        };
+
+        _db.Bookings.Add(booking);
+
+        await _db.SaveChangesAsync();
+
+
+        return RedirectToAction("BookingConfirmation", new { id = booking.Id });
+    }
+
+    [HttpGet("BookingConfirmation/{id:int}")]
+    public async Task<IActionResult> BookingConfirmation(int id)
+    {
+        var booking = await _db.Bookings
+                                .Include(b => b.Flight)
+                                .Include(b => b.User)
+                                .FirstOrDefaultAsync(b => b.Id == id);
+
+        if (booking == null)
         {
             return NotFound();
         }
 
-        var booking = new Booking
-        {
-            UserId = 1, // User Id of 1 is Guest
-            User = user!,
-            FlightId = FlightId,
-            Type = "Flight"
-        };
-
-        _db.Bookings.Add(booking);
-        _db.SaveChanges();
-
-        return RedirectToAction("Index");
+        return View(booking);
     }
+
+
 
     [HttpGet("Search/{searchString?}")]
     public async Task<IActionResult> Search(string searchString)
