@@ -29,6 +29,8 @@ html {
 
 .navbar {
   background-color: rgb(99, 102, 241) !important; 
+  transition: top 0.3s;
+  z-index: 1000; 
 }
 
 .navbar .navbar-nav .nav-link, .navbar-brand {

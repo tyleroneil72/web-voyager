@@ -1,8 +1,13 @@
-namespace web_voyager.Controllers;
+using Microsoft.EntityFrameworkCore;
+using web_voyager.Models;
 
-public class AppDbContext
+namespace web_voyager.Data;
+
+public class AppDbContext : DbContext
 {
-    public AppDbContext()
+    public DbSet<User> Users { get; set; }
+    public DbSet<Flight> Flights { get; set; }
+    public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
     {
 
     }
