@@ -19,7 +19,6 @@
                 <th>Arrival Time</th>
                 <th>Airline</th>
                 <th>Price</th>
-                <th>Capacity</th>
                 <th>Seats Available</th>
                 <th>Actions</th>
             </tr>
@@ -34,7 +33,6 @@
                         <td>@flight.ArrivalTime</td>
                         <td>@flight.Airline</td>
                         <td>$@flight.Price</td>
-                        <td>@flight.Capacity</td>
                         <td>@flight.SeatsAvailable</td>
                         <td>
                             <a asp-controller="Flight" asp-action="Details" asp-route-id="@flight.Id"
