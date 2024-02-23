@@ -14,14 +14,5 @@ public class User
     [Required]
     public required string Password { get; set; }
 
-    [Required]
-    public required string Email { get; set; }
-
-    [Required]
-    public required string Role { get; set; }
-
-    [Required]
-    public required string Status { get; set; }
-
     public List<Flight>? Flights { get; set; }
 }
