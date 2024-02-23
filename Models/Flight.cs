@@ -31,6 +31,9 @@ public class Flight
     public required int Capacity { get; set; }
 
     [Required]
+    public required int SeatsAvailable { get; set; }
+
+    [Required]
     public required int Price { get; set; }
 
     public List<User>? Users { get; set; }
