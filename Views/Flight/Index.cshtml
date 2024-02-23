@@ -1,6 +1,8 @@
 @model List<web_voyager.Models.Flight>
 @{
     ViewData["Title"] = "Flights";
+    bool searchPerformed = ViewData["searchPerformed"] as bool? ?? false;
+    string searchString = ViewData["searchString"] as string ?? "";
 }
 
 <h2>Flights</h2>
@@ -47,5 +49,12 @@
 }
 else
 {
-    <p>No flights found.</p>
+    if (searchPerformed)
+    {
+        <p>No Flight name with "@searchString"</p>
+    }
+    else
+    {
+        <p>No Flights available</p>
+    }
 }

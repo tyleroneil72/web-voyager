@@ -7,14 +7,14 @@
             <span class="navbar-toggler-icon"></span>
         </button>
 
-        <form class="d-flex search-form" method="get">
+        <form class="d-flex search-form" asp-controller="Home" asp-action="GeneralSearch" method="get">
             <input class="form-control me-2" type="text" placeholder="Search" name="searchString">
             <select class="form-control me-2" name="searchType">
                 <option value="Flights">Flights</option>
                 <option value="Hotels">Hotels</option>
                 <option value="Car Rentals">Car Rentals</option>
             </select>
-            <button class="btn btn-outline-success not-implemented" type="submit">Search</button>
+            <button class="btn btn-outline-success" type="submit">Search</button>
         </form>
 
         <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
