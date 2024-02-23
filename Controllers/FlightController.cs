@@ -32,6 +32,25 @@ public class FlightController : Controller
         return View(project);
     }
 
+    [HttpGet("Create")]
+    public IActionResult Create()
+    {
+        return View();
+    }
+
+    [HttpPost("Create")]
+    [ValidateAntiForgeryToken]
+    public IActionResult Create(Flight flight)
+    {
+        if (ModelState.IsValid)
+        {
+            _db.Flights.Add(flight);
+            _db.SaveChanges();
+            return RedirectToAction("Index");
+        }
+        return View(flight);
+    }
+
     [HttpGet("Search/{searchString?}")]
     public async Task<IActionResult> Search(string searchString)
     {
