@@ -193,8 +193,6 @@ public class FlightController : Controller
         return View(booking);
     }
 
-
-
     [HttpGet("Search/{searchString?}")]
     public async Task<IActionResult> Search(string searchString)
     {
