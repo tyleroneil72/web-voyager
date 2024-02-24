@@ -33,7 +33,18 @@
                         <td>@flight.ArrivalTime</td>
                         <td>@flight.Airline</td>
                         <td><span class="text-success">$</span>@flight.Price</td>
-                        <td>@flight.SeatsAvailable</td>
+                        @if (@flight.SeatsAvailable <= 50)
+                        {
+                            <td class="text-danger">@flight.SeatsAvailable</td>
+                        }
+                        else if (@flight.SeatsAvailable <= 100)
+                        {
+                            <td class="text-warning">@flight.SeatsAvailable</td>
+                        }
+                        else
+                        {
+                            <td>@flight.SeatsAvailable</td>
+                        }
                         <td>
                             <a asp-controller="Flight" asp-action="Details" asp-route-id="@flight.Id"
                                 class="btn light-button">View</a>
