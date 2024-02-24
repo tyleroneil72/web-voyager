@@ -70,6 +70,11 @@ body {
   text-decoration: underline;
 }
 
+.text-purple {
+  color: rgb(79, 82, 221);
+  font-weight: bold;
+}
+
 .dark-button {
   background-color: rgb(69, 72, 191);
   border-color: rgb(69, 72, 191);
