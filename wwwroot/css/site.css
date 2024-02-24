@@ -1,5 +1,7 @@
 html {
   font-size: 14px;
+  height: 100%;
+  position: relative;
 }
 
 @media (min-width: 768px) {
@@ -8,33 +10,50 @@ html {
   }
 }
 
+body {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
 .btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
   box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
 }
 
-html {
-  position: relative;
-  min-height: 100%;
-}
-
 .footer {
-  background-color: #f8f9fa; 
-  color: #6c757d; 
+  background-color: #f8f9fa;
+  color: #6c757d;
+  border-top: 1px solid #e7e7e7;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  text-align: center;
 }
 
 .footer-link {
   color: #007bff;
-  text-decoration: none; 
+  text-decoration: none;
+}
+
+.footer-link:hover {
+  color: #0056b3;
+  text-decoration: underline;
 }
 
 .navbar {
-  background-color: rgb(99, 102, 241) !important; 
+  background-color: rgb(99, 102, 241) !important;
   transition: top 0.3s;
-  z-index: 1000; 
+  z-index: 1000;
 }
 
 .navbar .navbar-nav .nav-link, .navbar-brand {
-  color: #ffffff !important; 
+  color: #ffffff !important;
 }
 
 .navbar .btn-outline-success {
@@ -43,17 +62,17 @@ html {
 }
 
 .navbar .btn-outline-success:hover {
-  background-color: #ffffff; 
-  color: rgb(99, 102, 241); 
+  background-color: #ffffff;
+  color: rgb(99, 102, 241);
 }
 
 .navbar-nav .nav-link:hover, .navbar-brand:hover {
   text-decoration: underline;
 }
 
-.footer-link:hover {
-  color: #0056b3; 
-  text-decoration: underline; 
+.text-purple {
+  color: rgb(79, 82, 221);
+  font-weight: bold;
 }
 
 .dark-button {
@@ -62,15 +81,15 @@ html {
   color: #ffffff;
 }
 
-.light-button {
-  background-color: rgb(99, 102, 241); 
-  border-color: rgb(99, 102, 241);
-  color: #ffffff;
-}
-
 .dark-button:hover {
   background-color: rgb(59, 62, 161);
   border-color: rgb(59, 62, 161);
+  color: #ffffff;
+}
+
+.light-button {
+  background-color: rgb(99, 102, 241);
+  border-color: rgb(99, 102, 241);
   color: #ffffff;
 }
 
@@ -86,6 +105,6 @@ html {
 
 @media (max-width: 768px) {
   .footer .col-md-6 {
-      margin-bottom: 1rem; 
+    margin-bottom: 1rem;
   }
 }

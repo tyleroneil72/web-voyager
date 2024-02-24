@@ -4,34 +4,38 @@
     ViewData["Title"] = "Booking Confirmation";
 }
 
-<h2>Booking Confirmation</h2>
+<div class="container mt-4">
+    <div class="card">
+        <div class="card-header">
+            <h2>Booking Confirmation</h2>
+        </div>
+        <div class="card-body">
+            <h3 class="card-title">Your booking has been confirmed! - ID: @Model.Id</h3>
+            @if (Model.Flight != null)
+            {
+                <p class="card-text"><strong>Flight:</strong> @Model.Flight.Airline - @Model.Flight.Departure to
+                    @Model.Flight.Arrival</p>
+                <p class="card-text"><strong>Departure Time:</strong> @Model.Flight.DepartureTime.ToString("g")</p>
+                <p class="card-text"><strong>Arrival Time:</strong> @Model.Flight.ArrivalTime.ToString("g")</p>
+                <p class="card-text"><strong>Price:</strong> $@Model.Flight.Price</p>
+                <p class="card-text"><strong>Seats Booked:</strong> 1</p>
+                <p class="card-text">Please Save this information.</p>
+            }
+            else
+            {
+                <p class="card-text">Flight details are not available.</p>
+            }
 
-<div>
-    <h3>Your booking has been confirmed!</h3>
+            @if (Model.User != null)
+            {
+                <p class="card-text"><strong>Booked by:</strong> @Model.User.Username</p>
+            }
+            else
+            {
+                <p class="card-text">Booking user details are not available.</p>
+            }
 
-    @if (Model.Flight != null)
-    {
-        <p><strong>Flight:</strong> @Model.Flight.Airline - @Model.Flight.Departure to @Model.Flight.Arrival</p>
-        <p><strong>Departure Time:</strong> @Model.Flight.DepartureTime</p>
-        <p><strong>Arrival Time:</strong> @Model.Flight.ArrivalTime</p>
-        <p><strong>Price:</strong> $@Model.Flight.Price</p>
-        <p><strong>Seats Booked:</strong> 1</p>
-    }
-    else
-    {
-        <p>Flight details are not available.</p>
-    }
-
-    <p><strong>Booking Type:</strong> @Model.Type</p>
-
-    @if (Model.User != null)
-    {
-        <p><strong>Booked by:</strong> @Model.User.Username</p>
-    }
-    else
-    {
-        <p>Booking user details are not available.</p>
-    }
-
-    <a asp-action="Index" asp-controller="Flight" class="btn btn-primary">Return to Flights</a>
+            <a asp-action="Index" asp-controller="Flight" class="btn dark-button">Return to Flights</a>
+        </div>
+    </div>
 </div>

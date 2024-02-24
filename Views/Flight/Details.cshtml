@@ -1,79 +1,37 @@
 @model web_voyager.Models.Flight
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Flight Details";
 }
 
-<h2>Flight Details</h2>
-
-<div>
-    <hr />
-    <dl class="row">
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Departure)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Departure)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Arrival)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Arrival)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.DepartureTime)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.DepartureTime)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.ArrivalTime)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.ArrivalTime)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Airline)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Airline)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Status)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Status)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Capacity)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Capacity)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.SeatsAvailable)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.SeatsAvailable)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Price)
-        </dt>
-        <dd class="col-sm-10">
-            $@Html.DisplayFor(model => model.Price)
-        </dd>
-    </dl>
-    <a asp-controller="Flight" asp-action="Index" class="btn light-button">Back To Flights</a>
-    @if (@Model.SeatsAvailable > 0)
-    {
-        <a asp-controller="Flight" asp-action="Booking" asp-route-id="@Model.Id" class="btn light-button">Book</a>
-    }
-    else
-    {
-        <a asp-controller="Flight" asp-action="Booking" asp-route-id="@Model.Id" class="btn light-button disabled">Flight
-            Unavailable</a>
-    }
-    @* Only Admins should be able to see edit and delete button, Do after Authentication*@
-    <a asp-controller="Flight" asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-secondary">Edit</a>
-    <a asp-controller="Flight" asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-danger">Delete</a>
+<div class="container mt-4">
+    <div class="card">
+        <div class="card-header">
+            <h2>@ViewData["Title"]: @Model.Airline - @Model.Departure to @Model.Arrival</h2>
+        </div>
+        <div class="card-body">
+            <h5 class="card-title">@Model.Departure to @Model.Arrival</h5>
+            <p class="card-text"><strong>Departure Time:</strong> @Model.DepartureTime.ToString("g")</p>
+            <p class="card-text"><strong>Arrival Time:</strong> @Model.ArrivalTime.ToString("g")</p>
+            <p class="card-text"><strong>Status:</strong> @Model.Status</p>
+            <p class="card-text"><strong>Capacity:</strong> @Model.Capacity</p>
+            <p class="card-text"><strong>Seats Available:</strong> @Model.SeatsAvailable</p>
+            <p class="card-text"><strong>Price:</strong> $@Model.Price</p>
+            <div class="mt-3">
+                <a asp-controller="Flight" asp-action="Index" class="btn light-button">Back To Flights</a>
+                @if (@Model.SeatsAvailable > 0)
+                {
+                    <a asp-controller="Flight" asp-action="Booking" asp-route-id="@Model.Id"
+                        class="btn light-button">Book</a>
+                }
+                else
+                {
+                    <a class="btn light-button disabled">Flight Unavailable</a>
+                }
+                @* Only Admins should be able to see edit and delete button, Do after Authentication *@
+                <a asp-controller="Flight" asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-secondary">Edit</a>
+                <a asp-controller="Flight" asp-action="Delete" asp-route-id="@Model.Id"
+                    class="btn btn-danger">Delete</a>
+            </div>
+        </div>
+    </div>
 </div>

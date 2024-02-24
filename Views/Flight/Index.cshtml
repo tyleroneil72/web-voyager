@@ -5,7 +5,7 @@
     string searchString = ViewData["searchString"] as string ?? "";
 }
 
-<h2>Flights</h2>
+<h2>Explore Our Destinations</h2>
 
 @if (Model.Any())
 {
@@ -32,7 +32,7 @@
                         <td>@flight.DepartureTime</td>
                         <td>@flight.ArrivalTime</td>
                         <td>@flight.Airline</td>
-                        <td>$@flight.Price</td>
+                        <td><span class="text-success">$</span>@flight.Price</td>
                         <td>@flight.SeatsAvailable</td>
                         <td>
                             <a asp-controller="Flight" asp-action="Details" asp-route-id="@flight.Id"
