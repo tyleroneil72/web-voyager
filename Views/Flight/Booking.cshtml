@@ -4,16 +4,25 @@
     ViewData["Title"] = "Book Flight";
 }
 
-<h2>Book Flight: @Model.Airline - @Model.Departure To @Model.Arrival</h2>
-
-<form asp-controller="Flight" asp-action="SubmitBooking" asp-route-id="@Model.Id" method="post">
-    <input type="hidden" asp-for="Id" />
-    <div class="form-group">
-        <label>Departure: @Model.Departure</label>
+<div class="container mt-4">
+    <div class="card booking-card">
+        <div class="card-header">
+            <h2>Book Flight: @Model.Airline - @Model.Departure to @Model.Arrival</h2>
+        </div>
+        <div class="card-body">
+            <form asp-controller="Flight" asp-action="SubmitBooking" asp-route-id="@Model.Id" method="post">
+                <input type="hidden" asp-for="Id" />
+                <div class="form-group">
+                    <p><strong>Departure:</strong> @Model.Departure</p>
+                </div>
+                <div class="form-group">
+                    <p><strong>Arrival:</strong> @Model.Arrival</p>
+                </div>
+                <div class="d-flex justify-content-between mt-3">
+                    <a asp-controller="Flight" asp-action="Index" class="btn light-button">Cancel</a>
+                    <button type="submit" class="btn dark-button">Confirm Booking</button>
+                </div>
+            </form>
+        </div>
     </div>
-    <div class="form-group">
-        <label>Arrival: @Model.Arrival</label>
-    </div>
-    <a asp-controller="Flight" asp-action="Index" class="btn btn-danger">Cancel</a>
-    <button type="submit" class="btn btn-primary">Confirm Booking</button>
-</form>
+</div>
