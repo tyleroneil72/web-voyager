@@ -100,6 +100,17 @@ public class HotelController : Controller
         return _db.Hotels.Any(e => e.Id == id);
     }
 
+    [HttpGet("Delete/{id:int}")]
+    public IActionResult Delete(int id)
+    {
+        var hotel = _db.Hotels.FirstOrDefault(h => h.Id == id);
+        if (hotel == null)
+        {
+            return NotFound();
+        }
+        return View(hotel);
+    }
+
     [HttpGet("Search/{searchString?}")]
     public async Task<IActionResult> Search(string searchString)
     {
