@@ -107,4 +107,11 @@ body {
   .footer .col-md-6 {
     margin-bottom: 1rem;
   }
+  .navbar-toggler {
+    margin-right: 1rem;
+  } 
+  .search-form .form-control, .search-form .btn {
+      margin-top: .5rem; /* Stack form elements vertically on smaller screens */
+  }
 }
+
