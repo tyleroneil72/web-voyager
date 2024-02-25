@@ -108,6 +108,31 @@ public class CarController : Controller
         return View(car);
     }
 
+    [HttpPost("DeleteConfirmed/{id:int}"), ActionName("DeleteConfirmed")]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> DeleteConfirmed(int id)
+    {
+        // First, find and delete any car bookings related to the car
+        // var relatedCarBookings = _db.Cars.Where(b => b.CarId == id).ToList();
+        // if (relatedCarBookings.Any())
+        // {
+        //     _db.Bookings.RemoveRange(relatedCarBookings);
+        //     await _db.SaveChangesAsync(); // Save changes after removing car bookings
+        // }
+
+        // Then, find and delete the car
+        var car = await _db.Cars.FindAsync(id);
+        if (car != null)
+        {
+            _db.Cars.Remove(car);
+            await _db.SaveChangesAsync(); // Save changes after removing the car
+            return RedirectToAction("Index");
+        }
+
+        return NotFound();
+    }
+
+
     [HttpGet("Search/{searchString?}")]
     public async Task<IActionResult> Search(string searchString)
     {
