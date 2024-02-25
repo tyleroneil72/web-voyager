@@ -116,12 +116,12 @@ public class HotelController : Controller
     public async Task<IActionResult> DeleteConfirmed(int id)
     {
         // First, find and delete any hotel bookings related to the hotel
-        // var relatedHotelBookings = _db.HotelBookings.Where(b => b.HotelId == id).ToList();
-        // if (relatedHotelBookings.Any())
-        // {
-        //     _db.HotelBookings.RemoveRange(relatedHotelBookings);
-        //     await _db.SaveChangesAsync(); // Save changes after removing hotel bookings
-        // }
+        var relatedHotelBookings = _db.Bookings.Where(b => b.HotelId == id).ToList();
+        if (relatedHotelBookings.Any())
+        {
+            _db.Bookings.RemoveRange(relatedHotelBookings);
+            await _db.SaveChangesAsync(); // Save changes after removing hotel bookings
+        }
 
         // Then, find and delete the hotel
         var hotel = await _db.Hotels.FindAsync(id);
