@@ -29,9 +29,8 @@
                 <td>@car.CarsAvailable</td>
                 <td>@car.Seats</td>
                 <td>
-                    <a asp-action="Edit" asp-route-id="@car.Id" class="btn btn-primary">Edit</a>
-                    <a asp-action="Details" asp-route-id="@car.Id" class="btn btn-secondary">Details</a>
-                    <a asp-action="Delete" asp-route-id="@car.Id" class="btn btn-danger">Delete</a>
+                    <a asp-action="Details" asp-route-id="@car.Id" class="btn light-button">Details</a>
+                    <a asp-action="Book" asp-route-id="@car.Id" class="btn light-button">Book</a>
                 </td>
             </tr>
         }
