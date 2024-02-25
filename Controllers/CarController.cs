@@ -49,4 +49,27 @@ public class CarController : Controller
         }
         return View(car);
     }
+
+    [HttpGet("Search/{searchString?}")]
+    public async Task<IActionResult> Search(string searchString)
+    {
+        var carsQuery = from c in _db.Cars
+                        select c;
+
+        bool searchPerformed = !String.IsNullOrEmpty(searchString);
+
+        if (searchPerformed)
+        {
+            carsQuery = carsQuery.Where(c => c.Brand.Contains(searchString) ||
+                                             c.Model.Contains(searchString) ||
+                                             c.Location.Contains(searchString) ||
+                                             c.Description.Contains(searchString));
+        }
+        var cars = await carsQuery.ToListAsync();
+        ViewData["searchPerformed"] = searchPerformed;
+        ViewData["searchString"] = searchString;
+
+        return View("Index", cars);
+    }
+
 }
