@@ -22,6 +22,6 @@ public class Booking
     public int? HotelId { get; set; }
     public Hotel? Hotel { get; set; }
 
-    // public int? CarId { get; set; }
-    // public Car? Car { get; set; }
+    public int? CarId { get; set; }
+    public Car? Car { get; set; }
 }

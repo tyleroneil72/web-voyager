@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using web_voyager.Data;
 
@@ -10,9 +11,11 @@ using web_voyager.Data;
 namespace web_voyager.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240225025210_CarCreate")]
+    partial class CarCreate
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -23,9 +26,6 @@ namespace web_voyager.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    b.Property<int?>("CarId")
                         .HasColumnType("int");
 
                     b.Property<int?>("FlightId")
@@ -42,8 +42,6 @@ namespace web_voyager.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("CarId");
 
                     b.HasIndex("FlightId");
 
@@ -186,10 +184,6 @@ namespace web_voyager.Migrations
 
             modelBuilder.Entity("web_voyager.Models.Booking", b =>
                 {
-                    b.HasOne("web_voyager.Models.Car", "Car")
-                        .WithMany()
-                        .HasForeignKey("CarId");
-
                     b.HasOne("web_voyager.Models.Flight", "Flight")
                         .WithMany()
                         .HasForeignKey("FlightId");
@@ -203,8 +197,6 @@ namespace web_voyager.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Car");
 
                     b.Navigation("Flight");
 

@@ -23,5 +23,6 @@ public class Hotel
     public required int Price { get; set; }
 
     [Required]
+    [Display(Name = "Rooms Available")]
     public required int RoomsAvailable { get; set; }
 }
