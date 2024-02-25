@@ -1,38 +1,67 @@
 @model List<web_voyager.Models.Car>
-
 @{
     ViewData["Title"] = "Car Rentals";
+    bool searchPerformed = ViewData["searchPerformed"] as bool? ?? false;
+    string searchString = ViewData["searchString"] as string ?? "";
 }
 
-<h2>Car Rentals</h2>
+<h2>Explore Our Car Rentals</h2>
 
-<table class="table">
-    <thead>
-        <tr>
-            <th>Brand</th>
-            <th>Model</th>
-            <th>Location</th>
-            <th>Price Per Day</th>
-            <th>Cars Available</th>
-            <th>Actions</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var car in Model)
-        {
+@if (Model.Any())
+{
+    <div class="table-responsive">
+    <table class="table">
+        <thead>
             <tr>
-                <td>@car.Brand</td>
-                <td>@car.Model</td>
-                <td>@car.Location</td>
-                <td>$@car.PricePerDay</td>
-                <td>@car.CarsAvailable</td>
-                <td>
-                    <a asp-action="Details" asp-route-id="@car.Id" class="btn light-button">View</a>
-                    <a asp-action="Book" asp-route-id="@car.Id" class="btn light-button">Book</a>
-                </td>
+                <th>Brand</th>
+                <th>Model</th>
+                <th>Location</th>
+                <th>Description</th>
+                <th>Price Per Day</th>
+                <th>Cars Available</th>
+                <th>Actions</th>
             </tr>
-        }
-    </tbody>
-</table>
-
-<a asp-action="Create" class="btn btn-success">Add New Car</a>
+        </thead>
+        <tbody>
+            @foreach (var car in Model)
+                {
+                    <tr>
+                        <td>@car.Brand</td>
+                        <td>@car.Model</td>
+                        <td>@car.Location</td>
+                        <td>@car.Description</td>
+                        <td>$@car.PricePerDay</td>
+                        <td>@car.CarsAvailable</td>
+                        <td>
+                            <a asp-controller="Car" asp-action="Details" asp-route-id="@car.Id"
+                                class="btn light-button">Details</a>
+                            @if (@car.CarsAvailable > 0)
+                            {
+                                <a asp-controller="Hotel" asp-action="Booking" asp-route-id="@car.Id"
+                                    class="btn light-button">Rent</a>
+                            }
+                            else
+                            {
+                                <a class="btn light-button disabled">Unavailable</a>
+                            }
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}
+else
+{
+    if (searchPerformed)
+    {
+        <p>No car matches "@searchString".</p>
+    }
+    else
+    {
+        <p>No cars available.</p>
+    }
+}
+<div>
+    <a asp-controller="Car" asp-action="Create" class="btn btn-success">Add New Car</a>
+</div>
