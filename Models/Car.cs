@@ -2,7 +2,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace web_voyager.Models;
 
-public class CarRental
+public class Car
 {
     [Key]
     public int Id { get; set; }
