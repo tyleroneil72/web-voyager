@@ -1,0 +1,40 @@
+@model web_voyager.Models.Booking
+
+@{
+    ViewData["Title"] = "Hotel Booking Confirmation";
+}
+
+<div class="container mt-4">
+    <div class="card">
+        <div class="card-header">
+            <h2>Hotel Booking Confirmation</h2>
+        </div>
+        <div class="card-body">
+            <h3 class="card-title">Your booking has been confirmed! - ID: @Model.Id</h3>
+            @if (Model.Hotel != null)
+            {
+                <p class="card-text"><strong>Hotel:</strong> @Model.Hotel.Name - @Model.Hotel.Location</p>
+                <p class="card-text"><strong>Address:</strong> @Model.Hotel.Address</p>
+                <p class="card-text"><strong>Description:</strong> @Model.Hotel.Description</p>
+                <p class="card-text"><strong>Price per Night:</strong> $@Model.Hotel.Price</p>
+                <p class="card-text"><strong>Rooms Booked:</strong> 1</p> <!-- Adjust based on your model -->
+                <p class="card-text">Please save this information for your records.</p>
+            }
+            else
+            {
+                <p class="card-text">Hotel details are not available.</p>
+            }
+
+            @if (Model.User != null)
+            {
+                <p class="card-text"><strong>Booked by:</strong> @Model.User.Username</p>
+            }
+            else
+            {
+                <p class="card-text">Booking user details are not available.</p>
+            }
+
+            <a asp-action="Index" asp-controller="Hotel" class="btn dark-button">Return to Hotels</a>
+        </div>
+    </div>
+</div>
