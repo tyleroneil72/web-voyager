@@ -23,6 +23,18 @@ public class HotelController : Controller
         return View(_db.Hotels.ToList());
     }
 
+    [HttpGet("Details/{id:int}")]
+    public async Task<IActionResult> Details(int id)
+    {
+        var hotel = await _db.Hotels.FirstOrDefaultAsync(h => h.Id == id);
+        if (hotel == null)
+        {
+            return NotFound();
+        }
+        return View(hotel);
+    }
+
+
     [HttpGet("Search/{searchString?}")]
     public async Task<IActionResult> Search(string searchString)
     {
