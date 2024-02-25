@@ -14,7 +14,6 @@
             <th>Location</th>
             <th>Price Per Day</th>
             <th>Cars Available</th>
-            <th>Seats</th>
             <th>Actions</th>
         </tr>
     </thead>
@@ -27,7 +26,6 @@
                 <td>@car.Location</td>
                 <td>$@car.PricePerDay</td>
                 <td>@car.CarsAvailable</td>
-                <td>@car.Seats</td>
                 <td>
                     <a asp-action="Details" asp-route-id="@car.Id" class="btn light-button">View</a>
                     <a asp-action="Book" asp-route-id="@car.Id" class="btn light-button">Book</a>
