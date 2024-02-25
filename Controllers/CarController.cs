@@ -23,7 +23,7 @@ public class CarController : Controller
     [HttpGet("Details/{id:int}")]
     public async Task<IActionResult> Details(int id)
     {
-        var car = await _db.Hotels.FirstOrDefaultAsync(h => h.Id == id);
+        var car = await _db.Cars.FirstOrDefaultAsync(h => h.Id == id);
         if (car == null)
         {
             return NotFound();
