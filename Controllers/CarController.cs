@@ -63,7 +63,7 @@ public class CarController : Controller
 
     [HttpPost("Edit/{id:int}")]
     [ValidateAntiForgeryToken]
-    public async Task<IActionResult> Edit(int id, [Bind("Id,Brand,Model,Location,Description,PricePerDay,CarsAvailable")] Car car)
+    public async Task<IActionResult> Edit(int id, [Bind("Id,Brand,Model,Location,Description,PricePerDay,Seats,CarsAvailable")] Car car)
     {
         if (id != car.Id)
         {
