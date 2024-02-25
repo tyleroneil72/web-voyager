@@ -143,6 +143,39 @@ public class CarController : Controller
         return View(car);
     }
 
+    [HttpPost("SubmitBooking/{id:int}")]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> SubmitBooking(int id)
+    {
+        // First, find the car based on the ID.
+        var car = await _db.Cars.FindAsync(id);
+        if (car == null)
+        {
+            return NotFound();
+        }
+        var userId = 1; // Guest Id
+
+        var user = await _db.Users.FindAsync(userId);
+        if (user == null)
+        {
+            return NotFound("User not found.");
+        }
+
+        var booking = new Booking
+        {
+            UserId = userId,
+            User = user,
+            CarId = id,
+            Type = "Car",
+        };
+
+        car.CarsAvailable -= 1;
+        _db.Bookings.Add(booking);
+        await _db.SaveChangesAsync();
+
+        return RedirectToAction("BookingConfirmation", new { id = booking.Id });
+    }
+
     [HttpGet("Search/{searchString?}")]
     public async Task<IActionResult> Search(string searchString)
     {
