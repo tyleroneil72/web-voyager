@@ -34,6 +34,26 @@ public class HotelController : Controller
         return View(hotel);
     }
 
+    [HttpGet("Create")]
+    public IActionResult Create()
+    {
+        return View();
+    }
+
+    [HttpPost("Create")]
+    [ValidateAntiForgeryToken]
+    public IActionResult Create(Hotel hotel)
+    {
+        if (ModelState.IsValid)
+        {
+            _db.Hotels.Add(hotel);
+            _db.SaveChanges();
+            return RedirectToAction("Index");
+        }
+        return View(hotel);
+    }
+
+
 
     [HttpGet("Search/{searchString?}")]
     public async Task<IActionResult> Search(string searchString)
