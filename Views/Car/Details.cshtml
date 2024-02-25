@@ -32,7 +32,7 @@
                 <dt class="col-sm-3">Seats</dt>
                 <dd class="col-sm-9">@Model.Seats</dd>
             </dl>
-            <a asp-action="Index" class="btn btn-secondary">Back to List</a>
+            <a asp-action="Index" class="btn light-button">Back to List</a>
             @if (@Model.CarsAvailable > 0)
             {
                 <a asp-controller="Car" asp-action="Booking" asp-route-id="@Model.Id" class="btn light-button">Rent</a>
