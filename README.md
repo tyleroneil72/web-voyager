@@ -13,7 +13,7 @@
 ![AWS](https://img.shields.io/badge/Amazon_AWS-232F3E?style=for-the-badge&logo=amazon-aws&logoColor=white)
 ![Azure](https://img.shields.io/badge/Microsoft_Azure-0089D6?style=for-the-badge&logo=microsoft-azure&logoColor=white)
 
-Visit at <a href="http://web-voyager.azurewebsites.net/" target="_blank">Web Voyager</a>
+Check out [Web Voyager](http://web-voyager.azurewebsites.net/) to explore the platform firsthand.
 
 ## Description
 
