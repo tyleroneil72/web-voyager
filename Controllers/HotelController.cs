@@ -175,7 +175,7 @@ public class HotelController : Controller
             Type = "Hotel",
         };
 
-        // Adjust the hotel's available rooms here
+        hotel.RoomsAvailable -= 1;
 
         _db.Bookings.Add(booking);
         await _db.SaveChangesAsync();
