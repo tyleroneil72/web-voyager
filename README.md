@@ -17,7 +17,15 @@ Visit at <a href="http://web-voyager.azurewebsites.net/" target="_blank">Web Voy
 
 ## Description
 
-Web Voyager Description
+Web Voyager is a comprehensive travel platform designed to simplify the planning process for travelers around the globe. This ASP.NET Core MVC application serves as a one-stop shop for booking flights, hotels, and car rentals, offering users a seamless and intuitive interface to explore a wide range of travel options.
+
+## Features
+
+- Flight Bookings: Browse and book flights to destinations worldwide. The platform allows users to search for flights based on departure, arrival, and dates, providing flexibility and convenience for planning trips.
+
+- Hotel Reservations: Find the perfect accommodation from a vast selection of hotels. Whether you're looking for a luxurious stay or budget-friendly options, Web Voyager helps you secure the best deals.
+
+- Car Rentals: Complete your travel plans with a reliable car rental service. Choose from various car models and pick-up locations to best suit your travel needs.
 
 ## License
 
