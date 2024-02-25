@@ -25,7 +25,7 @@
                 }
                 else
                 {
-                    <a class="btn light-button disabled">Flight Unavailable</a>
+                    <a class="btn light-button disabled">Fully Booked</a>
                 }
                 @* Only Admins should be able to see edit and delete button, Do after Authentication *@
                 <a asp-controller="Flight" asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-secondary">Edit</a>
