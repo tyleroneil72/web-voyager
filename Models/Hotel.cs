@@ -23,8 +23,5 @@ public class Hotel
     public required int Price { get; set; }
 
     [Required]
-    public required int Capacity { get; set; }
-
-    [Required]
     public required int RoomsAvailable { get; set; }
 }
