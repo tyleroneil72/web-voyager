@@ -111,6 +111,31 @@ public class HotelController : Controller
         return View(hotel);
     }
 
+    [HttpPost("DeleteConfirmed/{id:int}"), ActionName("DeleteConfirmed")]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> DeleteConfirmed(int id)
+    {
+        // First, find and delete any hotel bookings related to the hotel
+        // var relatedHotelBookings = _db.HotelBookings.Where(b => b.HotelId == id).ToList();
+        // if (relatedHotelBookings.Any())
+        // {
+        //     _db.HotelBookings.RemoveRange(relatedHotelBookings);
+        //     await _db.SaveChangesAsync(); // Save changes after removing hotel bookings
+        // }
+
+        // Then, find and delete the hotel
+        var hotel = await _db.Hotels.FindAsync(id);
+        if (hotel != null)
+        {
+            _db.Hotels.Remove(hotel);
+            await _db.SaveChangesAsync(); // Save changes after removing the hotel
+            return RedirectToAction("Index");
+        }
+
+        return NotFound();
+    }
+
+
     [HttpGet("Search/{searchString?}")]
     public async Task<IActionResult> Search(string searchString)
     {
