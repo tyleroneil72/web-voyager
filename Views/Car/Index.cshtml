@@ -31,11 +31,11 @@
                         <td>@car.Location</td>
                         <td>@car.Description</td>
                         <td><span class="text-success">$</span>@car.PricePerDay</td>
-                        @if (@car.CarsAvailable <= 5)
+                        @if (@car.CarsAvailable <= 2)
                         {
                             <td class="text-danger">@car.CarsAvailable</td>
                         }
-                        else if (@car.CarsAvailable <= 10)
+                        else if (@car.CarsAvailable <= 5)
                         {
                             <td class="text-warning">@car.CarsAvailable</td>
                         }
