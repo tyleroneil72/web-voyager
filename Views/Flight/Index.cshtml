@@ -45,7 +45,7 @@
                         {
                             <td>@flight.SeatsAvailable</td>
                         }
-                        <td>
+                        <td class="text-nowrap">
                             <a asp-controller="Flight" asp-action="Details" asp-route-id="@flight.Id"
                                 class="btn light-button">View</a>
                             @if (@flight.SeatsAvailable > 0)
