@@ -146,6 +146,44 @@ public class HotelController : Controller
         return View(hotel);
     }
 
+    [HttpPost("SubmitBooking/{id:int}")]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> SubmitBooking(int id)
+    {
+        // First, find the hotel based on the ID.
+        var hotel = await _db.Hotels.FindAsync(id);
+        if (hotel == null)
+        {
+            // If the hotel doesn't exist, return a NotFound result.
+            return NotFound();
+        }
+        var userId = 1; // Guest Id
+
+        // Check if the user exists in the database
+        var user = await _db.Users.FindAsync(userId);
+        if (user == null)
+        {
+            // Handle the case where the user is not found.
+            return NotFound("User not found.");
+        }
+        // Create a new booking object for the hotel.
+        var booking = new Booking
+        {
+            UserId = userId, // Set the user's ID.
+            User = user, // Set the user object.
+            HotelId = id, // Set the hotel's ID.
+            Type = "Hotel",
+        };
+
+        // Adjust the hotel's available rooms here
+
+        _db.Bookings.Add(booking);
+        await _db.SaveChangesAsync();
+
+        return RedirectToAction("BookingConfirmation", new { id = booking.Id });
+    }
+
+
     [HttpGet("Search/{searchString?}")]
     public async Task<IActionResult> Search(string searchString)
     {
