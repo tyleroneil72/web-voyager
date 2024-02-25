@@ -113,12 +113,12 @@ public class CarController : Controller
     public async Task<IActionResult> DeleteConfirmed(int id)
     {
         // First, find and delete any car bookings related to the car
-        // var relatedCarBookings = _db.Cars.Where(b => b.CarId == id).ToList();
-        // if (relatedCarBookings.Any())
-        // {
-        //     _db.Bookings.RemoveRange(relatedCarBookings);
-        //     await _db.SaveChangesAsync(); // Save changes after removing car bookings
-        // }
+        var relatedBookings = _db.Bookings.Where(b => b.CarId == id).ToList();
+        if (relatedBookings.Any())
+        {
+            _db.Bookings.RemoveRange(relatedBookings);
+            await _db.SaveChangesAsync(); // Save changes after removing bookings
+        }
 
         // Then, find and delete the car
         var car = await _db.Cars.FindAsync(id);
