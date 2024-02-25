@@ -97,6 +97,16 @@ public class CarController : Controller
         return _db.Cars.Any(e => e.Id == id);
     }
 
+    [HttpGet("Delete/{id:int}")]
+    public IActionResult Delete(int id)
+    {
+        var car = _db.Cars.FirstOrDefault(f => f.Id == id);
+        if (car == null)
+        {
+            return NotFound();
+        }
+        return View(car);
+    }
 
     [HttpGet("Search/{searchString?}")]
     public async Task<IActionResult> Search(string searchString)
