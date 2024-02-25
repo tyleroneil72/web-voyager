@@ -132,6 +132,16 @@ public class CarController : Controller
         return NotFound();
     }
 
+    [HttpGet("Booking/{id:int}")]
+    public async Task<IActionResult> Booking(int id)
+    {
+        var car = await _db.Cars.FindAsync(id);
+        if (car == null)
+        {
+            return NotFound();
+        }
+        return View(car);
+    }
 
     [HttpGet("Search/{searchString?}")]
     public async Task<IActionResult> Search(string searchString)
