@@ -135,6 +135,16 @@ public class HotelController : Controller
         return NotFound();
     }
 
+    [HttpGet("Booking/{id:int}")]
+    public async Task<IActionResult> Booking(int id)
+    {
+        var hotel = await _db.Hotels.FindAsync(id);
+        if (hotel == null)
+        {
+            return NotFound();
+        }
+        return View(hotel);
+    }
 
     [HttpGet("Search/{searchString?}")]
     public async Task<IActionResult> Search(string searchString)
