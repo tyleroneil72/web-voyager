@@ -19,8 +19,8 @@ public class Booking
     public Flight? Flight { get; set; }
     public int? FlightId { get; set; }
 
-    // public int? HotelId { get; set; }
-    // public Hotel? Hotel { get; set; }
+    public int? HotelId { get; set; }
+    public Hotel? Hotel { get; set; }
 
     // public int? CarId { get; set; }
     // public Car? Car { get; set; }

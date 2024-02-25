@@ -24,12 +24,12 @@ public class FlightController : Controller
     [HttpGet("Details/{id:int}")]
     public IActionResult Details(int id)
     {
-        var project = _db.Flights.FirstOrDefault(f => f.Id == id);
-        if (project == null)
+        var flight = _db.Flights.FirstOrDefault(f => f.Id == id);
+        if (flight == null)
         {
             return NotFound();
         }
-        return View(project);
+        return View(flight);
     }
 
     [HttpGet("Create")]

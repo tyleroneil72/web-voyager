@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using web_voyager.Data;
 
@@ -10,9 +11,11 @@ using web_voyager.Data;
 namespace web_voyager.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240225000308_HotelCreate")]
+    partial class HotelCreate
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -28,9 +31,6 @@ namespace web_voyager.Migrations
                     b.Property<int?>("FlightId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("HotelId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Type")
                         .IsRequired()
                         .HasColumnType("longtext");
@@ -41,8 +41,6 @@ namespace web_voyager.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("FlightId");
-
-                    b.HasIndex("HotelId");
 
                     b.HasIndex("UserId");
 
@@ -91,39 +89,6 @@ namespace web_voyager.Migrations
                     b.ToTable("Flights");
                 });
 
-            modelBuilder.Entity("web_voyager.Models.Hotel", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    b.Property<string>("Address")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("Location")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.Property<int>("Price")
-                        .HasColumnType("int");
-
-                    b.Property<int>("RoomsAvailable")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Hotels");
-                });
-
             modelBuilder.Entity("web_voyager.Models.User", b =>
                 {
                     b.Property<int>("Id")
@@ -149,10 +114,6 @@ namespace web_voyager.Migrations
                         .WithMany()
                         .HasForeignKey("FlightId");
 
-                    b.HasOne("web_voyager.Models.Hotel", "Hotel")
-                        .WithMany()
-                        .HasForeignKey("HotelId");
-
                     b.HasOne("web_voyager.Models.User", "User")
                         .WithMany()
                         .HasForeignKey("UserId")
@@ -160,8 +121,6 @@ namespace web_voyager.Migrations
                         .IsRequired();
 
                     b.Navigation("Flight");
-
-                    b.Navigation("Hotel");
 
                     b.Navigation("User");
                 });
