@@ -18,6 +18,15 @@
             <p class="card-text"><strong>Rooms Available:</strong> @Model.RoomsAvailable</p>
             <div class="mt-3">
                 <a asp-controller="Hotel" asp-action="Index" class="btn light-button">Back To Hotels</a>
+                @if (@Model.RoomsAvailable > 0)
+                {
+                    <a asp-controller="Hotel" asp-action="Booking" asp-route-id="@Model.Id"
+                        class="btn light-button">Book</a>
+                }
+                else
+                {
+                    <a class="btn light-button disabled">Flight Unavailable</a>
+                }
                 @* Only Admins should be able to see edit and delete button, Do after Authentication *@
                 <a asp-controller="Hotel" asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-secondary">Edit</a>
                 <a asp-controller="Hotel" asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-danger">Delete</a>
