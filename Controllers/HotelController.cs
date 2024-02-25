@@ -183,6 +183,20 @@ public class HotelController : Controller
         return RedirectToAction("BookingConfirmation", new { id = booking.Id });
     }
 
+    [HttpGet("BookingConfirmation/{id:int}")]
+    public async Task<IActionResult> BookingConfirmation(int id)
+    {
+        var booking = await _db.Bookings
+                                .Include(b => b.Hotel)
+                                .Include(b => b.User)
+                                .FirstOrDefaultAsync(b => b.Id == id);
+        if (booking == null)
+        {
+            return NotFound();
+        }
+        return View(booking);
+    }
+
 
     [HttpGet("Search/{searchString?}")]
     public async Task<IActionResult> Search(string searchString)
