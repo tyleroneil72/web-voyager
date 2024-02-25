@@ -1,0 +1,27 @@
+@model web_voyager.Models.Hotel
+@{
+    ViewData["Title"] = "Hotel Details";
+}
+
+<div class="container mt-4">
+    <div class="card">
+        <div class="card-header">
+            <h2>@ViewData["Title"]: @Model.Name</h2>
+        </div>
+        <div class="card-body">
+            <h5 class="card-title">@Model.Location</h5>
+            <p class="card-text"><strong>Name:</strong> @Model.Name</p>
+            <p class="card-text"><strong>Location:</strong> @Model.Location</p>
+            <p class="card-text"><strong>Address:</strong> @Model.Address</p>
+            <p class="card-text"><strong>Description:</strong> @Model.Description</p>
+            <p class="card-text"><strong>Price:</strong> $@Model.Price</p>
+            <p class="card-text"><strong>Rooms Available:</strong> @Model.RoomsAvailable</p>
+            <div class="mt-3">
+                <a asp-controller="Hotel" asp-action="Index" class="btn light-button">Back To Hotels</a>
+                @* Only Admins should be able to see edit and delete button, Do after Authentication *@
+                <a asp-controller="Hotel" asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-secondary">Edit</a>
+                <a asp-controller="Hotel" asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-danger">Delete</a>
+            </div>
+        </div>
+    </div>
+</div>
