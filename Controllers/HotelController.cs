@@ -53,7 +53,52 @@ public class HotelController : Controller
         return View(hotel);
     }
 
+    [HttpGet("Edit/{id:int}")]
+    public IActionResult Edit(int id)
+    {
+        var hotel = _db.Hotels.Find(id);
+        if (hotel == null)
+        {
+            return NotFound();
+        }
+        return View(hotel);
+    }
 
+    [HttpPost("Edit/{id:int}")]
+    [ValidateAntiForgeryToken]
+    public IActionResult Edit(int id, [Bind("Id,Name,Location,Address,Description,Price,RoomsAvailable")] Hotel hotel)
+    {
+        if (id != hotel.Id)
+        {
+            return NotFound();
+        }
+        if (ModelState.IsValid)
+        {
+            try
+            {
+                _db.Hotels.Update(hotel);
+                _db.SaveChanges();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!HotelExists(hotel.Id))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+            return RedirectToAction(nameof(Index));
+        }
+        return View(hotel);
+    }
+
+    private bool HotelExists(int id)
+    {
+        return _db.Hotels.Any(e => e.Id == id);
+    }
 
     [HttpGet("Search/{searchString?}")]
     public async Task<IActionResult> Search(string searchString)
