@@ -40,7 +40,7 @@ public class HomeController : Controller
         {
             return Redirect($"/Hotel/Search/{searchString}");
         }
-        else if (searchType == "Cars")
+        else if (searchType == "Car Rentals")
         {
             return Redirect($"/Car/Search/{searchString}");
         }
