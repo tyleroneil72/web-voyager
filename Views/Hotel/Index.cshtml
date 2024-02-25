@@ -43,7 +43,7 @@
                         {
                             <td>@hotel.RoomsAvailable</td>
                         }
-                        <td>
+                        <td class="text-nowrap">
                             <a asp-controller="Hotel" asp-action="Details" asp-route-id="@hotel.Id"
                                 class="btn light-button">View</a>
                             @if (@hotel.RoomsAvailable > 0)
@@ -53,7 +53,8 @@
                             }
                             else
                             {
-                                <a class="btn light-button disabled">Fully Booked</a>
+                                <a asp-controller="Hotel" asp-action="Booking" asp-route-id="@hotel.Id"
+                                    class="btn light-button disabled">Fully Booked</a>
                             }
                         </td>
                     </tr>
