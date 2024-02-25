@@ -50,6 +50,54 @@ public class CarController : Controller
         return View(car);
     }
 
+    [HttpGet("Edit/{id:int}")]
+    public async Task<IActionResult> Edit(int id)
+    {
+        var car = await _db.Cars.FindAsync(id);
+        if (car == null)
+        {
+            return NotFound();
+        }
+        return View(car);
+    }
+
+    [HttpPost("Edit/{id:int}")]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> Edit(int id, [Bind("Id,Brand,Model,Location,Description,PricePerDay,CarsAvailable")] Car car)
+    {
+        if (id != car.Id)
+        {
+            return NotFound();
+        }
+        if (ModelState.IsValid)
+        {
+            try
+            {
+                _db.Update(car);
+                await _db.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!CarExists(car.Id))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+        }
+        return View(car);
+    }
+
+    private bool CarExists(int id)
+    {
+        return _db.Cars.Any(e => e.Id == id);
+    }
+
+
     [HttpGet("Search/{searchString?}")]
     public async Task<IActionResult> Search(string searchString)
     {
