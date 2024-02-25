@@ -20,9 +20,11 @@ public class CarRental
     public required string Description { get; set; }
 
     [Required]
+    [Display(Name = "Price Per Day")]
     public required int PricePerDay { get; set; }
 
     [Required]
+    [Display(Name = "Cars Available")]
     public required int CarsAvailable { get; set; }
 
     [Required]
