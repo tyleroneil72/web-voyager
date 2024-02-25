@@ -30,4 +30,23 @@ public class CarController : Controller
         }
         return View(car);
     }
+
+    [HttpGet("Create")]
+    public IActionResult Create()
+    {
+        return View();
+    }
+
+    [HttpPost("Create")]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> Create(Car car)
+    {
+        if (ModelState.IsValid)
+        {
+            _db.Cars.Add(car);
+            await _db.SaveChangesAsync();
+            return RedirectToAction("Index");
+        }
+        return View(car);
+    }
 }
