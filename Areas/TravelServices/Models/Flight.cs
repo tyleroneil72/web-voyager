@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace web_voyager.Models;
+namespace web_voyager.Areas.TravelServices.Models;
 
 public class Flight
 {

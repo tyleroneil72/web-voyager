@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace web_voyager.Models;
+namespace web_voyager.Areas.TravelServices.Models;
 
 // ID: 1 = Guest, 2 = Admin
 public class User
