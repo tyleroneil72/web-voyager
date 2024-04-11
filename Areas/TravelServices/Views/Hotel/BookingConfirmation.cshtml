@@ -1,4 +1,4 @@
-@model web_voyager.Models.Booking
+@model web_voyager.Areas.TravelServices.Models.Booking
 
 @{
     ViewData["Title"] = "Hotel Booking Confirmation";
@@ -17,7 +17,7 @@
                 <p class="card-text"><strong>Address:</strong> @Model.Hotel.Address</p>
                 <p class="card-text"><strong>Description:</strong> @Model.Hotel.Description</p>
                 <p class="card-text"><strong>Price per Night:</strong> $@Model.Hotel.Price</p>
-                <p class="card-text"><strong>Rooms Booked:</strong> 1</p> 
+                <p class="card-text"><strong>Rooms Booked:</strong> 1</p>
                 <p class="card-text">Please save this information for your records.</p>
             }
             else
