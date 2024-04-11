@@ -5,6 +5,8 @@ using web_voyager.Data;
 using web_voyager.Areas.TravelServices.Models;
 
 namespace web_voyager.Areas.TravelServices.Controllers;
+
+[Area("TravelServices")]
 [Route("Flight")]
 public class FlightController : Controller
 {
