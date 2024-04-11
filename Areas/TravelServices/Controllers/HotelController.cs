@@ -2,9 +2,9 @@ using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using web_voyager.Data;
-using web_voyager.Models;
+using web_voyager.Areas.TravelServices.Models;
 
-namespace web_voyager.Controllers;
+namespace web_voyager.Areas.TravelServices.Controllers;
 
 [Route("Hotel")]
 public class HotelController : Controller
