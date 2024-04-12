@@ -12,14 +12,15 @@ using web_voyager.Data;
 namespace web_voyager.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240412010326_AddIdentity")]
-    partial class AddIdentity
+    [Migration("20240412184238_RenamedIdentityTables")]
+    partial class RenamedIdentityTables
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
+                .HasDefaultSchema("Identity")
                 .HasAnnotation("ProductVersion", "8.0.4")
                 .HasAnnotation("Relational:MaxIdentifierLength", 64);
 
@@ -48,7 +49,7 @@ namespace web_voyager.Migrations
                         .IsUnique()
                         .HasDatabaseName("RoleNameIndex");
 
-                    b.ToTable("AspNetRoles", (string)null);
+                    b.ToTable("Role", "Identity");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -73,7 +74,7 @@ namespace web_voyager.Migrations
 
                     b.HasIndex("RoleId");
 
-                    b.ToTable("AspNetRoleClaims", (string)null);
+                    b.ToTable("RoleClaims", "Identity");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUser", b =>
@@ -137,7 +138,7 @@ namespace web_voyager.Migrations
                         .IsUnique()
                         .HasDatabaseName("UserNameIndex");
 
-                    b.ToTable("AspNetUsers", (string)null);
+                    b.ToTable("User", "Identity");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
@@ -162,16 +163,18 @@ namespace web_voyager.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("AspNetUserClaims", (string)null);
+                    b.ToTable("UserClaims", "Identity");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
                     b.Property<string>("LoginProvider")
-                        .HasColumnType("varchar(255)");
+                        .HasMaxLength(128)
+                        .HasColumnType("varchar(128)");
 
                     b.Property<string>("ProviderKey")
-                        .HasColumnType("varchar(255)");
+                        .HasMaxLength(128)
+                        .HasColumnType("varchar(128)");
 
                     b.Property<string>("ProviderDisplayName")
                         .HasColumnType("longtext");
@@ -184,7 +187,7 @@ namespace web_voyager.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("AspNetUserLogins", (string)null);
+                    b.ToTable("UserLogins", "Identity");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<string>", b =>
@@ -199,7 +202,7 @@ namespace web_voyager.Migrations
 
                     b.HasIndex("RoleId");
 
-                    b.ToTable("AspNetUserRoles", (string)null);
+                    b.ToTable("UserRoles", "Identity");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
@@ -208,17 +211,19 @@ namespace web_voyager.Migrations
                         .HasColumnType("varchar(255)");
 
                     b.Property<string>("LoginProvider")
-                        .HasColumnType("varchar(255)");
+                        .HasMaxLength(128)
+                        .HasColumnType("varchar(128)");
 
                     b.Property<string>("Name")
-                        .HasColumnType("varchar(255)");
+                        .HasMaxLength(128)
+                        .HasColumnType("varchar(128)");
 
                     b.Property<string>("Value")
                         .HasColumnType("longtext");
 
                     b.HasKey("UserId", "LoginProvider", "Name");
 
-                    b.ToTable("AspNetUserTokens", (string)null);
+                    b.ToTable("UserTokens", "Identity");
                 });
 
             modelBuilder.Entity("web_voyager.Areas.TravelServices.Models.Booking", b =>
@@ -238,12 +243,12 @@ namespace web_voyager.Migrations
                     b.Property<int?>("HotelId")
                         .HasColumnType("int");
 
+                    b.Property<int>("OldUId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Type")
                         .IsRequired()
                         .HasColumnType("longtext");
-
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
@@ -253,9 +258,9 @@ namespace web_voyager.Migrations
 
                     b.HasIndex("HotelId");
 
-                    b.HasIndex("UserId");
+                    b.HasIndex("OldUId");
 
-                    b.ToTable("Bookings");
+                    b.ToTable("Bookings", "Identity");
                 });
 
             modelBuilder.Entity("web_voyager.Areas.TravelServices.Models.Car", b =>
@@ -293,7 +298,7 @@ namespace web_voyager.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Cars");
+                    b.ToTable("Cars", "Identity");
                 });
 
             modelBuilder.Entity("web_voyager.Areas.TravelServices.Models.Flight", b =>
@@ -337,7 +342,7 @@ namespace web_voyager.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Flights");
+                    b.ToTable("Flights", "Identity");
                 });
 
             modelBuilder.Entity("web_voyager.Areas.TravelServices.Models.Hotel", b =>
@@ -372,10 +377,10 @@ namespace web_voyager.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Hotels");
+                    b.ToTable("Hotels", "Identity");
                 });
 
-            modelBuilder.Entity("web_voyager.Areas.TravelServices.Models.User", b =>
+            modelBuilder.Entity("web_voyager.Areas.TravelServices.Models.OldU", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -393,7 +398,7 @@ namespace web_voyager.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Users");
+                    b.ToTable("OldUs", "Identity");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -461,9 +466,9 @@ namespace web_voyager.Migrations
                         .WithMany()
                         .HasForeignKey("HotelId");
 
-                    b.HasOne("web_voyager.Areas.TravelServices.Models.User", "User")
+                    b.HasOne("web_voyager.Areas.TravelServices.Models.OldU", "OldU")
                         .WithMany()
-                        .HasForeignKey("UserId")
+                        .HasForeignKey("OldUId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -473,7 +478,7 @@ namespace web_voyager.Migrations
 
                     b.Navigation("Hotel");
 
-                    b.Navigation("User");
+                    b.Navigation("OldU");
                 });
 #pragma warning restore 612, 618
         }

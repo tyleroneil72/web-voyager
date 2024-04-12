@@ -11,10 +11,10 @@ public class Booking
     public required string Type { get; set; }
 
     [Required]
-    public required User User { get; set; }
+    public required OldU OldU { get; set; }
 
     [Required]
-    public required int UserId { get; set; }
+    public required int OldUId { get; set; }
 
     public Flight? Flight { get; set; }
     public int? FlightId { get; set; }

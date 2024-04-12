@@ -1,3 +1,8 @@
+@using Microsoft.AspNetCore.Identity
+@using web_voyager.Areas.TravelServices.Models;
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+
 <nav class="navbar navbar-expand-md navbar-toggleable-md navbar-light bg-white border-bottom box-shadow mb-3">
     <div class="container-fluid">
         <a class="navbar-brand home-link" asp-area="" asp-controller="Home" asp-action="Index">
@@ -30,15 +35,15 @@
                             asp-action="Index"><i class="fa-solid fa-plane me-1"></i>Flights</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-dark" asp-area="TravelServices" asp-controller="Hotel"
-                            class="fa-solid fa-hotel me-1"></i>Hotels</a>
+                        <a class="nav-link text-dark" asp-area="TravelServices" asp-controller="Hotel"><i
+                                class="fa-solid fa-hotel me-1"></i>Hotels</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-dark" asp-area="TravelServices" asp-controller="Car"
-                            class="fa-solid fa-car me-1"></i>Car Rentals</a>
+                        <a class="nav-link text-dark" asp-area="TravelServices" asp-controller="Car"> <i
+                                class="fa-solid fa-car me-1"></i>Car Rentals</a>
                     </li>
                     <li class="nav-item">
-                        <button class="btn dark-button not-implemented">Sign in</button>
+                        @await Html.PartialAsync("_LoginPartial")
                     </li>
                 </ul>
             </div>
