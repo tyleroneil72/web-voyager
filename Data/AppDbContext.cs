@@ -1,9 +1,11 @@
 using Microsoft.EntityFrameworkCore;
 using web_voyager.Areas.TravelServices.Models;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
 
 namespace web_voyager.Data;
 
-public class AppDbContext : DbContext
+public class AppDbContext : IdentityDbContext
 {
     public DbSet<User> Users { get; set; }
     public DbSet<Flight> Flights { get; set; }
