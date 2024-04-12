@@ -18,7 +18,10 @@ builder.Services.AddDbContext<AppDbContext>(options =>
         mySqlOptions => mySqlOptions.SchemaBehavior(MySqlSchemaBehavior.Ignore))
 );
 
-builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
+builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options =>
+{
+    options.SignIn.RequireConfirmedAccount = true;
+})
     .AddEntityFrameworkStores<AppDbContext>()
     .AddDefaultUI()
     .AddDefaultTokenProviders();
