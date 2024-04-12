@@ -6,13 +6,12 @@ namespace web_voyager.Areas.TravelServices.Models;
 // ID: 1 = Guest, 2 = Admin
 public class User : IdentityUser
 {
-    [Key]
-    public int Id { get; set; }
-
     [Required]
-    public required string Username { get; set; }
-
+    public required string FirstName { get; set; }
     [Required]
-    public required string Password { get; set; }
+
+    public required string LastName { get; set; }
+
+    public byte[]? ProfilePicture { get; set; }
 
 }
