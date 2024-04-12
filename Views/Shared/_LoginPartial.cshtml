@@ -1,11 +1,17 @@
 @using Microsoft.AspNetCore.Identity
+@using web_voyager.Areas.TravelServices.Models
 
-@inject SignInManager<IdentityUser> SignInManager
-@inject UserManager<IdentityUser> UserManager
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
 
 <ul class="navbar-nav">
     @if (SignInManager.IsSignedIn(User))
     {
+        @if (UserManager.GetUserAsync(User).Result?.ProfilePicture != null)
+        {
+            <img style="width: 40px; height:40px; object-fit:cover; border-radius:20px; margin-right: 2px;"
+                src="data:image/*;base64,@(Convert.ToBase64String(UserManager.GetUserAsync(User).Result?.ProfilePicture))" />
+        }
         <li class="nav-item">
             <a id="manage" class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index"
                 title="Manage">Hello @UserManager.GetUserName(User)!</a>
