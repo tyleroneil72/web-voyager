@@ -1,6 +1,6 @@
 @using Microsoft.AspNetCore.Identity
 @using web_voyager.Areas.TravelServices.Models;
-@inject SignInManager<IdentityUser> SignInManager
+@* @inject SignInManager<IdentityUser> SignInManager *@
 
 <nav class="navbar navbar-expand-md navbar-toggleable-md navbar-light bg-white border-bottom box-shadow mb-3">
     <div class="container-fluid">
@@ -44,34 +44,34 @@
                     @* <li class="nav-item">
                     <button class="btn dark-button not-implemented">Sign in</button>
                     </li> *@
-                    @if (SignInManager.IsSignedIn(User))
+                    @* @if (SignInManager.IsSignedIn(User))
                     {
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index"
-                                title="Manage your account">
-                                <i class="fa fa-user-circle"></i> Profile
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <form asp-area="Identity" asp-page="/Account/Logout" method="post">
-                                <button type="submit" class="nav-link btn btn-link text-dark"
-                                    style="cursor:pointer">Logout</button>
-                            </form>
-                        </li>
+                    <li class="nav-item">
+                    <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index"
+                    title="Manage your account">
+                    <i class="fa fa-user-circle"></i> Profile
+                    </a>
+                    </li>
+                    <li class="nav-item">
+                    <form asp-area="Identity" asp-page="/Account/Logout" method="post">
+                    <button type="submit" class="nav-link btn btn-link text-dark"
+                    style="cursor:pointer">Logout</button>
+                    </form>
+                    </li>
                     }
                     else
                     {
-                        <li class="nav-item">
-                            <a class="btn dark-button mx-2" asp-area="Identity" asp-page="/Account/Login">
-                                <i class="fa fa-sign-in-alt"></i> Login
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="btn dark-button" asp-area="Identity" asp-page="/Account/Register">
-                                <i class="fa fa-user-plus"></i> Register
-                            </a>
-                        </li>
-                    }
+                    <li class="nav-item">
+                    <a class="btn dark-button mx-2" asp-area="Identity" asp-page="/Account/Login">
+                    <i class="fa fa-sign-in-alt"></i> Login
+                    </a>
+                    </li>
+                    <li class="nav-item">
+                    <a class="btn dark-button" asp-area="Identity" asp-page="/Account/Register">
+                    <i class="fa fa-user-plus"></i> Register
+                    </a>
+                    </li>
+                    } *@
                 </ul>
             </div>
         </div>

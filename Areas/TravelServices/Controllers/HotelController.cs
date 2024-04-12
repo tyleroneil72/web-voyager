@@ -158,11 +158,11 @@ public class HotelController : Controller
             // If the hotel doesn't exist, return a NotFound result.
             return NotFound();
         }
-        var userId = 1; // Guest Id
+        var oldUserId = 1; // Guest Id
 
         // Check if the user exists in the database
-        var user = await _db.Users.FindAsync(userId);
-        if (user == null)
+        var oldUser = await _db.OldUs.FindAsync(oldUserId);
+        if (oldUser == null)
         {
             // Handle the case where the user is not found.
             return NotFound("User not found.");
@@ -170,8 +170,8 @@ public class HotelController : Controller
         // Create a new booking object for the hotel.
         var booking = new Booking
         {
-            UserId = userId, // Set the user's ID.
-            User = user, // Set the user object.
+            OldUId = oldUserId, // Set the user's ID.
+            OldU = oldUser, // Set the user object.
             HotelId = id, // Set the hotel's ID.
             Type = "Hotel",
         };
@@ -189,7 +189,7 @@ public class HotelController : Controller
     {
         var booking = await _db.Bookings
                                 .Include(b => b.Hotel)
-                                .Include(b => b.User)
+                                .Include(b => b.OldU)
                                 .FirstOrDefaultAsync(b => b.Id == id);
         if (booking == null)
         {

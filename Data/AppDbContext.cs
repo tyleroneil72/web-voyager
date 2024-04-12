@@ -5,9 +5,9 @@ using Microsoft.AspNetCore.Identity;
 
 namespace web_voyager.Data;
 
-public class AppDbContext : IdentityDbContext<IdentityUser>
+public class AppDbContext : IdentityDbContext
 {
-    public DbSet<User> Users { get; set; }
+    public DbSet<OldU> OldUs { get; set; }
     public DbSet<Flight> Flights { get; set; }
     public DbSet<Hotel> Hotels { get; set; }
     public DbSet<Car> Cars { get; set; }

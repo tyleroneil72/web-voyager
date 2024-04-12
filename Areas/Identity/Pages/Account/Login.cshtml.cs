@@ -14,7 +14,6 @@ using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
-using web_voyager.Areas.TravelServices.Models;
 
 namespace web_voyager.Areas.Identity.Pages.Account
 {

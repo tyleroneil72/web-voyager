@@ -157,10 +157,10 @@ public class FlightController : Controller
             // If the flight doesn't exist, return a NotFound result.
             return NotFound();
         }
-        var userId = 1; // Guest Id
+        var oldUserId = 1; // Guest Id
         // Check if the user exists in the database
-        var user = await _db.Users.FindAsync(userId);
-        if (user == null)
+        var oldUser = await _db.OldUs.FindAsync(oldUserId);
+        if (oldUser == null)
         {
             // Handle the case where the user is not found. Could redirect to login or show an error.
             return NotFound("User not found.");
@@ -168,8 +168,8 @@ public class FlightController : Controller
         // Create a new booking object.
         var booking = new Booking
         {
-            UserId = userId, // Set the user's ID.
-            User = user, // Set the user object.
+            OldUId = oldUserId, // Set the user's ID.
+            OldU = oldUser, // Set the user object.
             FlightId = id, // Set the flight's ID.
             Type = "Flight",
 
@@ -186,7 +186,7 @@ public class FlightController : Controller
     {
         var booking = await _db.Bookings
                                 .Include(b => b.Flight)
-                                .Include(b => b.User)
+                                .Include(b => b.OldU)
                                 .FirstOrDefaultAsync(b => b.Id == id);
         if (booking == null)
         {
