@@ -9,7 +9,7 @@
         </button>
 
         <div class="collapse navbar-collapse">
-            <form class="d-flex search-form" asp-controller="Home" asp-action="GeneralSearch" method="get">
+            <form class="d-flex search-form" asp-area="" asp-controller="Home" asp-action="GeneralSearch" method="get">
                 <input class="form-control me-2" type="text" placeholder="Search" name="searchString">
                 <select class="form-control me-2" name="searchType">
                     <option value="Flights">Flights</option>
@@ -26,16 +26,16 @@
                                 class="fa-solid fa-house me-1"></i>Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-dark" asp-controller="Flight" asp-action="Index"><i
-                                class="fa-solid fa-plane me-1"></i>Flights</a>
+                        <a class="nav-link text-dark" asp-area="TravelServices" asp-controller="Flight"
+                            asp-action="Index"><i class="fa-solid fa-plane me-1"></i>Flights</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-dark" asp-controller="Hotel" asp-action="Index"><i
-                                class="fa-solid fa-hotel me-1"></i>Hotels</a>
+                        <a class="nav-link text-dark" asp-area="TravelServices" asp-controller="Hotel"
+                            class="fa-solid fa-hotel me-1"></i>Hotels</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-dark" asp-controller="Car" asp-action="Index"><i
-                                class="fa-solid fa-car me-1"></i>Car Rentals</a>
+                        <a class="nav-link text-dark" asp-area="TravelServices" asp-controller="Car"
+                            class="fa-solid fa-car me-1"></i>Car Rentals</a>
                     </li>
                     <li class="nav-item">
                         <button class="btn dark-button not-implemented">Sign in</button>

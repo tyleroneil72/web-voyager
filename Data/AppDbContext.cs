@@ -1,5 +1,5 @@
 using Microsoft.EntityFrameworkCore;
-using web_voyager.Models;
+using web_voyager.Areas.TravelServices.Models;
 
 namespace web_voyager.Data;
 
