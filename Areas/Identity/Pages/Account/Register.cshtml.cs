@@ -155,11 +155,11 @@ namespace web_voyager.Areas.Identity.Pages.Account
             return Page();
         }
 
-        private User CreateUser()
+        private IdentityUser CreateUser()
         {
             try
             {
-                return Activator.CreateInstance<User>();
+                return Activator.CreateInstance<IdentityUser>();
             }
             catch
             {
