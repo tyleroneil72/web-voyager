@@ -7,6 +7,7 @@ namespace web_voyager.Data;
 
 public class AppDbContext : IdentityDbContext<IdentityUser>
 {
+    public DbSet<User> Users { get; set; }
     public DbSet<Flight> Flights { get; set; }
     public DbSet<Hotel> Hotels { get; set; }
     public DbSet<Car> Cars { get; set; }
@@ -16,44 +17,44 @@ public class AppDbContext : IdentityDbContext<IdentityUser>
 
     }
 
-    protected override void OnModelCreating(ModelBuilder builder)
-    {
-        base.OnModelCreating(builder);
-        builder.HasDefaultSchema("Identity");
+    // protected override void OnModelCreating(ModelBuilder builder)
+    // {
+    //     base.OnModelCreating(builder);
+    //     builder.HasDefaultSchema("Identity");
 
-        builder.Entity<User>(entity =>
-        {
-            entity.ToTable(name: "User");
-        });
+    //     builder.Entity<User>(entity =>
+    //     {
+    //         entity.ToTable(name: "User");
+    //     });
 
-        builder.Entity<IdentityRole>(entity =>
-        {
-            entity.ToTable(name: "Role");
-        });
+    //     builder.Entity<IdentityRole>(entity =>
+    //     {
+    //         entity.ToTable(name: "Role");
+    //     });
 
-        builder.Entity<IdentityUserRole<string>>(entity =>
-        {
-            entity.ToTable("UserRoles");
-        });
+    //     builder.Entity<IdentityUserRole<string>>(entity =>
+    //     {
+    //         entity.ToTable("UserRoles");
+    //     });
 
-        builder.Entity<IdentityUserClaim<string>>(entity =>
-        {
-            entity.ToTable("UserClaims");
-        });
+    //     builder.Entity<IdentityUserClaim<string>>(entity =>
+    //     {
+    //         entity.ToTable("UserClaims");
+    //     });
 
-        builder.Entity<IdentityUserLogin<string>>(entity =>
-        {
-            entity.ToTable("UserLogins");
-        });
+    //     builder.Entity<IdentityUserLogin<string>>(entity =>
+    //     {
+    //         entity.ToTable("UserLogins");
+    //     });
 
-        builder.Entity<IdentityRoleClaim<string>>(entity =>
-        {
-            entity.ToTable("RoleClaims");
-        });
+    //     builder.Entity<IdentityRoleClaim<string>>(entity =>
+    //     {
+    //         entity.ToTable("RoleClaims");
+    //     });
 
-        builder.Entity<IdentityUserToken<string>>(entity =>
-        {
-            entity.ToTable("UserTokens");
-        });
-    }
+    //     builder.Entity<IdentityUserToken<string>>(entity =>
+    //     {
+    //         entity.ToTable("UserTokens");
+    //     });
+    // }
 }
