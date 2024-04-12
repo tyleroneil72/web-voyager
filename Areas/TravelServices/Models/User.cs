@@ -1,9 +1,10 @@
 using System.ComponentModel.DataAnnotations;
+using Microsoft.AspNetCore.Identity;
 
 namespace web_voyager.Areas.TravelServices.Models;
 
 // ID: 1 = Guest, 2 = Admin
-public class User
+public class User : IdentityUser
 {
     [Key]
     public int Id { get; set; }
