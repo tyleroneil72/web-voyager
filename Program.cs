@@ -24,7 +24,7 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 );
 builder.Services.AddSingleton<IEmailSender, EmailSender>();
 builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true).AddEntityFrameworkStores<AppDbContext>();
-builder.Services.AddScoped<IEmailSender, EmailSender>();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
