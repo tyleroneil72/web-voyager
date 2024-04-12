@@ -1,8 +1,4 @@
-﻿$(document).on("click", ".not-implemented", function () {
-  alert("Not implemented");
-});
-
-$(document).ready(function () {
+﻿$(document).ready(function () {
   let lastScrollTop = 0;
 
   function getNavbarHeight() {
