@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Identity;
 
 namespace web_voyager.Data;
 
-public class AppDbContext : IdentityDbContext<User>
+public class AppDbContext : IdentityDbContext<IdentityUser>
 {
     public DbSet<Flight> Flights { get; set; }
     public DbSet<Hotel> Hotels { get; set; }
