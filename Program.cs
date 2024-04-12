@@ -5,6 +5,11 @@ using Microsoft.AspNetCore.Identity;
 using web_voyager.Services;
 var builder = WebApplication.CreateBuilder(args);
 
+// builder.Services.AddIdentity<User, IdentityRole>()
+//     .AddEntityFrameworkStores<AppDbContext>()
+//     .AddDefaultUI()
+//     .AddDefaultTokenProviders();
+
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 builder.Services.AddRazorPages();
