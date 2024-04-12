@@ -1,3 +1,8 @@
+@using Microsoft.AspNetCore.Identity
+@using web_voyager.Areas.TravelServices.Models;
+@inject SignInManager<User> SignInManager
+@inject UserManager<User> UserManager
+
 <nav class="navbar navbar-expand-md navbar-toggleable-md navbar-light bg-white border-bottom box-shadow mb-3">
     <div class="container-fluid">
         <a class="navbar-brand home-link" asp-area="" asp-controller="Home" asp-action="Index">
