@@ -14,6 +14,7 @@ public class RoleManagerController : Controller
         _roleManager = roleManager;
     }
 
+    [Authorize(Roles = "Admin")]
     public async Task<IActionResult> Index()
     {
         var roles = await _roleManager.Roles.ToListAsync();
