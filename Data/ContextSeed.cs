@@ -10,4 +10,29 @@ public class ContextSeed
         await roleManager.CreateAsync(new IdentityRole(Enum.Roles.Admin.ToString()));
         await roleManager.CreateAsync(new IdentityRole(Enum.Roles.Traveller.ToString()));
     }
+
+    public static async Task SeedAdminAsync(UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager)
+    {
+
+        var adminUser = new ApplicationUser
+        {
+            UserName = "admin@gmail.com",
+            Email = "admin@gmail.com",
+            FirstName = "Web",
+            LastName = "Voyager",
+            EmailConfirmed = true,
+            PhoneNumberConfirmed = true
+        };
+
+        if (userManager.Users.All(u => u.Id != adminUser.Id))
+        {
+            var user = await userManager.FindByEmailAsync(adminUser.Email);
+            if (user == null)
+            {
+                await userManager.CreateAsync(adminUser, "[123Pa$$word.]");
+                await userManager.AddToRoleAsync(adminUser, Enum.Roles.Traveller.ToString());
+                await userManager.AddToRoleAsync(adminUser, Enum.Roles.Admin.ToString());
+            }
+        }
+    }
 }

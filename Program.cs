@@ -57,6 +57,7 @@ try
     var userManager = scope.ServiceProvider.GetRequiredService<UserManager<ApplicationUser>>();
     var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
     await ContextSeed.SeedRolesAsync(userManager, roleManager);
+    await ContextSeed.SeedAdminAsync(userManager, roleManager);
 }
 catch (Exception ex)
 {
