@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using web_voyager.Data;
 using web_voyager.Areas.TravelServices.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace web_voyager.Areas.TravelServices.Controllers;
 
@@ -35,6 +36,7 @@ public class FlightController : Controller
     }
 
     [HttpGet("Create")]
+    [Authorize(Roles = "Admin")]
     public IActionResult Create()
     {
         return View();
@@ -42,6 +44,7 @@ public class FlightController : Controller
 
     [HttpPost("Create")]
     [ValidateAntiForgeryToken]
+    [Authorize(Roles = "Admin")]
     public IActionResult Create(Flight flight)
     {
         if (ModelState.IsValid)
@@ -54,6 +57,7 @@ public class FlightController : Controller
     }
 
     [HttpGet("Edit/{id:int}")]
+    [Authorize(Roles = "Admin")]
     public IActionResult Edit(int id)
     {
         var flight = _db.Flights.Find(id);
@@ -66,6 +70,7 @@ public class FlightController : Controller
 
     [HttpPost("Edit/{id:int}")]
     [ValidateAntiForgeryToken]
+    [Authorize(Roles = "Admin")]
     public IActionResult Edit(int id, [Bind("Id,Departure,Arrival,DepartureTime,ArrivalTime,Airline,Status,Capacity,SeatsAvailable,Price")] Flight flight)
     {
         if (id != flight.Id)
@@ -101,6 +106,7 @@ public class FlightController : Controller
     }
 
     [HttpGet("Delete/{id:int}")]
+    [Authorize(Roles = "Admin")]
     public IActionResult Delete(int id)
     {
         var flight = _db.Flights.FirstOrDefault(f => f.Id == id);
@@ -113,6 +119,7 @@ public class FlightController : Controller
 
     [HttpPost("DeleteConfirmed/{id:int}"), ActionName("DeleteConfirmed")]
     [ValidateAntiForgeryToken]
+    [Authorize(Roles = "Admin")]
     public async Task<IActionResult> DeleteConfirmed(int id)
     {
         // First, find and delete any bookings related to the flight

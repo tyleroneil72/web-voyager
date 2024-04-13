@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using web_voyager.Data;
 using web_voyager.Areas.TravelServices.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace web_voyager.Areas.TravelServices.Controllers;
 
@@ -36,6 +37,7 @@ public class HotelController : Controller
     }
 
     [HttpGet("Create")]
+    [Authorize(Roles = "Admin")]
     public IActionResult Create()
     {
         return View();
@@ -43,6 +45,7 @@ public class HotelController : Controller
 
     [HttpPost("Create")]
     [ValidateAntiForgeryToken]
+    [Authorize(Roles = "Admin")]
     public IActionResult Create(Hotel hotel)
     {
         if (ModelState.IsValid)
@@ -55,6 +58,7 @@ public class HotelController : Controller
     }
 
     [HttpGet("Edit/{id:int}")]
+    [Authorize(Roles = "Admin")]
     public IActionResult Edit(int id)
     {
         var hotel = _db.Hotels.Find(id);
@@ -67,6 +71,7 @@ public class HotelController : Controller
 
     [HttpPost("Edit/{id:int}")]
     [ValidateAntiForgeryToken]
+    [Authorize(Roles = "Admin")]
     public IActionResult Edit(int id, [Bind("Id,Name,Location,Address,Description,Price,RoomsAvailable")] Hotel hotel)
     {
         if (id != hotel.Id)
@@ -102,6 +107,7 @@ public class HotelController : Controller
     }
 
     [HttpGet("Delete/{id:int}")]
+    [Authorize(Roles = "Admin")]
     public IActionResult Delete(int id)
     {
         var hotel = _db.Hotels.FirstOrDefault(h => h.Id == id);
@@ -114,6 +120,7 @@ public class HotelController : Controller
 
     [HttpPost("DeleteConfirmed/{id:int}"), ActionName("DeleteConfirmed")]
     [ValidateAntiForgeryToken]
+    [Authorize(Roles = "Admin")]
     public async Task<IActionResult> DeleteConfirmed(int id)
     {
         // First, find and delete any hotel bookings related to the hotel
