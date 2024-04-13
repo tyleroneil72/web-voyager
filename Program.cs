@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Identity;
 using web_voyager.Services;
 using Pomelo.EntityFrameworkCore.MySql.Infrastructure;
 using Microsoft.AspNetCore.Identity.UI.Services;
+using web_voyager.Models;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -46,6 +47,23 @@ else
 {
     app.UseDeveloperExceptionPage();
 }
+
+using var scope = app.Services.CreateScope();
+var loggerFactory = scope.ServiceProvider.GetRequiredService<ILoggerFactory>();
+
+try
+{
+    AppDbContext context = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+    var userManager = scope.ServiceProvider.GetRequiredService<UserManager<ApplicationUser>>();
+    var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+    await ContextSeed.SeedRolesAsync(userManager, roleManager);
+}
+catch (Exception ex)
+{
+    var logger = loggerFactory.CreateLogger<Program>();
+    logger.LogError(ex, "An error occurred seeding the Roles in the Database");
+}
+
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 
