@@ -23,6 +23,7 @@ namespace web_voyager.Controllers
         {
             return new List<string>(await _userManager.GetRolesAsync(user));
         }
+
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Index()
         {
