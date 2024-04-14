@@ -12,8 +12,8 @@ using web_voyager.Data;
 namespace web_voyager.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240414200633_CancelBookings")]
-    partial class CancelBookings
+    [Migration("20240414210055_Initialize")]
+    partial class Initialize
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
