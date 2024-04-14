@@ -1,0 +1,78 @@
+@page
+@model MyBookingsModel
+@{
+    ViewData["Title"] = "My Bookings";
+}
+
+@if (User.IsInRole("Admin"))
+{
+    <h3>Admin Bookings</h3>
+}
+else
+{
+    <h3>@ViewData["Title"]</h3>
+}
+
+<div class="container mt-4">
+    @if (Model.Bookings.Any())
+    {
+        <div class="row">
+            @foreach (var booking in Model.Bookings)
+            {
+                <div class="col-md-4 mb-4">
+                    <div class="card">
+                        <div class="card-header">
+                            Booking for @booking.Type
+                        </div>
+                        <div class="card-body">
+                            @if (booking.Flight != null)
+                            {
+                                <p>Flight: @booking.Flight.Airline - @booking.Flight.Departure to @booking.Flight.Arrival</p>
+                                if (booking.ApplicationUser != null)
+                                {
+                                    <p><strong>Booked by: </strong> @booking.ApplicationUser.UserName</p>
+                                }
+                                else
+                                {
+                                    <p><strong>Booked by: </strong> Guest</p>
+                                }
+                            }
+                            @if (booking.Hotel != null)
+                            {
+                                <p>Hotel: @booking.Hotel.Name - @booking.Hotel.Location</p>
+                                if (booking.ApplicationUser != null)
+                                {
+                                    <p><strong>Booked by: </strong> @booking.ApplicationUser.UserName</p>
+                                }
+                                else
+                                {
+                                    <p><strong>Booked by: </strong> Guest</p>
+                                }
+                            }
+                            @if (booking.Car != null)
+                            {
+                                <p>Car: @booking.Car.Model - @booking.Car.Model</p>
+                                if (booking.ApplicationUser != null)
+                                {
+                                    <p><strong>Booked by: </strong> @booking.ApplicationUser.UserName</p>
+                                }
+                                else
+                                {
+                                    <p><strong>Booked by: </strong> Guest</p>
+                                }
+                            }
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+    else
+    {
+        <p>No bookings found.</p>
+    }
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
