@@ -74,7 +74,9 @@ else
         <p>No hotels available</p>
     }
 }
-<div>
-    @* Only Admin should see this after auth implemented *@
+@if (User.IsInRole("Admin"))
+{
+    <div>
     <a asp-controller="Hotel" asp-action="Create" class="btn dark-button">Add Hotel</a>
 </div>
+}

@@ -73,6 +73,9 @@ else
         <p>No cars available.</p>
     }
 }
-<div>
+@if (User.IsInRole("Admin"))
+{
+    <div>
     <a asp-controller="Car" asp-action="Create" class="btn dark-button">Add Car</a>
 </div>
+}
