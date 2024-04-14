@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace web_voyager.Migrations
 {
     /// <inheritdoc />
-    public partial class Initial : Migration
+    public partial class Initialize : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -71,6 +71,22 @@ namespace web_voyager.Migrations
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
+                name: "GuestUsers",
+                schema: "Identity",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    Username = table.Column<string>(type: "longtext", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4")
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_GuestUsers", x => x.Id);
+                })
+                .Annotation("MySql:CharSet", "utf8mb4");
+
+            migrationBuilder.CreateTable(
                 name: "Hotels",
                 schema: "Identity",
                 columns: table => new
@@ -95,20 +111,22 @@ namespace web_voyager.Migrations
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
-                name: "OldUs",
+                name: "Reviews",
                 schema: "Identity",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
+                    ReviewId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    Username = table.Column<string>(type: "longtext", nullable: false)
+                    Content = table.Column<string>(type: "varchar(500)", maxLength: 500, nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    Password = table.Column<string>(type: "longtext", nullable: false)
+                    CreatedDate = table.Column<DateTime>(type: "datetime(6)", nullable: false),
+                    ReviewingId = table.Column<int>(type: "int", nullable: false),
+                    ReviewableType = table.Column<string>(type: "longtext", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4")
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_OldUs", x => x.Id);
+                    table.PrimaryKey("PK_Reviews", x => x.ReviewId);
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
@@ -174,51 +192,6 @@ namespace web_voyager.Migrations
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
-                name: "Bookings",
-                schema: "Identity",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    Type = table.Column<string>(type: "longtext", nullable: false)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    OldUId = table.Column<int>(type: "int", nullable: false),
-                    FlightId = table.Column<int>(type: "int", nullable: true),
-                    HotelId = table.Column<int>(type: "int", nullable: true),
-                    CarId = table.Column<int>(type: "int", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Bookings", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Bookings_Cars_CarId",
-                        column: x => x.CarId,
-                        principalSchema: "Identity",
-                        principalTable: "Cars",
-                        principalColumn: "Id");
-                    table.ForeignKey(
-                        name: "FK_Bookings_Flights_FlightId",
-                        column: x => x.FlightId,
-                        principalSchema: "Identity",
-                        principalTable: "Flights",
-                        principalColumn: "Id");
-                    table.ForeignKey(
-                        name: "FK_Bookings_Hotels_HotelId",
-                        column: x => x.HotelId,
-                        principalSchema: "Identity",
-                        principalTable: "Hotels",
-                        principalColumn: "Id");
-                    table.ForeignKey(
-                        name: "FK_Bookings_OldUs_OldUId",
-                        column: x => x.OldUId,
-                        principalSchema: "Identity",
-                        principalTable: "OldUs",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                })
-                .Annotation("MySql:CharSet", "utf8mb4");
-
-            migrationBuilder.CreateTable(
                 name: "RoleClaims",
                 schema: "Identity",
                 columns: table => new
@@ -242,6 +215,59 @@ namespace web_voyager.Migrations
                         principalTable: "Role",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                })
+                .Annotation("MySql:CharSet", "utf8mb4");
+
+            migrationBuilder.CreateTable(
+                name: "Bookings",
+                schema: "Identity",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    Type = table.Column<string>(type: "longtext", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    GuestUserId = table.Column<int>(type: "int", nullable: true),
+                    ApplicationUserId = table.Column<string>(type: "varchar(255)", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    FlightId = table.Column<int>(type: "int", nullable: true),
+                    HotelId = table.Column<int>(type: "int", nullable: true),
+                    CarId = table.Column<int>(type: "int", nullable: true),
+                    IsCancelled = table.Column<bool>(type: "tinyint(1)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Bookings", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Bookings_Cars_CarId",
+                        column: x => x.CarId,
+                        principalSchema: "Identity",
+                        principalTable: "Cars",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_Bookings_Flights_FlightId",
+                        column: x => x.FlightId,
+                        principalSchema: "Identity",
+                        principalTable: "Flights",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_Bookings_GuestUsers_GuestUserId",
+                        column: x => x.GuestUserId,
+                        principalSchema: "Identity",
+                        principalTable: "GuestUsers",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_Bookings_Hotels_HotelId",
+                        column: x => x.HotelId,
+                        principalSchema: "Identity",
+                        principalTable: "Hotels",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_Bookings_User_ApplicationUserId",
+                        column: x => x.ApplicationUserId,
+                        principalSchema: "Identity",
+                        principalTable: "User",
+                        principalColumn: "Id");
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
@@ -357,6 +383,12 @@ namespace web_voyager.Migrations
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Bookings_ApplicationUserId",
+                schema: "Identity",
+                table: "Bookings",
+                column: "ApplicationUserId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Bookings_CarId",
                 schema: "Identity",
                 table: "Bookings",
@@ -369,16 +401,16 @@ namespace web_voyager.Migrations
                 column: "FlightId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Bookings_GuestUserId",
+                schema: "Identity",
+                table: "Bookings",
+                column: "GuestUserId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Bookings_HotelId",
                 schema: "Identity",
                 table: "Bookings",
                 column: "HotelId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Bookings_OldUId",
-                schema: "Identity",
-                table: "Bookings",
-                column: "OldUId");
 
             migrationBuilder.CreateIndex(
                 name: "RoleNameIndex",
@@ -433,6 +465,10 @@ namespace web_voyager.Migrations
                 schema: "Identity");
 
             migrationBuilder.DropTable(
+                name: "Reviews",
+                schema: "Identity");
+
+            migrationBuilder.DropTable(
                 name: "RoleClaims",
                 schema: "Identity");
 
@@ -461,11 +497,11 @@ namespace web_voyager.Migrations
                 schema: "Identity");
 
             migrationBuilder.DropTable(
-                name: "Hotels",
+                name: "GuestUsers",
                 schema: "Identity");
 
             migrationBuilder.DropTable(
-                name: "OldUs",
+                name: "Hotels",
                 schema: "Identity");
 
             migrationBuilder.DropTable(

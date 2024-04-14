@@ -238,23 +238,31 @@ namespace web_voyager.Migrations
 
                     MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<string>("ApplicationUserId")
+                        .HasColumnType("varchar(255)");
+
                     b.Property<int?>("CarId")
                         .HasColumnType("int");
 
                     b.Property<int?>("FlightId")
                         .HasColumnType("int");
 
-                    b.Property<int>("GuestUserId")
+                    b.Property<int?>("GuestUserId")
                         .HasColumnType("int");
 
                     b.Property<int?>("HotelId")
                         .HasColumnType("int");
+
+                    b.Property<bool?>("IsCancelled")
+                        .HasColumnType("tinyint(1)");
 
                     b.Property<string>("Type")
                         .IsRequired()
                         .HasColumnType("longtext");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("ApplicationUserId");
 
                     b.HasIndex("CarId");
 
@@ -482,6 +490,10 @@ namespace web_voyager.Migrations
 
             modelBuilder.Entity("web_voyager.Areas.TravelServices.Models.Booking", b =>
                 {
+                    b.HasOne("web_voyager.Areas.TravelServices.Models.ApplicationUser", "ApplicationUser")
+                        .WithMany()
+                        .HasForeignKey("ApplicationUserId");
+
                     b.HasOne("web_voyager.Areas.TravelServices.Models.Car", "Car")
                         .WithMany()
                         .HasForeignKey("CarId");
@@ -492,13 +504,13 @@ namespace web_voyager.Migrations
 
                     b.HasOne("web_voyager.Areas.TravelServices.Models.GuestUser", "GuestUser")
                         .WithMany()
-                        .HasForeignKey("GuestUserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("GuestUserId");
 
                     b.HasOne("web_voyager.Areas.TravelServices.Models.Hotel", "Hotel")
                         .WithMany()
                         .HasForeignKey("HotelId");
+
+                    b.Navigation("ApplicationUser");
 
                     b.Navigation("Car");
 
