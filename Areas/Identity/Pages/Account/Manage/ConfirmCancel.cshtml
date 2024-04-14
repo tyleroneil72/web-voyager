@@ -6,14 +6,42 @@
 
 <h2>@ViewData["Title"]</h2>
 
-<h3>Are you sure you want to cancel this booking?</h3>
-<div>
+@if (Model.Booking?.Type != null)
+{
+    <h3>Are you sure you want to cancel this booking?</h3>
+    <div>
     <h4>Booking Details</h4>
     <p>Type: @Model.Booking.Type</p>
-</div>
+    @if (Model.Booking.Flight != null)
+        {
+            <p>Flight: @Model.Booking.Flight.Airline - @Model.Booking.Flight.Departure to @Model.Booking.Flight.Arrival</p>
+        }
+        else if (Model.Booking.Hotel != null)
+        {
+            <p>Hotel: @Model.Booking.Hotel.Name - @Model.Booking.Hotel.Location</p>
+        }
+        else if (Model.Booking.Car != null)
+        {
+            <p>Car: @Model.Booking.Car.Model - @Model.Booking.Car.Model</p>
+        }
+        @if (Model.Booking?.ApplicationUser != null)
+        {
+            <p><strong>Booked By: </strong> @Model.Booking.ApplicationUser.UserName </p>
+        }
+        else
+        {
+            <p><strong>Booked By: </strong> Guest </p>
+        }
 
-<form method="post">
-    <input type="hidden" name="Booking.Id" value="@Model.Booking.Id" />
+    </div>
+
+    <form method="post">
+    <input type="hidden" name="Booking.Id" value="@Model.Booking?.Id" />
     <button type="submit" class="btn btn-danger">Confirm Cancel</button>
     <a asp-page="./MyBookings" class="btn btn-secondary">Back to List</a>
 </form>
+}
+else
+{
+    <h3>Booking not found.</h3>
+}

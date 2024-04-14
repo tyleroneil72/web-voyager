@@ -45,6 +45,34 @@ public class ConfirmCancelModel : PageModel
             }
 
             booking.IsCancelled = true;  // Mark the booking as canceled
+
+            if (booking.FlightId != null)
+            {
+                var flight = await _context.Flights.FindAsync(booking.FlightId);
+                if (flight != null)
+                {
+                    flight.SeatsAvailable++;
+                }
+            }
+
+            if (booking.HotelId != null)
+            {
+                var hotel = await _context.Hotels.FindAsync(booking.HotelId);
+                if (hotel != null)
+                {
+                    hotel.RoomsAvailable++;
+                }
+            }
+
+            if (booking.CarId != null)
+            {
+                var car = await _context.Cars.FindAsync(booking.CarId);
+                if (car != null)
+                {
+                    car.CarsAvailable++;
+                }
+            }
+
             await _context.SaveChangesAsync();
             return RedirectToPage("./MyBookings");
         }
