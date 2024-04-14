@@ -27,4 +27,6 @@ public class Booking
 
     public int? CarId { get; set; }
     public Car? Car { get; set; }
+
+    public bool? IsCancelled { get; set; }
 }

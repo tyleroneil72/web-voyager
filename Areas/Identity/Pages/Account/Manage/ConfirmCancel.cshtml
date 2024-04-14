@@ -1,0 +1,18 @@
+@page "{bookingId:int}"
+@model ConfirmCancelModel
+@{
+    ViewData["Title"] = "Confirm Cancellation";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<h3>Are you sure you want to cancel this booking?</h3>
+<div>
+    <h4>Booking Details</h4>
+    <p>Type: @Model.Booking.Type</p>
+</div>
+
+<form method="post">
+    <button type="submit" class="btn btn-danger">Confirm Cancel</button>
+    <a asp-page="./MyBookings" class="btn btn-secondary">Back to List</a>
+</form>

@@ -40,7 +40,11 @@ else
                                 if (booking.ApplicationUser != null && (booking.ApplicationUser.Id ==
                                 User.FindFirstValue(ClaimTypes.NameIdentifier)) || User.IsInRole("Admin"))
                                 {
-                                    <button class="btn btn-danger">Cancel Booking</button>
+                                    <form asp-area="Identity" asp-page="/Account/Manage/ConfirmCancel" asp-route-bookingId="@booking.Id"
+                                        method="get">
+                                        <button type="submit" class="btn btn-danger">Cancel Booking</button>
+                                    </form>
+
                                 }
 
                             }
