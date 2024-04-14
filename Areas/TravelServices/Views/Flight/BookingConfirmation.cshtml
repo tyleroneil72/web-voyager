@@ -26,13 +26,13 @@
                 <p class="card-text">Flight details are not available.</p>
             }
 
-            @if (Model.GuestUser != null)
+            @if (User.Identity != null && User.Identity.IsAuthenticated)
             {
-                @* <p class="card-text"><strong>Booked by:</strong> @Model.User.Username</p> *@
+                <p class="card-text"><strong>Booked by:</strong> @User.Identity.Name</p>
             }
             else
             {
-                <p class="card-text">Booking user details are not available.</p>
+                <p class="card-text"><strong>Booked by:</strong> Guest User</p>
             }
 
             <a asp-action="Index" asp-controller="Flight" class="btn dark-button">Return to Flights</a>
