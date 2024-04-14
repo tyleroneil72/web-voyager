@@ -15,7 +15,7 @@ else
 }
 
 <div class="container mt-4">
-    @if (Model.Bookings.Any())
+    @if (Model.Bookings != null && Model.Bookings.Any())
     {
         <div class="row">
             @foreach (var booking in Model.Bookings)
