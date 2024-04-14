@@ -32,16 +32,20 @@
                     </li>
                     <li class="nav-item">
                         <a class="nav-link text-dark" asp-area="TravelServices" asp-controller="Flight"
-                            asp-action="Index"><i class="fa-solid fa-plane me-1"></i>Flights</a>
+                            asp-action="Index"><i class="fa-solid fa-plane me-1"></i>Flights
+                        </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-dark" asp-area="TravelServices" asp-controller="Hotel"><i
-                                class="fa-solid fa-hotel me-1"></i>Hotels</a>
+                        <a class="nav-link text-dark" asp-area="TravelServices" asp-controller="Hotel"
+                            asp-action="Index"><i class="fa-solid fa-hotel me-1"></i>Hotels
+                        </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-dark" asp-area="TravelServices" asp-controller="Car"> <i
-                                class="fa-solid fa-car me-1"></i>Car Rentals</a>
+                        <a class="nav-link text-dark" asp-area="TravelServices" asp-controller="Car" asp-action="Index">
+                            <i class="fa-solid fa-car me-1"></i>Car Rentals
+                        </a>
                     </li>
+
                     <li class="nav-item">
                         @await Html.PartialAsync("_LoginPartial")
                     </li>
