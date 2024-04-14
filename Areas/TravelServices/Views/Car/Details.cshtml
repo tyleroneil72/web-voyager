@@ -1,4 +1,6 @@
 @model web_voyager.Areas.TravelServices.Models.Car
+@using Microsoft.AspNetCore.Identity
+@inject UserManager<ApplicationUser> UserManager
 
 @{
     ViewData["Title"] = "Car Details";
@@ -49,3 +51,30 @@
         </div>
     </div>
 </div>
+
+<div id="carComments" class="mt-3">
+    <h3>Car Reviews</h3>
+    <div id="carReviewsList" class="reviews-container">
+        <!-- Reviews will be loaded here using AJAX -->
+    </div>
+    <form id="carAddReviewForm" class="mt-3">
+        <input type="hidden" name="CarId" value="@Model.Id" />
+        <input type="hidden" name="ReviewableType" value="Car" />
+        @if (User.IsInRole("Traveler") || User.IsInRole("Admin"))
+        {
+            <div class="form-group">
+                <textarea name="Content" class="form-control" placeholder="Add a review..."></textarea>
+            </div>
+            <button type="submit" class="btn btn-success mt-1">Post Review</button>
+        }
+        else
+        {
+            <p>Please <a id="login" asp-area="Identity" asp-page="/Account/Login">sign in</a> to write a review.</p>
+        }
+    </form>
+
+</div>
+
+@section Scripts {
+    <script src="~/js/reviews.js"></script>
+}

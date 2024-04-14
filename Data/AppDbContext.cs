@@ -12,6 +12,7 @@ public class AppDbContext : IdentityDbContext<ApplicationUser>
     public DbSet<Hotel> Hotels { get; set; }
     public DbSet<Car> Cars { get; set; }
     public DbSet<Booking> Bookings { get; set; }
+    public DbSet<Review> Reviews { get; set; }
     public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
     {
 
