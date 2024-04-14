@@ -7,7 +7,7 @@ namespace web_voyager.Data;
 
 public class AppDbContext : IdentityDbContext<ApplicationUser>
 {
-    public DbSet<OldU> OldUs { get; set; }
+    public DbSet<GuestUser> GuestUsers { get; set; }
     public DbSet<Flight> Flights { get; set; }
     public DbSet<Hotel> Hotels { get; set; }
     public DbSet<Car> Cars { get; set; }

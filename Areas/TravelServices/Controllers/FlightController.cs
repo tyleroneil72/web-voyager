@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using web_voyager.Data;
 using web_voyager.Areas.TravelServices.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace web_voyager.Areas.TravelServices.Controllers;
 
@@ -35,6 +36,7 @@ public class FlightController : Controller
     }
 
     [HttpGet("Create")]
+    [Authorize(Roles = "Admin")]
     public IActionResult Create()
     {
         return View();
@@ -42,6 +44,7 @@ public class FlightController : Controller
 
     [HttpPost("Create")]
     [ValidateAntiForgeryToken]
+    [Authorize(Roles = "Admin")]
     public IActionResult Create(Flight flight)
     {
         if (ModelState.IsValid)
@@ -54,6 +57,7 @@ public class FlightController : Controller
     }
 
     [HttpGet("Edit/{id:int}")]
+    [Authorize(Roles = "Admin")]
     public IActionResult Edit(int id)
     {
         var flight = _db.Flights.Find(id);
@@ -66,6 +70,7 @@ public class FlightController : Controller
 
     [HttpPost("Edit/{id:int}")]
     [ValidateAntiForgeryToken]
+    [Authorize(Roles = "Admin")]
     public IActionResult Edit(int id, [Bind("Id,Departure,Arrival,DepartureTime,ArrivalTime,Airline,Status,Capacity,SeatsAvailable,Price")] Flight flight)
     {
         if (id != flight.Id)
@@ -101,6 +106,7 @@ public class FlightController : Controller
     }
 
     [HttpGet("Delete/{id:int}")]
+    [Authorize(Roles = "Admin")]
     public IActionResult Delete(int id)
     {
         var flight = _db.Flights.FirstOrDefault(f => f.Id == id);
@@ -113,6 +119,7 @@ public class FlightController : Controller
 
     [HttpPost("DeleteConfirmed/{id:int}"), ActionName("DeleteConfirmed")]
     [ValidateAntiForgeryToken]
+    [Authorize(Roles = "Admin")]
     public async Task<IActionResult> DeleteConfirmed(int id)
     {
         // First, find and delete any bookings related to the flight
@@ -157,10 +164,10 @@ public class FlightController : Controller
             // If the flight doesn't exist, return a NotFound result.
             return NotFound();
         }
-        var oldUserId = 1; // Guest Id
+        var guestUserId = 1; // Guest Id
         // Check if the user exists in the database
-        var oldUser = await _db.OldUs.FindAsync(oldUserId);
-        if (oldUser == null)
+        var guestUser = await _db.GuestUsers.FindAsync(guestUserId);
+        if (guestUser == null)
         {
             // Handle the case where the user is not found. Could redirect to login or show an error.
             return NotFound("User not found.");
@@ -168,8 +175,8 @@ public class FlightController : Controller
         // Create a new booking object.
         var booking = new Booking
         {
-            OldUId = oldUserId, // Set the user's ID.
-            OldU = oldUser, // Set the user object.
+            GuestUserId = guestUserId, // Set the user's ID.
+            GuestUser = guestUser, // Set the user object.
             FlightId = id, // Set the flight's ID.
             Type = "Flight",
 
@@ -186,7 +193,7 @@ public class FlightController : Controller
     {
         var booking = await _db.Bookings
                                 .Include(b => b.Flight)
-                                .Include(b => b.OldU)
+                                .Include(b => b.GuestUser)
                                 .FirstOrDefaultAsync(b => b.Id == id);
         if (booking == null)
         {

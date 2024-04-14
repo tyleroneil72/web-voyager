@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using web_voyager.Data;
 using web_voyager.Areas.TravelServices.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace web_voyager.Areas.TravelServices.Controllers;
 
@@ -34,6 +35,7 @@ public class CarController : Controller
     }
 
     [HttpGet("Create")]
+    [Authorize(Roles = "Admin")]
     public IActionResult Create()
     {
         return View();
@@ -41,6 +43,7 @@ public class CarController : Controller
 
     [HttpPost("Create")]
     [ValidateAntiForgeryToken]
+    [Authorize(Roles = "Admin")]
     public async Task<IActionResult> Create(Car car)
     {
         if (ModelState.IsValid)
@@ -53,6 +56,7 @@ public class CarController : Controller
     }
 
     [HttpGet("Edit/{id:int}")]
+    [Authorize(Roles = "Admin")]
     public async Task<IActionResult> Edit(int id)
     {
         var car = await _db.Cars.FindAsync(id);
@@ -65,6 +69,7 @@ public class CarController : Controller
 
     [HttpPost("Edit/{id:int}")]
     [ValidateAntiForgeryToken]
+    [Authorize(Roles = "Admin")]
     public async Task<IActionResult> Edit(int id, [Bind("Id,Brand,Model,Location,Description,PricePerDay,Seats,CarsAvailable")] Car car)
     {
         if (id != car.Id)
@@ -100,6 +105,7 @@ public class CarController : Controller
     }
 
     [HttpGet("Delete/{id:int}")]
+    [Authorize(Roles = "Admin")]
     public IActionResult Delete(int id)
     {
         var car = _db.Cars.FirstOrDefault(f => f.Id == id);
@@ -112,6 +118,7 @@ public class CarController : Controller
 
     [HttpPost("DeleteConfirmed/{id:int}"), ActionName("DeleteConfirmed")]
     [ValidateAntiForgeryToken]
+    [Authorize(Roles = "Admin")]
     public async Task<IActionResult> DeleteConfirmed(int id)
     {
         // First, find and delete any car bookings related to the car
@@ -155,18 +162,18 @@ public class CarController : Controller
         {
             return NotFound();
         }
-        var oldUserId = 1; // Guest Id
+        var guestUserId = 1; // Guest Id
 
-        var oldUser = await _db.OldUs.FindAsync(oldUserId);
-        if (oldUser == null)
+        var guestUser = await _db.GuestUsers.FindAsync(guestUserId);
+        if (guestUser == null)
         {
             return NotFound("User not found.");
         }
 
         var booking = new Booking
         {
-            OldUId = oldUserId,
-            OldU = oldUser,
+            GuestUserId = guestUserId,
+            GuestUser = guestUser,
             CarId = id,
             Type = "Car",
         };
@@ -183,7 +190,7 @@ public class CarController : Controller
     {
         var booking = await _db.Bookings
                                 .Include(b => b.Car)
-                                .Include(b => b.OldU)
+                                .Include(b => b.GuestUser)
                                 .FirstOrDefaultAsync(b => b.Id == id);
         if (booking == null)
         {
