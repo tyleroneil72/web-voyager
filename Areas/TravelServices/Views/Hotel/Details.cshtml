@@ -27,9 +27,11 @@
                 {
                     <a class="btn light-button disabled">Fully Booked</a>
                 }
-                @* Only Admins should be able to see edit and delete button, Do after Authentication *@
-                <a asp-controller="Hotel" asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-secondary">Edit</a>
-                <a asp-controller="Hotel" asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-danger">Delete</a>
+                @if (User.IsInRole("Admin"))
+                {
+                    <a asp-controller="Hotel" asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-secondary">Edit</a>
+                    <a asp-controller="Hotel" asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-danger">Delete</a>
+                }
             </div>
         </div>
     </div>
