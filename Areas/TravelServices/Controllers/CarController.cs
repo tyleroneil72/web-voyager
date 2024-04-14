@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using web_voyager.Data;
 using web_voyager.Areas.TravelServices.Models;
 using Microsoft.AspNetCore.Authorization;
+using System.Security.Claims;
 
 namespace web_voyager.Areas.TravelServices.Controllers;
 
@@ -162,6 +163,34 @@ public class CarController : Controller
         {
             return NotFound();
         }
+
+        if (User.Identity != null && User.Identity.IsAuthenticated)
+        {
+            // Get the user's ID
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            // Check if the user exists in the database
+            var user = await _db.Users.FindAsync(userId);
+            if (user == null)
+            {
+                // Handle the case where the user is not found. Could redirect to login or show an error.
+                return NotFound("User not found.");
+            }
+            // Create a new booking object.
+            var newBooking = new Booking
+            {
+                ApplicationUserId = userId, // Set the user's ID.
+                ApplicationUser = user, // Set the user object.
+                CarId = id, // Set the Cars ID
+                Type = "Car",
+            };
+            car.CarsAvailable -= 1;
+            _db.Bookings.Add(newBooking);
+            await _db.SaveChangesAsync();
+
+            return RedirectToAction("BookingConfirmation", new { id = newBooking.Id });
+        }
+
+
         var guestUserId = 1; // Guest Id
 
         var guestUser = await _db.GuestUsers.FindAsync(guestUserId);
