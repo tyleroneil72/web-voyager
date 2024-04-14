@@ -8,7 +8,7 @@ public class ContextSeed
     public static async Task SeedRolesAsync(UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager)
     {
         await roleManager.CreateAsync(new IdentityRole(Enum.Roles.Admin.ToString()));
-        await roleManager.CreateAsync(new IdentityRole(Enum.Roles.Traveller.ToString()));
+        await roleManager.CreateAsync(new IdentityRole(Enum.Roles.Traveler.ToString()));
     }
 
     public static async Task SeedAdminAsync(UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager)
@@ -30,7 +30,7 @@ public class ContextSeed
             if (user == null)
             {
                 await userManager.CreateAsync(adminUser, "[123Pa$$word.]");
-                await userManager.AddToRoleAsync(adminUser, Enum.Roles.Traveller.ToString());
+                await userManager.AddToRoleAsync(adminUser, Enum.Roles.Traveler.ToString());
                 await userManager.AddToRoleAsync(adminUser, Enum.Roles.Admin.ToString());
             }
         }
