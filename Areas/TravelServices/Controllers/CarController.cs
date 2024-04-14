@@ -162,18 +162,18 @@ public class CarController : Controller
         {
             return NotFound();
         }
-        var oldUserId = 1; // Guest Id
+        var guestUserId = 1; // Guest Id
 
-        var oldUser = await _db.OldUs.FindAsync(oldUserId);
-        if (oldUser == null)
+        var guestUser = await _db.OldUs.FindAsync(guestUserId);
+        if (guestUser == null)
         {
             return NotFound("User not found.");
         }
 
         var booking = new Booking
         {
-            OldUId = oldUserId,
-            OldU = oldUser,
+            GuestUserId = guestUserId,
+            GuestUser = guestUser,
             CarId = id,
             Type = "Car",
         };
@@ -190,7 +190,7 @@ public class CarController : Controller
     {
         var booking = await _db.Bookings
                                 .Include(b => b.Car)
-                                .Include(b => b.OldU)
+                                .Include(b => b.GuestUser)
                                 .FirstOrDefaultAsync(b => b.Id == id);
         if (booking == null)
         {
