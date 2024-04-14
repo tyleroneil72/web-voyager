@@ -10,11 +10,14 @@ public class Booking
     [Required]
     public required string Type { get; set; }
 
-    [Required]
-    public required GuestUser GuestUser { get; set; }
 
-    [Required]
-    public required int GuestUserId { get; set; }
+    public GuestUser? GuestUser { get; set; }
+
+    public int? GuestUserId { get; set; }
+
+    public ApplicationUser? ApplicationUser { get; set; }
+
+    public string? ApplicationUserId { get; set; }
 
     public Flight? Flight { get; set; }
     public int? FlightId { get; set; }
