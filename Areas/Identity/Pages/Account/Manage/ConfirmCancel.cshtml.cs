@@ -31,14 +31,27 @@ public class ConfirmCancelModel : PageModel
 
     public async Task<IActionResult> OnPostAsync()
     {
-        var booking = await _context.Bookings.FindAsync(Booking.Id);
-        if (booking == null)
+        try
         {
-            return NotFound();
-        }
+            if (Booking == null || Booking.Id == 0)
+            {
+                return NotFound("Booking not found or ID not provided.");
+            }
 
-        booking.IsCancelled = true;  // Mark the booking as canceled
-        await _context.SaveChangesAsync();
-        return RedirectToPage("./BookingsList");  // Redirect to the bookings list or another appropriate page
+            var booking = await _context.Bookings.FindAsync(Booking.Id);
+            if (booking == null)
+            {
+                return NotFound("Booking not found.");
+            }
+
+            booking.IsCancelled = true;  // Mark the booking as canceled
+            await _context.SaveChangesAsync();
+            return RedirectToPage("./MyBookings");
+        }
+        catch (Exception ex)
+        {
+            // Log the exception (consider using a logging framework or the built-in logger)
+            return StatusCode(500, "Internal server error: " + ex.Message);
+        }
     }
 }

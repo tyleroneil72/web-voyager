@@ -32,6 +32,7 @@ public class MyBookingsModel : PageModel
                                     .Include(b => b.Hotel)
                                     .Include(b => b.Car)
                                     .Include(b => b.ApplicationUser)
+                                    .Where(b => b.IsCancelled != true)
                                     .ToListAsync();
             }
             else
@@ -42,7 +43,7 @@ public class MyBookingsModel : PageModel
                                     .Include(b => b.Hotel)
                                     .Include(b => b.Car)
                                     .Include(b => b.ApplicationUser)
-                                    .Where(b => b.ApplicationUserId == user.Id)
+                                    .Where(b => b.ApplicationUserId == user.Id && b.IsCancelled != true)
                                     .ToListAsync();
             }
         }

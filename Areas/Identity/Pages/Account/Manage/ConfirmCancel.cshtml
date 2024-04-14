@@ -13,6 +13,7 @@
 </div>
 
 <form method="post">
+    <input type="hidden" name="Booking.Id" value="@Model.Booking.Id" />
     <button type="submit" class="btn btn-danger">Confirm Cancel</button>
     <a asp-page="./MyBookings" class="btn btn-secondary">Back to List</a>
 </form>
