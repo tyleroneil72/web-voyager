@@ -16,7 +16,7 @@ public class MyBookingsModel : PageModel
         _context = context;
     }
 
-    public List<Booking> Bookings { get; set; }
+    public List<Booking>? Bookings { get; set; }
 
     public async Task OnGetAsync()
     {
