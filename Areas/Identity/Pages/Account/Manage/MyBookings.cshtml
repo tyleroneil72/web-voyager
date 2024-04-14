@@ -1,4 +1,5 @@
 @page
+@using System.Security.Claims
 @model MyBookingsModel
 @{
     ViewData["Title"] = "My Bookings";
@@ -36,6 +37,12 @@ else
                                 {
                                     <p><strong>Booked by: </strong> Guest</p>
                                 }
+                                if (booking.ApplicationUser != null && (booking.ApplicationUser.Id ==
+                                User.FindFirstValue(ClaimTypes.NameIdentifier)) || User.IsInRole("Admin"))
+                                {
+                                    <button class="btn btn-danger">Cancel Booking</button>
+                                }
+
                             }
                             @if (booking.Hotel != null)
                             {
@@ -48,6 +55,11 @@ else
                                 {
                                     <p><strong>Booked by: </strong> Guest</p>
                                 }
+                                if (booking.ApplicationUser != null && (booking.ApplicationUser.Id ==
+                                User.FindFirstValue(ClaimTypes.NameIdentifier)) || User.IsInRole("Admin"))
+                                {
+                                    <button class="btn btn-danger">Cancel Booking</button>
+                                }
                             }
                             @if (booking.Car != null)
                             {
@@ -59,6 +71,11 @@ else
                                 else
                                 {
                                     <p><strong>Booked by: </strong> Guest</p>
+                                }
+                                if (booking.ApplicationUser != null && (booking.ApplicationUser.Id ==
+                                User.FindFirstValue(ClaimTypes.NameIdentifier)) || User.IsInRole("Admin"))
+                                {
+                                    <button class="btn btn-danger">Cancel Booking</button>
                                 }
                             }
                         </div>
