@@ -168,7 +168,7 @@ public class HotelController : Controller
         var guestUserId = 1; // Guest Id
 
         // Check if the user exists in the database
-        var guestUser = await _db.OldUs.FindAsync(guestUserId);
+        var guestUser = await _db.GuestUsers.FindAsync(guestUserId);
         if (guestUser == null)
         {
             // Handle the case where the user is not found.

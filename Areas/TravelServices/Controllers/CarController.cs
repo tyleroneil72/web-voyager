@@ -164,7 +164,7 @@ public class CarController : Controller
         }
         var guestUserId = 1; // Guest Id
 
-        var guestUser = await _db.OldUs.FindAsync(guestUserId);
+        var guestUser = await _db.GuestUsers.FindAsync(guestUserId);
         if (guestUser == null)
         {
             return NotFound("User not found.");
