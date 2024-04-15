@@ -1,6 +1,9 @@
 $("#ajaxSearchButtonCar").click(function (e) {
   e.preventDefault();
-  var searchString = $("#ajaxSearchStringCar").val();
+  var searchString = $("#ajaxSearchStringCar").val().trim();
+  if (searchString === "") {
+    return;
+  }
   $("#loader").show();
 
   setTimeout(function () {
@@ -28,7 +31,10 @@ $("#ajaxSearchButtonCar").click(function (e) {
 
 $("#ajaxSearchButtonHotel").click(function (e) {
   e.preventDefault();
-  var searchString = $("#ajaxSearchStringHotel").val();
+  var searchString = $("#ajaxSearchStringHotel").val().trim();
+  if (searchString === "") {
+    return;
+  }
   $("#loader").show();
 
   setTimeout(function () {
@@ -56,7 +62,10 @@ $("#ajaxSearchButtonHotel").click(function (e) {
 
 $("#ajaxSearchButtonFlight").click(function (e) {
   e.preventDefault();
-  var searchString = $("#ajaxSearchStringFlight").val();
+  var searchString = $("#ajaxSearchStringFlight").val().trim();
+  if (searchString === "") {
+    return;
+  }
   $("#loader").show();
 
   setTimeout(function () {
