@@ -1,6 +1,8 @@
 @model List<web_voyager.Areas.TravelServices.Models.Flight>
 
-<table class="table">
+@if (Model.Any())
+{
+    <table class="table">
     <thead>
         <tr>
             <th>Departure</th>
@@ -15,29 +17,34 @@
     </thead>
     <tbody>
         @foreach (var flight in Model)
-        {
-            <tr>
-                <td>@flight.Departure</td>
-                <td>@flight.Arrival</td>
-                <td>@flight.DepartureTime.ToString("MM/dd/yyyy HH:mm")</td>
-                <td>@flight.ArrivalTime.ToString("MM/dd/yyyy HH:mm")</td>
-                <td>@flight.Airline</td>
-                <td><span class="text-success">$</span>@flight.Price</td>
-                <td>@flight.SeatsAvailable</td>
-                <td>
-                    <a asp-area="TravelServices" asp-controller="Flight" asp-action="Details" asp-route-id="@flight.Id"
-                        class="btn light-button">View</a>
-                    @if (flight.SeatsAvailable > 0)
-                    {
-                        <a asp-area="TravelServices" asp-controller="Flight" asp-action="Booking" asp-route-id="@flight.Id"
-                            class="btn light-button">Book</a>
-                    }
-                    else
-                    {
-                        <button class="btn light-button disabled">Fully Booked</button>
-                    }
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
+            {
+                <tr>
+                    <td>@flight.Departure</td>
+                    <td>@flight.Arrival</td>
+                    <td>@flight.DepartureTime.ToString("MM/dd/yyyy HH:mm")</td>
+                    <td>@flight.ArrivalTime.ToString("MM/dd/yyyy HH:mm")</td>
+                    <td>@flight.Airline</td>
+                    <td><span class="text-success">$</span>@flight.Price</td>
+                    <td>@flight.SeatsAvailable</td>
+                    <td>
+                        <a asp-area="TravelServices" asp-controller="Flight" asp-action="Details" asp-route-id="@flight.Id"
+                            class="btn light-button">View</a>
+                        @if (flight.SeatsAvailable > 0)
+                        {
+                            <a asp-area="TravelServices" asp-controller="Flight" asp-action="Booking" asp-route-id="@flight.Id"
+                                class="btn light-button">Book</a>
+                        }
+                        else
+                        {
+                            <button class="btn light-button disabled">Fully Booked</button>
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p>No flight matches "@ViewData["ajaxSearchString"]".</p>
+}

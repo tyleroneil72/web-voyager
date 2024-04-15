@@ -371,6 +371,7 @@ public class CarController : Controller
                                              c.Description.Contains(searchString));
         }
         var cars = await carsQuery.ToListAsync();
+        ViewData["ajaxSearchString"] = searchString;
         return PartialView("_CarResultsPartial", cars);
     }
 }

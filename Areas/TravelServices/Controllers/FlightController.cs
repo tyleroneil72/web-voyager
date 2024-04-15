@@ -373,6 +373,7 @@ public class FlightController : Controller
                                                    f.Airline.Contains(searchString));
         }
         var flights = await flightsQuery.ToListAsync();
+        ViewData["ajaxSearchString"] = searchString;
         return PartialView("_FlightResultsPartial", flights);
     }
 

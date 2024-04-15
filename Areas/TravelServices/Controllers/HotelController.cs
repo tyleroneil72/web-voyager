@@ -379,6 +379,7 @@ public class HotelController : Controller
                                                  h.Description.Contains(searchString));
         }
         var hotels = await hotelsQuery.ToListAsync();
+        ViewData["ajaxSearchString"] = searchString;
         return PartialView("_HotelResultsPartial", hotels);
     }
 
