@@ -26,15 +26,15 @@
                 <td>@flight.SeatsAvailable</td>
                 <td>
                     <a asp-area="TravelServices" asp-controller="Flight" asp-action="Details" asp-route-id="@flight.Id"
-                        class="btn btn-primary">View</a>
+                        class="btn light-button">View</a>
                     @if (flight.SeatsAvailable > 0)
                     {
                         <a asp-area="TravelServices" asp-controller="Flight" asp-action="Booking" asp-route-id="@flight.Id"
-                            class="btn btn-success">Book</a>
+                            class="btn light-button">Book</a>
                     }
                     else
                     {
-                        <button class="btn btn-secondary disabled">Fully Booked</button>
+                        <button class="btn light-button disabled">Fully Booked</button>
                     }
                 </td>
             </tr>
