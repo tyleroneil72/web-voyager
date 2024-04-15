@@ -1,0 +1,41 @@
+@model List<web_voyager.Areas.TravelServices.Models.Car>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Brand</th>
+            <th>Model</th>
+            <th>Location</th>
+            <th>Description</th>
+            <th>Price Per Day</th>
+            <th>Cars Available</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var car in Model)
+        {
+            <tr>
+                <td>@car.Brand</td>
+                <td>@car.Model</td>
+                <td>@car.Location</td>
+                <td>@car.Description</td>
+                <td>$@car.PricePerDay</td>
+                <td>@car.CarsAvailable</td>
+                <td>
+                    <a asp-area="TravelServices" asp-controller="Car" asp-action="Details" asp-route-id="@car.Id"
+                        class="btn btn-primary">View</a>
+                    @if (car.CarsAvailable > 0)
+                    {
+                        <a asp-area="TravelServices" asp-controller="Car" asp-action="Booking" asp-route-id="@car.Id"
+                            class="btn btn-success">Rent</a>
+                    }
+                    else
+                    {
+                        <button class="btn btn-secondary disabled">Unavailable</button>
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
