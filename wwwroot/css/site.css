@@ -209,4 +209,13 @@ body {
 .info-text a:hover {
   text-decoration: underline;
 }
+
+.nav-pills .nav-link.active, .nav-pills .show>.nav-link {
+  color: #fff; 
+  background-color: rgb(99, 102, 241); 
+}
+
+.nav-pills .nav-link {
+  color: rgb(59, 62, 161);
+}
 /* End of wwwroot/css/site.css */
