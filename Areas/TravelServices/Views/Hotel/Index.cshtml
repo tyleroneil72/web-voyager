@@ -7,17 +7,15 @@
 
 <h2>Discover Our Hotels</h2>
 
-<div class="row">
-    <div class="col-12">
-        <div class="input-group">
-            <input type="text" name="searchString" class="form-control" placeholder="Search for hotels..."
-                aria-label="Search for hotels">
-            <div class="input-group-append">
-                <button class="btn dark-button">Search</button>
-            </div>
-        </div>
+<div class="input-group">
+    <input type="text" name="searchString" id="ajaxSearchStringHotel" class="form-control"
+        placeholder="Search for hotels..." aria-label="Search for hotels">
+    <div class="input-group-append">
+        <button id="ajaxSearchButtonHotel" class="btn dark-button">Search</button>
     </div>
 </div>
+<div id="ajaxSearchResults"></div>
+
 
 @if (Model.Any())
 {

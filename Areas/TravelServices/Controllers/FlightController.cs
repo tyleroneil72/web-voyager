@@ -360,4 +360,20 @@ public class FlightController : Controller
             return View(null);
         }
     }
+
+    [HttpGet("AjaxSearch")]
+    public async Task<IActionResult> AjaxSearch(string searchString)
+    {
+        var flightsQuery = from f in _db.Flights
+                           select f;
+        if (!String.IsNullOrEmpty(searchString))
+        {
+            flightsQuery = flightsQuery.Where(f => f.Departure.Contains(searchString) ||
+                                                   f.Arrival.Contains(searchString) ||
+                                                   f.Airline.Contains(searchString));
+        }
+        var flights = await flightsQuery.ToListAsync();
+        return PartialView("_FlightResultsPartial", flights);
+    }
+
 }
