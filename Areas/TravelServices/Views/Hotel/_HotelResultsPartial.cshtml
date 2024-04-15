@@ -1,0 +1,48 @@
+@model List<web_voyager.Areas.TravelServices.Models.Hotel>
+
+@if (Model.Any())
+{
+    <table class="table">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Location</th>
+            <th>Address</th>
+            <th>Description</th>
+            <th>Price</th>
+            <th>Rooms Available</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var hotel in Model)
+            {
+                <tr>
+                    <td>@hotel.Name</td>
+                    <td>@hotel.Location</td>
+                    <td>@hotel.Address</td>
+                    <td>@hotel.Description</td>
+                    <td><span class="text-success">$</span>@hotel.Price</td>
+                    <td>@hotel.RoomsAvailable</td>
+                    <td>
+                        <a asp-area="TravelServices" asp-controller="Hotel" asp-action="Details" asp-route-id="@hotel.Id"
+                            class="btn light-button">View</a>
+                        @if (hotel.RoomsAvailable > 0)
+                        {
+                            <a asp-area="TravelServices" asp-controller="Hotel" asp-action="Booking" asp-route-id="@hotel.Id"
+                                class="btn light-button">Book</a>
+                        }
+                        else
+                        {
+                            <button class="btn light-button disabled">Fully Booked</button>
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p>No hotel matches "@ViewData["ajaxSearchString"]".</p>
+}

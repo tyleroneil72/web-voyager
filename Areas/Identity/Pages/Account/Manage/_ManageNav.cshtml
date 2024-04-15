@@ -20,6 +20,8 @@
         @if (User.IsInRole("Admin"))
         {
                 <li class="nav-item"><a class="nav-link" id="admin-bookings" asp-page="./MyBookings">Booking Management</a></li>
+                <li class="nav-item"><a class="nav-link" asp-area="" asp-controller="RoleManager">Role Manager</a></li>
+                <li class="nav-item"><a class="nav-link" asp-area="" asp-controller="UserRoles">User Roles</a></li>
         }
         else
         {

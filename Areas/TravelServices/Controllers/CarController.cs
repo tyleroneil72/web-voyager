@@ -358,4 +358,20 @@ public class CarController : Controller
         }
     }
 
+    [HttpGet("AjaxSearch")]
+    public async Task<IActionResult> AjaxSearch(string searchString)
+    {
+        var carsQuery = from c in _db.Cars
+                        select c;
+        if (!String.IsNullOrEmpty(searchString))
+        {
+            carsQuery = carsQuery.Where(c => c.Brand.Contains(searchString) ||
+                                             c.Model.Contains(searchString) ||
+                                             c.Location.Contains(searchString) ||
+                                             c.Description.Contains(searchString));
+        }
+        var cars = await carsQuery.ToListAsync();
+        ViewData["ajaxSearchString"] = searchString;
+        return PartialView("_CarResultsPartial", cars);
+    }
 }

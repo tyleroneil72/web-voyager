@@ -7,6 +7,16 @@
 
 <h2>Explore Our Destinations</h2>
 
+<div class="input-group">
+    <input type="text" name="searchString" id="ajaxSearchStringFlight" class="form-control"
+        placeholder="Search for flights..." aria-label="Search for flights">
+    <div class="input-group-append">
+        <button id="ajaxSearchButtonFlight" class="btn dark-button">Search</button>
+    </div>
+</div>
+<div id="ajaxSearchResults"></div>
+
+
 @if (Model.Any())
 {
     <div class="table-responsive">
@@ -69,11 +79,11 @@ else
 {
     if (searchPerformed)
     {
-        <p>No Flight name with "@searchString"</p>
+        <p class="genericSearch">No flight matches "@searchString".</p>
     }
     else
     {
-        <p>No Flights available</p>
+        <p>No flights available</p>
     }
 }
 @if (User.IsInRole("Admin"))

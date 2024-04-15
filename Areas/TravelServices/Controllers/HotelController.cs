@@ -366,4 +366,21 @@ public class HotelController : Controller
             return View(null);
         }
     }
+
+    [HttpGet("AjaxSearch")]
+    public async Task<IActionResult> AjaxSearch(string searchString)
+    {
+        var hotelsQuery = from h in _db.Hotels
+                          select h;
+        if (!String.IsNullOrEmpty(searchString))
+        {
+            hotelsQuery = hotelsQuery.Where(h => h.Name.Contains(searchString) ||
+                                                 h.Location.Contains(searchString) ||
+                                                 h.Description.Contains(searchString));
+        }
+        var hotels = await hotelsQuery.ToListAsync();
+        ViewData["ajaxSearchString"] = searchString;
+        return PartialView("_HotelResultsPartial", hotels);
+    }
+
 }

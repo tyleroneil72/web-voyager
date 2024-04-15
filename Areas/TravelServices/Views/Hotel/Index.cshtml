@@ -7,6 +7,16 @@
 
 <h2>Discover Our Hotels</h2>
 
+<div class="input-group">
+    <input type="text" name="searchString" id="ajaxSearchStringHotel" class="form-control"
+        placeholder="Search for hotels..." aria-label="Search for hotels">
+    <div class="input-group-append">
+        <button id="ajaxSearchButtonHotel" class="btn dark-button">Search</button>
+    </div>
+</div>
+<div id="ajaxSearchResults"></div>
+
+
 @if (Model.Any())
 {
     <div class="table-responsive">
@@ -67,7 +77,7 @@ else
 {
     if (searchPerformed)
     {
-        <p>No hotel matches "@searchString"</p>
+        <p class="genericSearch">No hotel matches "@searchString".</p>
     }
     else
     {
