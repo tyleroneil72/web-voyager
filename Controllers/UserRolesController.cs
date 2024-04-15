@@ -12,11 +12,13 @@ namespace web_voyager.Controllers
     {
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly RoleManager<IdentityRole> _roleManager;
+        private readonly ILogger<UserRolesController> _logger;
 
-        public UserRolesController(RoleManager<IdentityRole> roleManager, UserManager<ApplicationUser> userManager)
+        public UserRolesController(RoleManager<IdentityRole> roleManager, UserManager<ApplicationUser> userManager, ILogger<UserRolesController> logger)
         {
             _roleManager = roleManager;
             _userManager = userManager;
+            _logger = logger;
         }
 
         private async Task<List<string>> GetUserRolesAsync(ApplicationUser user)
@@ -27,80 +29,110 @@ namespace web_voyager.Controllers
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Index()
         {
-            var users = await _userManager.Users.ToListAsync();
-            var userRolesViewModel = new List<UserRolesViewModel>();
+            _logger.LogInformation("User Roles Index Page Visited");
 
-            foreach (ApplicationUser u in users)
+            try
             {
-                var thisViewModel = new UserRolesViewModel
-                {
-                    UserId = u.Id,
-                    FirstName = u.FirstName,
-                    LastName = u.LastName,
-                    Email = u.Email ?? string.Empty,
-                    Roles = await GetUserRolesAsync(u)
-                };
-                userRolesViewModel.Add(thisViewModel);
-            }
+                var users = await _userManager.Users.ToListAsync();
+                var userRolesViewModel = new List<UserRolesViewModel>();
 
-            return View(userRolesViewModel);
+                foreach (ApplicationUser u in users)
+                {
+                    var thisViewModel = new UserRolesViewModel
+                    {
+                        UserId = u.Id,
+                        FirstName = u.FirstName,
+                        LastName = u.LastName,
+                        Email = u.Email ?? string.Empty,
+                        Roles = await GetUserRolesAsync(u)
+                    };
+                    userRolesViewModel.Add(thisViewModel);
+                }
+
+                return View(userRolesViewModel);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error getting user roles");
+                return RedirectToAction("Error", "Home");
+            }
         }
 
         [HttpGet]
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Manage(string userId)
         {
-            ViewBag.userId = userId;
-            var user = await _userManager.FindByIdAsync(userId);
-            if (user == null)
-            {
-                ViewBag.ErrorMessage = $"User with Id = {userId} cannot be found";
-                return View("NotFound");
-            }
+            _logger.LogInformation("Manage User Roles Page Visited");
 
-            ViewBag.UserName = user.UserName;
-            var userRoles = await _userManager.GetRolesAsync(user);
-            var model = new List<ManageUserRolesViewModel>();
-            foreach (var role in _roleManager.Roles)
+            try
             {
-                var userRolesViewModel = new ManageUserRolesViewModel
+                ViewBag.userId = userId;
+                var user = await _userManager.FindByIdAsync(userId);
+                if (user == null)
                 {
-                    RolesId = role.Id,
-                    RoleName = role.Name ?? "DefaultRoleName",
-                    Selected = userRoles.Contains(role.Name ?? string.Empty)
-                };
-                model.Add(userRolesViewModel);
-            }
+                    ViewBag.ErrorMessage = $"User with Id = {userId} cannot be found";
+                    return View("NotFound");
+                }
 
-            return View(model);
+                ViewBag.UserName = user.UserName;
+                var userRoles = await _userManager.GetRolesAsync(user);
+                var model = new List<ManageUserRolesViewModel>();
+                foreach (var role in _roleManager.Roles)
+                {
+                    var userRolesViewModel = new ManageUserRolesViewModel
+                    {
+                        RolesId = role.Id,
+                        RoleName = role.Name ?? "DefaultRoleName",
+                        Selected = userRoles.Contains(role.Name ?? string.Empty)
+                    };
+                    model.Add(userRolesViewModel);
+                }
+
+                return View(model);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error managing user roles");
+                return RedirectToAction("Error", "Home");
+            }
         }
 
         [HttpPost]
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Manage(List<ManageUserRolesViewModel> model, string userId)
         {
-            var user = await _userManager.FindByIdAsync(userId);
-            if (user == null)
-            {
-                return View();
-            }
+            _logger.LogInformation("Manage User Roles Page Visited");
 
-            var roles = await _userManager.GetRolesAsync(user);
-            var result = await _userManager.RemoveFromRolesAsync(user, roles);
-            if (!result.Succeeded)
+            try
             {
-                ModelState.AddModelError("", "Cannot remove user from roles");
-                return View(model);
-            }
+                var user = await _userManager.FindByIdAsync(userId);
+                if (user == null)
+                {
+                    return View();
+                }
 
-            result = await _userManager.AddToRolesAsync(user, model.Where(x => x.Selected).Select(y => y.RoleName));
-            if (!result.Succeeded)
+                var roles = await _userManager.GetRolesAsync(user);
+                var result = await _userManager.RemoveFromRolesAsync(user, roles);
+                if (!result.Succeeded)
+                {
+                    ModelState.AddModelError("", "Cannot remove user from roles");
+                    return View(model);
+                }
+
+                result = await _userManager.AddToRolesAsync(user, model.Where(x => x.Selected).Select(y => y.RoleName));
+                if (!result.Succeeded)
+                {
+                    ModelState.AddModelError("", "Cannot add user to roles");
+                    return View(model);
+                }
+
+                return RedirectToAction("Index");
+            }
+            catch (Exception ex)
             {
-                ModelState.AddModelError("", "Cannot add user to roles");
-                return View(model);
+                _logger.LogError(ex, "Error managing user roles");
+                return RedirectToAction("Error", "Home");
             }
-
-            return RedirectToAction("Index");
         }
     }
 }

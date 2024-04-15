@@ -14,33 +14,55 @@ public class HotelController : Controller
 {
 
     private readonly AppDbContext _db;
+    private readonly ILogger<HotelController> _logger;
 
-    public HotelController(AppDbContext db)
+    public HotelController(AppDbContext db, ILogger<HotelController> logger)
     {
         _db = db;
+        _logger = logger;
     }
 
     [HttpGet("")]
     public IActionResult Index()
     {
-        return View(_db.Hotels.ToList());
+        _logger.LogInformation("Hotel Index page visited.");
+        try
+        {
+            return View(_db.Hotels.ToList());
+        }
+        catch (Exception e)
+        {
+            _logger.LogError(e.Message);
+            return View(null);
+        }
     }
 
     [HttpGet("Details/{id:int}")]
     public async Task<IActionResult> Details(int id)
     {
-        var hotel = await _db.Hotels.FirstOrDefaultAsync(h => h.Id == id);
-        if (hotel == null)
+        _logger.LogInformation("Hotel Details page visited.");
+
+        try
         {
-            return NotFound();
+            var hotel = await _db.Hotels.FirstOrDefaultAsync(h => h.Id == id);
+            if (hotel == null)
+            {
+                return NotFound();
+            }
+            return View(hotel);
         }
-        return View(hotel);
+        catch (Exception e)
+        {
+            _logger.LogError(e.Message);
+            return View(null);
+        }
     }
 
     [HttpGet("Create")]
     [Authorize(Roles = "Admin")]
     public IActionResult Create()
     {
+        _logger.LogInformation("Hotel Create page visited.");
         return View();
     }
 
@@ -49,25 +71,45 @@ public class HotelController : Controller
     [Authorize(Roles = "Admin")]
     public IActionResult Create(Hotel hotel)
     {
-        if (ModelState.IsValid)
+        _logger.LogInformation("Hotel Create page visited.");
+
+        try
         {
-            _db.Hotels.Add(hotel);
-            _db.SaveChanges();
-            return RedirectToAction("Index");
+            if (ModelState.IsValid)
+            {
+                _db.Hotels.Add(hotel);
+                _db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            return View(hotel);
         }
-        return View(hotel);
+        catch (Exception e)
+        {
+            _logger.LogError(e.Message);
+            return View(null);
+        }
     }
 
     [HttpGet("Edit/{id:int}")]
     [Authorize(Roles = "Admin")]
     public IActionResult Edit(int id)
     {
-        var hotel = _db.Hotels.Find(id);
-        if (hotel == null)
+        _logger.LogInformation("Hotel Edit page visited.");
+
+        try
         {
-            return NotFound();
+            var hotel = _db.Hotels.Find(id);
+            if (hotel == null)
+            {
+                return NotFound();
+            }
+            return View(hotel);
         }
-        return View(hotel);
+        catch (Exception e)
+        {
+            _logger.LogError(e.Message);
+            return View(null);
+        }
     }
 
     [HttpPost("Edit/{id:int}")]
@@ -75,31 +117,41 @@ public class HotelController : Controller
     [Authorize(Roles = "Admin")]
     public IActionResult Edit(int id, [Bind("Id,Name,Location,Address,Description,Price,RoomsAvailable")] Hotel hotel)
     {
-        if (id != hotel.Id)
+        _logger.LogInformation("Hotel Edit page visited.");
+
+        try
         {
-            return NotFound();
+            if (id != hotel.Id)
+            {
+                return NotFound();
+            }
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    _db.Hotels.Update(hotel);
+                    _db.SaveChanges();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!HotelExists(hotel.Id))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
+                return RedirectToAction(nameof(Index));
+            }
+            return View(hotel);
         }
-        if (ModelState.IsValid)
+        catch (Exception e)
         {
-            try
-            {
-                _db.Hotels.Update(hotel);
-                _db.SaveChanges();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!HotelExists(hotel.Id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-            return RedirectToAction(nameof(Index));
+            _logger.LogError(e.Message);
+            return View(null);
         }
-        return View(hotel);
     }
 
     private bool HotelExists(int id)
@@ -111,12 +163,22 @@ public class HotelController : Controller
     [Authorize(Roles = "Admin")]
     public IActionResult Delete(int id)
     {
-        var hotel = _db.Hotels.FirstOrDefault(h => h.Id == id);
-        if (hotel == null)
+        _logger.LogInformation("Hotel Delete page visited.");
+
+        try
         {
-            return NotFound();
+            var hotel = _db.Hotels.FirstOrDefault(h => h.Id == id);
+            if (hotel == null)
+            {
+                return NotFound();
+            }
+            return View(hotel);
         }
-        return View(hotel);
+        catch (Exception e)
+        {
+            _logger.LogError(e.Message);
+            return View(null);
+        }
     }
 
     [HttpPost("DeleteConfirmed/{id:int}"), ActionName("DeleteConfirmed")]
@@ -124,135 +186,184 @@ public class HotelController : Controller
     [Authorize(Roles = "Admin")]
     public async Task<IActionResult> DeleteConfirmed(int id)
     {
-        // First, find and delete any hotel bookings related to the hotel
-        var relatedHotelBookings = _db.Bookings.Where(b => b.HotelId == id).ToList();
-        if (relatedHotelBookings.Any())
-        {
-            _db.Bookings.RemoveRange(relatedHotelBookings);
-            await _db.SaveChangesAsync(); // Save changes after removing hotel bookings
-        }
+        _logger.LogInformation("Hotel Delete page visited.");
 
-        // Then, find and delete the hotel
-        var hotel = await _db.Hotels.FindAsync(id);
-        if (hotel != null)
+        try
         {
-            _db.Hotels.Remove(hotel);
-            await _db.SaveChangesAsync(); // Save changes after removing the hotel
-            return RedirectToAction("Index");
-        }
+            // First, find and delete any hotel bookings related to the hotel
+            var relatedHotelBookings = _db.Bookings.Where(b => b.HotelId == id).ToList();
+            if (relatedHotelBookings.Any())
+            {
+                _db.Bookings.RemoveRange(relatedHotelBookings);
+                await _db.SaveChangesAsync(); // Save changes after removing hotel bookings
+            }
 
-        return NotFound();
+            // Then, find and delete the hotel
+            var hotel = await _db.Hotels.FindAsync(id);
+            if (hotel != null)
+            {
+                _db.Hotels.Remove(hotel);
+                await _db.SaveChangesAsync(); // Save changes after removing the hotel
+                return RedirectToAction("Index");
+            }
+
+            return NotFound();
+        }
+        catch (Exception e)
+        {
+            _logger.LogError(e.Message);
+            return View(null);
+        }
     }
 
     [HttpGet("Booking/{id:int}")]
     public async Task<IActionResult> Booking(int id)
     {
-        var hotel = await _db.Hotels.FindAsync(id);
-        if (hotel == null)
+        _logger.LogInformation("Hotel Booking page visited.");
+
+        try
         {
-            return NotFound();
+            var hotel = await _db.Hotels.FindAsync(id);
+            if (hotel == null)
+            {
+                return NotFound();
+            }
+            return View(hotel);
         }
-        return View(hotel);
+        catch (Exception e)
+        {
+            _logger.LogError(e.Message);
+            return View(null);
+        }
     }
 
     [HttpPost("SubmitBooking/{id:int}")]
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> SubmitBooking(int id)
     {
-        // First, find the hotel based on the ID.
-        var hotel = await _db.Hotels.FindAsync(id);
-        if (hotel == null)
-        {
-            // If the hotel doesn't exist, return a NotFound result.
-            return NotFound();
-        }
+        _logger.LogInformation("Hotel SubmitBooking page visited.");
 
-        if (User.Identity != null && User.Identity.IsAuthenticated)
+        try
         {
-            // Get the user's ID
-            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            // Check if the user exists in the database
-            var user = await _db.Users.FindAsync(userId);
-            if (user == null)
+            // First, find the hotel based on the ID.
+            var hotel = await _db.Hotels.FindAsync(id);
+            if (hotel == null)
             {
-                // Handle the case where the user is not found. Could redirect to login or show an error.
+                // If the hotel doesn't exist, return a NotFound result.
+                return NotFound();
+            }
+
+            if (User.Identity != null && User.Identity.IsAuthenticated)
+            {
+                // Get the user's ID
+                var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+                // Check if the user exists in the database
+                var user = await _db.Users.FindAsync(userId);
+                if (user == null)
+                {
+                    // Handle the case where the user is not found. Could redirect to login or show an error.
+                    return NotFound("User not found.");
+                }
+                // Create a new booking object.
+                var newBooking = new Booking
+                {
+                    ApplicationUserId = userId, // Set the user's ID.
+                    ApplicationUser = user, // Set the user object.
+                    HotelId = id, // Set the Hotels ID
+                    Type = "Hotel",
+                };
+                hotel.RoomsAvailable -= 1;
+                _db.Bookings.Add(newBooking);
+                await _db.SaveChangesAsync();
+
+                return RedirectToAction("BookingConfirmation", new { id = newBooking.Id });
+            }
+
+            var guestUserId = 1; // Guest Id
+
+            // Check if the user exists in the database
+            var guestUser = await _db.GuestUsers.FindAsync(guestUserId);
+            if (guestUser == null)
+            {
+                // Handle the case where the user is not found.
                 return NotFound("User not found.");
             }
-            // Create a new booking object.
-            var newBooking = new Booking
+            // Create a new booking object for the hotel.
+            var booking = new Booking
             {
-                ApplicationUserId = userId, // Set the user's ID.
-                ApplicationUser = user, // Set the user object.
-                HotelId = id, // Set the Hotels ID
+                GuestUserId = guestUserId, // Set the user's ID.
+                GuestUser = guestUser, // Set the user object.
+                HotelId = id, // Set the hotel's ID.
                 Type = "Hotel",
             };
+
             hotel.RoomsAvailable -= 1;
-            _db.Bookings.Add(newBooking);
+
+            _db.Bookings.Add(booking);
             await _db.SaveChangesAsync();
 
-            return RedirectToAction("BookingConfirmation", new { id = newBooking.Id });
+            return RedirectToAction("BookingConfirmation", new { id = booking.Id });
         }
-
-        var guestUserId = 1; // Guest Id
-
-        // Check if the user exists in the database
-        var guestUser = await _db.GuestUsers.FindAsync(guestUserId);
-        if (guestUser == null)
+        catch (Exception e)
         {
-            // Handle the case where the user is not found.
-            return NotFound("User not found.");
+            _logger.LogError(e.Message);
+            return View(null);
         }
-        // Create a new booking object for the hotel.
-        var booking = new Booking
-        {
-            GuestUserId = guestUserId, // Set the user's ID.
-            GuestUser = guestUser, // Set the user object.
-            HotelId = id, // Set the hotel's ID.
-            Type = "Hotel",
-        };
-
-        hotel.RoomsAvailable -= 1;
-
-        _db.Bookings.Add(booking);
-        await _db.SaveChangesAsync();
-
-        return RedirectToAction("BookingConfirmation", new { id = booking.Id });
     }
 
     [HttpGet("BookingConfirmation/{id:int}")]
     public async Task<IActionResult> BookingConfirmation(int id)
     {
-        var booking = await _db.Bookings
-                                .Include(b => b.Hotel)
-                                .Include(b => b.GuestUser)
-                                .FirstOrDefaultAsync(b => b.Id == id);
-        if (booking == null)
+        _logger.LogInformation("Hotel BookingConfirmation page visited.");
+
+        try
         {
-            return NotFound();
+            var booking = await _db.Bookings
+                                    .Include(b => b.Hotel)
+                                    .Include(b => b.GuestUser)
+                                    .FirstOrDefaultAsync(b => b.Id == id);
+            if (booking == null)
+            {
+                return NotFound();
+            }
+            return View(booking);
         }
-        return View(booking);
+        catch (Exception e)
+        {
+            _logger.LogError(e.Message);
+            return View(null);
+        }
     }
 
 
     [HttpGet("Search/{searchString?}")]
     public async Task<IActionResult> Search(string searchString)
     {
-        var hotelsQuery = from h in _db.Hotels
-                          select h;
+        _logger.LogInformation("Hotel Search page visited.");
 
-        bool searchPerformed = !String.IsNullOrEmpty(searchString);
-
-        if (searchPerformed)
+        try
         {
-            hotelsQuery = hotelsQuery.Where(h => h.Name.Contains(searchString) ||
-                                                 h.Location.Contains(searchString) ||
-                                                 h.Description.Contains(searchString));
+            var hotelsQuery = from h in _db.Hotels
+                              select h;
+
+            bool searchPerformed = !String.IsNullOrEmpty(searchString);
+
+            if (searchPerformed)
+            {
+                hotelsQuery = hotelsQuery.Where(h => h.Name.Contains(searchString) ||
+                                                     h.Location.Contains(searchString) ||
+                                                     h.Description.Contains(searchString));
+            }
+            var hotels = await hotelsQuery.ToListAsync();
+            ViewData["searchPerformed"] = searchPerformed;
+            ViewData["searchString"] = searchString;
+
+            return View("Index", hotels);
         }
-        var hotels = await hotelsQuery.ToListAsync();
-        ViewData["searchPerformed"] = searchPerformed;
-        ViewData["searchString"] = searchString;
-
-        return View("Index", hotels);
+        catch (Exception e)
+        {
+            _logger.LogError(e.Message);
+            return View(null);
+        }
     }
-
 }
