@@ -14,10 +14,12 @@ public class HotelController : Controller
 {
 
     private readonly AppDbContext _db;
+    private readonly ILogger<HotelController> _logger;
 
-    public HotelController(AppDbContext db)
+    public HotelController(AppDbContext db, ILogger<HotelController> logger)
     {
         _db = db;
+        _logger = logger;
     }
 
     [HttpGet("")]
