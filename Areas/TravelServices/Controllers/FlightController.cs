@@ -13,10 +13,12 @@ namespace web_voyager.Areas.TravelServices.Controllers;
 public class FlightController : Controller
 {
     private readonly AppDbContext _db;
+    private readonly ILogger<FlightController> _logger;
 
-    public FlightController(AppDbContext db)
+    public FlightController(AppDbContext db, ILogger<FlightController> logger)
     {
         _db = db;
+        _logger = logger;
     }
 
     [HttpGet("")]
