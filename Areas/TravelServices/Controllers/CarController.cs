@@ -24,6 +24,7 @@ public class CarController : Controller
     [HttpGet("")]
     public IActionResult Index()
     {
+        _logger.LogInformation("Car Index page visited.");
         return View(_db.Cars.ToList());
     }
 

@@ -24,6 +24,7 @@ public class FlightController : Controller
     [HttpGet("")]
     public IActionResult Index()
     {
+        _logger.LogInformation("Flight Index page visited.");
         return View(_db.Flights.ToList());
     }
 

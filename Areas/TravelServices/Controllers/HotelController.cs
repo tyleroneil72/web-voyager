@@ -25,6 +25,7 @@ public class HotelController : Controller
     [HttpGet("")]
     public IActionResult Index()
     {
+        _logger.LogInformation("Hotel Index page visited.");
         return View(_db.Hotels.ToList());
     }
 
