@@ -14,6 +14,7 @@ $("#ajaxSearchButtonCar").click(function (e) {
     success: function (result) {
       setTimeout(function () {
         $(".table-responsive").hide();
+        $(".genericSearch").hide();
         $("#ajaxSearchResults").html(result);
       }, 1000);
     },
@@ -41,6 +42,7 @@ $("#ajaxSearchButtonHotel").click(function (e) {
     success: function (result) {
       setTimeout(function () {
         $(".table-responsive").hide();
+        $(".genericSearch").hide();
         $("#ajaxSearchResults").html(result);
       }, 1000);
     },
@@ -68,6 +70,7 @@ $("#ajaxSearchButtonFlight").click(function (e) {
     success: function (result) {
       setTimeout(function () {
         $(".table-responsive").hide();
+        $(".genericSearch").hide();
         $("#ajaxSearchResults").html(result);
       }, 1000);
     },
