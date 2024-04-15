@@ -10,10 +10,12 @@ using Microsoft.EntityFrameworkCore;
 public class ReviewController : Controller
 {
     private readonly AppDbContext _db;
+    private readonly ILogger<ReviewController> _logger;
 
-    public ReviewController(AppDbContext db)
+    public ReviewController(AppDbContext db, ILogger<ReviewController> logger)
     {
         _db = db;
+        _logger = logger;
     }
 
     [HttpGet]
