@@ -13,11 +13,14 @@ namespace web_voyager.Areas.TravelServices.Controllers;
 public class CarController : Controller
 {
     private readonly AppDbContext _db;
+    private readonly ILogger<CarController> _logger;
 
-    public CarController(AppDbContext db)
+    public CarController(AppDbContext db, ILogger<CarController> logger)
     {
         _db = db;
+        _logger = logger;
     }
+
     [HttpGet("")]
     public IActionResult Index()
     {
