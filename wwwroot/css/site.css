@@ -190,5 +190,23 @@ body {
 .form-header h1 {
   color: #333;
 }
+.form-header h2 {
+  color: #666;
+}
 
+.info-text {
+  font-size: 16px;
+  line-height: 1.6;
+  color: #555;
+  text-align: center;
+}
+
+.info-text a {
+  color: #007bff;
+  text-decoration: none;
+}
+
+.info-text a:hover {
+  text-decoration: underline;
+}
 /* End of wwwroot/css/site.css */
