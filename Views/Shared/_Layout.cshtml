@@ -19,13 +19,9 @@
     <div class="container">
         <main role="main" class="pb-3">
             @RenderBody()
+            @await Html.PartialAsync("_Loader")
         </main>
     </div>
-
-    <div class="loader-overlay" id="loader" style="display: none;">
-        <div class="loader"></div>
-    </div>
-
 
     @await Html.PartialAsync("_Footer")
 
