@@ -18,15 +18,21 @@ Check out [Web Voyager](http://web-voyager.azurewebsites.net/) to explore the pl
 
 ## Description
 
-Web Voyager is a comprehensive travel platform designed to simplify the planning process for travelers around the globe. This ASP.NET Core MVC application serves as a one-stop shop for booking flights, hotels, and car rentals, offering users a seamless and intuitive interface to explore a wide range of travel options.
+Web Voyager is a comprehensive travel platform designed to simplify the planning process for travelers around the globe. This ASP.NET Core MVC application serves as a one-stop shop for booking flights, hotels, and car rentals, offering users a seamless and intuitive interface to explore a wide range of travel options. Implementing Microsoft's Identity Technology for Authorization and Authentication for security.
 
 ## Features
 
-- Flight Bookings: Browse and book flights to destinations worldwide. The platform allows users to search for flights based on departure, arrival, and dates, providing flexibility and convenience for planning trips.
+- Bookings and Rentals: Browse and book flights to destinations worldwide, find the perfect accommodation from a vast selection of hotels, and Complete your travel plans with a reliable car rental service.
 
-- Hotel Reservations: Find the perfect accommodation from a vast selection of hotels. Whether you're looking for a luxurious stay or budget-friendly options, Web Voyager helps you secure the best deals.
+- Guest Bookings or Sign in: Sign in or register as a guest using Microsoft's Identity authentication for secure access. Receive email verification through SendGrid and Twilio to ensure your account is protected.
 
-- Car Rentals: Complete your travel plans with a reliable car rental service. Choose from various car models and pick-up locations to best suit your travel needs.
+- Admin Monitoring: Admin accounts utilize Microsoft Identity's authorization features to monitor user behavior and maintain platform integrity, ensuring a safe environment for all users.
+
+- Database: Data is securely managed and stored in an AWS MySQL database, providing reliable and scalable data handling.
+
+- Hosted: The platform is hosted on Microsoft Azure, leveraging its powerful cloud capabilities to ensure high availability and performance.
+
+- CI/CD Implementation: Web Voyager implements CI/CD with GitHub Actions, automating the deployment process so that updates are smoothly transitioned into production following changes to the main branch.
 
 ## License
 
