@@ -29,7 +29,7 @@ public class ContextSeed
             var user = await userManager.FindByEmailAsync(adminUser.Email);
             if (user == null)
             {
-                await userManager.CreateAsync(adminUser, "[123Pa$$word.]");
+                await userManager.CreateAsync(adminUser, "[123Pa$$word.]"); // This Password is for Development Purposes Only
                 await userManager.AddToRoleAsync(adminUser, Enum.Roles.Traveler.ToString());
                 await userManager.AddToRoleAsync(adminUser, Enum.Roles.Admin.ToString());
             }
