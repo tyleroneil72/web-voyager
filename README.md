@@ -34,6 +34,8 @@ Web Voyager is a comprehensive travel platform designed to simplify the planning
 
 - CI/CD Implementation: Web Voyager implements CI/CD with GitHub Actions, automating the deployment process so that updates are smoothly transitioned into production following changes to the main branch.
 
+- Logging: The platform incorporates logging with Serilog, enhancing the monitoring capabilities by providing detailed insights and real-time diagnostics of the system’s performance and issues.
+
 ## License
 
 This project is licensed under the MIT License - see the LICENSE file for details.
