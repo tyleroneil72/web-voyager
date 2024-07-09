@@ -15,7 +15,7 @@
 ![Azure](https://img.shields.io/badge/Microsoft_Azure-0089D6?style=for-the-badge&logo=microsoft-azure&logoColor=white)
 ![Github Actions](https://img.shields.io/badge/GitHub_Actions-2088FF?style=for-the-badge&logo=github-actions&logoColor=white)
 
-Check out [Web Voyager](http://web-voyager.azurewebsites.net/) to explore the platform firsthand.
+This project is no longer hosted
 
 ## Description
 
